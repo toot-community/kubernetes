@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cmd-params-cm
+data:
+  # NGINX does TLS termination, so we don't need it here
+  server.insecure: "true"

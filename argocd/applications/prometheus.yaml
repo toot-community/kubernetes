@@ -1,0 +1,63 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus
+  namespace: argocd
+spec:
+  destination:
+    namespace: monitoring
+    server: https://kubernetes.default.svc
+  project: monitoring
+  syncPolicy:
+    automated:
+      selfHeal: true
+  source:
+    chart: prometheus
+    helm:
+      values: |
+        serviceAccounts:
+          alertmanager:
+            create: false
+          nodeExporter:
+            create: true
+          pushgateway:
+            create: false
+          server:
+            create: true
+
+        alertmanager:
+          enabled: false
+
+        configmapReload:
+          prometheus:
+            enabled: true
+
+        kubeStateMetrics:
+          enabled: false
+
+        nodeExporter:
+          enabled: false
+
+        server:
+          enabled: true
+          replicaCount: 1
+          global:
+            scrape_interval: 15s
+            scrape_timeout: 10s
+          persistentVolume:
+            enabled: true
+            size: 10Gi
+          resources:
+            requests:
+              cpu: 10m
+              memory: 1000Mi
+          strategy:
+            type: Recreate
+
+        pushgateway:
+          enabled: false
+
+        prometheus-node-exporter:
+          enabled: true
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 18.4.0

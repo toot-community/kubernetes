@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: keda
+  namespace: argocd
+spec:
+  destination:
+    namespace: keda
+    server: https://kubernetes.default.svc
+  project: infrastructure
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+  source:
+    chart: keda
+    repoURL: https://kedacore.github.io/charts
+    targetRevision: 2.8.2

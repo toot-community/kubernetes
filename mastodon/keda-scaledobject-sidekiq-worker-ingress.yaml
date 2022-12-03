@@ -1,0 +1,37 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  labels:
+    app.kubernetes.io/instance: mastodon
+    app.kubernetes.io/name: mastodon
+    keda.sh/app-name: sidekiq-worker-ingress
+    scaledobject.keda.sh/name: sidekiq-worker-ingress
+  name: sidekiq-worker-ingress
+  namespace: mastodon
+spec:
+  cooldownPeriod: 300
+  maxReplicaCount: 10
+  minReplicaCount: 1
+  pollingInterval: 10
+  scaleTargetRef:
+    name: mastodon-sidekiq-ingress
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: http://prometheus-server.monitoring.svc.cluster.local
+        metricName: queue_latency
+        query: sum(mastodon_sidekiq_queue_latency{queue="ingress"} * scalar(kube_deployment_status_replicas{deployment="mastodon-sidekiq-ingress"}))
+        threshold: '5'
+        ignoreNullValues: "false"
+  advanced:
+    restoreToOriginalReplicaCount: false
+    horizontalPodAutoscalerConfig:
+      behavior:
+        scaleDown:
+          stabilizationWindowSeconds: 900
+        scaleUp:
+          stabilizationWindowSeconds: 30
+          policies:
+            - type: Pods
+              value: 1
+              periodSeconds: 30

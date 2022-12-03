@@ -1,0 +1,59 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx
+  namespace: argocd
+spec:
+  destination:
+    namespace: ingress-nginx
+    server: https://kubernetes.default.svc
+  project: infrastructure
+  syncPolicy:
+    automated:
+      selfHeal: true
+  source:
+    chart: ingress-nginx
+    helm:
+      values: |
+        controller:
+          metrics:
+            enabled: true
+          ingressClass: nginx
+
+          extraVolumes:
+          - name: origin-pull-certificate
+            secret:
+              secretName: cloudflare-authenticated-origin-pull-ca
+
+          extraVolumeMounts:
+          - name: origin-pull-certificate
+            mountPath: /var/lib/certificates/cloudflare
+
+          config:
+            use-http2: "true"
+            enable-real-ip: "true"
+            proxy-real-ip-cidr: "0.0.0.0/0"
+            forwarded-for-header: "X-Forwarded-For"
+            server-snippet: |
+              ssl_client_certificate /var/lib/certificates/cloudflare/authenticated_origin_pull_ca.pem;
+              ssl_verify_client on;
+
+          replicaCount: 3
+
+          podAnnotations:
+            controller:
+              metrics:
+                service:
+                  servicePort: "9090"
+            prometheus.io/port: "10254"
+            prometheus.io/scrape: "true"
+
+          service:
+            type: LoadBalancer
+            annotations:
+              service.beta.kubernetes.io/do-loadbalancer-enable-backend-keepalive: "true"
+              service.beta.kubernetes.io/do-loadbalancer-name: "k8s-toot-community-1-lb"
+              service.beta.kubernetes.io/do-loadbalancer-protocol: "http2"
+              service.beta.kubernetes.io/do-loadbalancer-tls-passthrough: "true"
+    repoURL: https://kubernetes.github.io/ingress-nginx
+    targetRevision: 4.4.0

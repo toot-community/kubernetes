@@ -1,0 +1,47 @@
+apiVersion: v1
+data:
+  DB_HOST: private-db-postgresql-ams3-toot-community-do-user-924064-0.b.db.ondigitalocean.com
+  DB_NAME: mastodon-pool
+  DB_POOL: "25"
+  DB_PORT: "25061"
+  DB_SSLMODE: require
+  DB_USER: mastodon
+  DEFAULT_LOCALE: en
+  ES_ENABLED: "false"
+  LOCAL_DOMAIN: toot.community
+  MALLOC_ARENA_MAX: "2"
+  NODE_ENV: production
+  PREPARED_STATEMENTS: "false"
+  RAILS_ENV: production
+  REDIS_HOST: do-redis.haproxy.svc.cluster.local
+  REDIS_PORT: "6379"
+  S3_ALIAS_HOST: files.toot.community/static
+  S3_BUCKET: static
+  S3_ENABLED: "true"
+  S3_ENDPOINT: https://files-toot-community.ams3.digitaloceanspaces.com
+  S3_HOSTNAME: ams3.digitaloceanspaces.com
+  S3_PROTOCOL: https
+  S3_REGION: ams3
+  SMTP_AUTH_METHOD: plain
+  SMTP_CA_FILE: /etc/ssl/certs/ca-certificates.crt
+  SMTP_DELIVERY_METHOD: smtp
+  SMTP_ENABLE_STARTTLS_AUTO: "true"
+  SMTP_OPENSSL_VERIFY_MODE: peer
+  SMTP_PORT: "587"
+  SMTP_DOMAIN: ses.toot.community
+  SMTP_FROM_ADDRESS: notifications@ses.toot.community
+  SMTP_SERVER: email-smtp.eu-west-1.amazonaws.com
+  STREAMING_CLUSTER_NUM: "1"
+  WEB_DOMAIN: toot.community
+  WEB_CONCURRENCY: "2"
+  MAX_THREADS: "6"
+  STATSD_ADDR: exporter-prometheus-statsd-exporter.monitoring.svc.cluster.local:9125
+  ALLOWED_PRIVATE_ADDRESSES: 10.245.0.0/16 # range of pods on the k8s private network
+  LIBRE_TRANSLATE_ENDPOINT: http://translate.libretranslate.svc.cluster.local
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: mastodon
+    app.kubernetes.io/name: mastodon
+  name: mastodon-env
+  namespace: mastodon

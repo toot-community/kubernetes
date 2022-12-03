@@ -1,0 +1,29 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - https://github.com/argoproj/argo-cd/manifests/cluster-install?ref=v2.5.3
+  - ingress/argocd-server-http-ingress.yaml
+  - projects/mastodon.yaml
+  - projects/infrastructure.yaml
+  - projects/monitoring.yaml
+  - projects/libretranslate.yaml
+  - applications/grafana.yaml
+  - applications/prometheus.yaml
+  - applications/ingress-nginx.yaml
+  - applications/keda.yaml
+  - applications/kube-state-metrics.yaml
+  - applications/mastodon.yaml
+  - applications/metrics-server.yaml
+  - applications/prometheus-statsd-exporter.yaml
+  - applications/argocd.yaml
+  - applications/libretranslate.yaml
+
+  # this line below is enabled because toot.community uses 1Password to provision secrets to the Kubernetes cluster,
+  # it's fine if you don't, but then remove this line & the corresponding file.
+  - configuration/1p-secrets.yaml
+
+patchesStrategicMerge:
+  - configuration/configmap-cm.yaml
+  - configuration/configmap-rbac-cm.yaml
+  - configuration/configmap-cmd-params.yaml

@@ -1,0 +1,34 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 40m
+  labels:
+    app.kubernetes.io/instance: mastodon
+    app.kubernetes.io/name: mastodon
+  name: mastodon
+  namespace: mastodon
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: toot.community
+      http:
+        paths:
+          - backend:
+              service:
+                name: mastodon-web
+                port:
+                  number: 3000
+            path: /
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: mastodon-streaming
+                port:
+                  number: 4000
+            path: /api/v1/streaming
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - toot.community
+      secretName: cf-origin-certificate-tls

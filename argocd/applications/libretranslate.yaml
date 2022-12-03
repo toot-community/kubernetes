@@ -1,0 +1,21 @@
+apiVersion: v1
+items:
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    name: libretranslate
+    namespace: argocd
+  spec:
+    destination:
+      namespace: libretranslate
+      server: https://kubernetes.default.svc
+    project: libretranslate
+    source:
+      path: libretranslate
+      repoURL: git@github.com:toot-community/kubernetes.git
+      targetRevision: main
+    syncPolicy:
+     automated:
+       prune: true
+       selfHeal: true
+kind: List

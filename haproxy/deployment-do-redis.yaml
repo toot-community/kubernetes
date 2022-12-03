@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: haproxy
+    app.kubernetes.io/name: do-redis
+  name: do-redis
+  namespace: haproxy
+spec:
+  replicas: 4
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: haproxy
+      app.kubernetes.io/name: do-redis
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        prometheus.io/port: "8404"
+        prometheus.io/scrape: "true"
+      labels:
+        app.kubernetes.io/instance: haproxy
+        app.kubernetes.io/name: do-redis
+    spec:
+      containers:
+        - image: haproxy:2.6.6 # LTS
+          imagePullPolicy: IfNotPresent
+          name: haproxy
+          resources:
+            requests:
+              cpu: 25m
+              memory: 80Mi
+          ports:
+            - containerPort: 6379
+              name: redis
+              protocol: TCP
+            - containerPort: 6380
+              name: lredis
+              protocol: TCP
+            - containerPort: 8404
+              name: metrics
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /usr/local/etc/haproxy/haproxy.cfg
+              name: do-redis-config
+              subPath: haproxy.cfg
+          livenessProbe:
+            failureThreshold: 5
+            tcpSocket:
+              port: redis
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 5
+          readinessProbe:
+            failureThreshold: 3
+            tcpSocket:
+              port: redis
+            periodSeconds: 15
+            successThreshold: 1
+            timeoutSeconds: 5
+          startupProbe:
+            tcpSocket:
+              port: redis
+            failureThreshold: 30
+            periodSeconds: 10
+      restartPolicy: Always
+      securityContext:
+        fsGroup: 99
+        runAsGroup: 99
+        runAsUser: 99
+      serviceAccountName: sa-do-redis
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - configMap:
+            name: do-redis-config
+          name: do-redis-config

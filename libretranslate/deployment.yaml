@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: translate
+  namespace: libretranslate
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: libretranslate
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: libretranslate
+    spec:
+      volumes:
+        - name: models
+          persistentVolumeClaim:
+            claimName: models-pvc
+      containers:
+        - image: libretranslate/libretranslate:v1.3.2
+          command:
+            - ./venv/bin/libretranslate
+            - --host
+            - 0.0.0.0
+          imagePullPolicy: IfNotPresent
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            timeoutSeconds: 5
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            periodSeconds: 10
+            failureThreshold: 180 # allow initial startup to last 30 minutes for downloading translation files
+          env:
+            - name: LT_HOST
+              value: 0.0.0.0
+          volumeMounts:
+            - mountPath: /home/libretranslate/.local/
+              name: models
+          name: libretranslate
+          ports:
+            - containerPort: 5000
+              name: http
+              protocol: TCP
+          resources:
+            requests:
+              memory: 200Mi
+            limits:
+              memory: 500Mi
+      restartPolicy: Always
+      securityContext:
+        fsGroup: 65534
+        runAsGroup: 65534
+        runAsUser: 1032
+      terminationGracePeriodSeconds: 30

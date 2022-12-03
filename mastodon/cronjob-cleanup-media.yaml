@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cleanup-unused-media
+  namespace: mastodon
+  labels:
+    app.kubernetes.io/component: cronjob-cleanup-unused-media
+    app.kubernetes.io/instance: mastodon
+    app.kubernetes.io/name: cronjob-cleanup-unused-media
+spec:
+  schedule: "0 5 * * 1" # At 05:00 on Monday.
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: cleanup-unused-media
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: cleanup-unused-media
+              image: tootsuite/mastodon:v4.0.2
+              imagePullPolicy: IfNotPresent
+              command:
+                - bash
+                - -c
+                - "bin/tootctl media remove"
+              envFrom:
+                - configMapRef:
+                    name: mastodon-env
+                - secretRef:
+                    name: mastodon-secrets-env
+              resources:
+                requests:
+                  cpu: 800m
+                  memory: 250Mi
