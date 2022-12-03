@@ -50,7 +50,7 @@ Other dashboards that we use are:
 - https://grafana.com/grafana/dashboards/13332-kube-state-metrics-v2/ (Kube State Metrics)
 - https://grafana.com/grafana/dashboards/3662-prometheus-2-0-overview/ (Prometheus)
 - https://grafana.com/grafana/dashboards/14981-coredns/ (CoreDNS)
-- https://grafana.com/grafana/dashboards/14584-argocd/ (ArgoCD) (not yet available)
+- https://grafana.com/grafana/dashboards/14584-argocd/ (ArgoCD)
 
 ### HAProxy
 
