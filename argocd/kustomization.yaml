@@ -27,3 +27,9 @@ patchesStrategicMerge:
   - configuration/configmap-cm.yaml
   - configuration/configmap-rbac-cm.yaml
   - configuration/configmap-cmd-params.yaml
+  - configuration/service-argocd-applicationset-controller.yaml
+  - configuration/service-argocd-dex-server.yaml
+  - configuration/service-argocd-metrics.yaml
+  - configuration/service-argocd-notifications-controller-metrics.yaml
+  - configuration/service-argocd-repo-server.yaml
+  - configuration/service-argocd-server-metrics.yaml
