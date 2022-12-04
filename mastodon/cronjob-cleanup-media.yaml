@@ -31,5 +31,5 @@ spec:
                     name: mastodon-secrets-env
               resources:
                 requests:
-                  cpu: 800m
-                  memory: 250Mi
+                  cpu: 1000m
+                  memory: 400Mi
