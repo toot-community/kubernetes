@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/instance: mastodon
     app.kubernetes.io/name: cronjob-cleanup-unused-media
 spec:
-  schedule: "0 5 * * 1" # At 05:00 on Monday.
+  schedule: "0 5 * * *" # Daily at 05:00
   jobTemplate:
     spec:
       template:
