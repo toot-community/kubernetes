@@ -23,7 +23,7 @@ spec:
               command:
                 - bash
                 - -c
-                - "bin/tootctl media remove"
+                - "bin/tootctl media remove --days=7"
               envFrom:
                 - configMapRef:
                     name: mastodon-env
