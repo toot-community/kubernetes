@@ -21,7 +21,7 @@ spec:
       metadata:
         serverAddress: http://prometheus-server.monitoring.svc.cluster.local
         metricName: queue_latency
-        query: sum(mastodon_sidekiq_queue_latency{queue="pull"} * scalar(kube_deployment_status_replicas{deployment="mastodon-sidekiq-pull"}))
+        query: sum(mastodon_sidekiq_queue_latency{queue="pull"} * scalar(avg(kube_deployment_status_replicas{deployment="mastodon-sidekiq-pull"})))
         threshold: '300'
         ignoreNullValues: "false"
   advanced:
