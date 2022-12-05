@@ -14,8 +14,9 @@ items:
       path: mastodon
       repoURL: git@github.com:toot-community/kubernetes.git
       targetRevision: main
-    syncPolicy:
-     automated:
+    # syncPolicy:
+     # automated:
        # prune: true
-       selfHeal: true
+       # selfHeal: true
 kind: List
+
