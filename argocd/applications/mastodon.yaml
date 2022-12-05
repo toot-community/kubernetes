@@ -16,6 +16,6 @@ items:
       targetRevision: main
     syncPolicy:
      automated:
-       prune: true
+       # prune: true
        selfHeal: true
 kind: List
