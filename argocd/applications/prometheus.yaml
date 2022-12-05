@@ -46,7 +46,7 @@ spec:
             scrape_timeout: 10s
           persistentVolume:
             enabled: true
-            size: 10Gi
+            size: 20Gi
           resources:
             requests:
               cpu: 10m
