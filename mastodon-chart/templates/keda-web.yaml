@@ -4,7 +4,7 @@ kind: ScaledObject
 metadata:
   labels:
     {{- include "mastodon.labels" . | nindent 4 }}
-    scaledobject.keda.sh/name: web
+    scaledobject.keda.sh/name: {{ include "mastodon.fullname" . }}-web
   name: {{ include "mastodon.fullname" . }}-web
 spec:
   cooldownPeriod: {{ .Values.keda.web.cooldownPeriod }}
