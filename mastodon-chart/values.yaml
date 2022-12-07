@@ -1,0 +1,306 @@
+image:
+  repository: tootsuite/mastodon
+  pullPolicy: IfNotPresent
+  tag: "v4.0.2"
+
+imagePullSecrets: [ ]
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: { }
+
+podAnnotations: { }
+
+podSecurityContext:
+  fsGroup: 991
+  runAsGroup: 991
+  runAsUser: 991
+
+securityContext:
+  capabilities:
+    drop:
+      - ALL
+  runAsNonRoot: true
+  runAsUser: 991
+
+configuration:
+  database:
+    host: private-db-postgresql-ams3-toot-community-do-user-924064-0.b.db.ondigitalocean.com
+    name: mastodon-pool
+    poolsize: 25
+    port: 25061
+    sslmode: require
+    user: mastodon
+  defaultLocale: en
+  localDomain: toot.community
+  redis:
+    host: do-redis.haproxy.svc.cluster.local
+    port: 6379
+    database: 0
+  s3:
+    aliasHost: files.toot.community/static
+    bucket: static
+    endpoint: https://files-toot-community.ams3.digitaloceanspaces.com
+    hostname: ams3.digitaloceanspaces.com
+    protocol: https
+    region: ams3
+  smtp:
+    authMethod: plain
+    caFile: /etc/ssl/certs/ca-certificates.crt
+    deliveryMethod: smtp
+    enableStarttlsAuto: true
+    opensslVerifyMode: none
+    port: 587
+    domain: ses.toot.community
+    fromAddress: notifications@ses.toot.community
+    smtpServer: email-smtp.eu-west-1.amazonaws.com
+
+web:
+  domain: toot.community
+  concurrency: 2
+  maxThreads: 6
+  resources:
+    requests:
+      cpu: 1000m
+      memory: 1000Mi
+  startupProbe:
+    httpGet:
+      port: http
+      path: /health
+    periodSeconds: 3
+    failureThreshold: 30
+  readinessProbe:
+    failureThreshold: 3
+    httpGet:
+      path: /health
+      port: http
+      scheme: HTTP
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+
+statistics:
+  enabled: true
+  address: exporter-prometheus-statsd-exporter.monitoring.svc.cluster.local:9125
+
+translations:
+  enabled: true
+  privateAddressRange: 10.245.0.0/16
+  endpoint: http://translate.libretranslate.svc.cluster.local
+
+streaming:
+  replicaCount: 3
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  readinessProbe:
+    failureThreshold: 3
+    httpGet:
+      path: /api/v1/streaming/health
+      port: streaming
+      scheme: HTTP
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 10
+  startupProbe:
+    httpGet:
+      port: streaming
+      path: /api/v1/streaming/health
+    periodSeconds: 3
+    failureThreshold: 30
+  resources:
+    requests:
+      cpu: 10m
+      memory: 100Mi
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+
+sidekiq:
+  nodeSelector:
+    doks.digitalocean.com/node-pool: pool-sidekiq-3
+  tolerations:
+    - effect: NoSchedule
+      key: limit
+      operator: Equal
+      value: sidekiq
+  workers:
+    - name: default
+      concurrency: 25
+      queues:
+        - default
+      resources:
+        requests:
+          cpu: 500m
+          memory: 350Mi
+    - name: ingress
+      concurrency: 25
+      queues:
+        - ingress
+      resources:
+        requests:
+          cpu: 500m
+          memory: 350Mi
+    - name: pull
+      concurrency: 25
+      queues:
+        - pull
+      resources:
+        requests:
+          cpu: 500m
+          memory: 350Mi
+    - name: push
+      concurrency: 25
+      queues:
+        - push
+      resources:
+        requests:
+          cpu: 500m
+          memory: 350Mi
+    - name: mailers
+      concurrency: 5
+      queues:
+        - mailers
+      resources:
+        requests:
+          cpu: 100m
+          memory: 100Mi
+    - name: scheduler
+      concurrency: 5
+      queues:
+        - scheduler
+      resources:
+        requests:
+          cpu: 100m
+          memory: 100Mi
+
+ingress:
+  ingressClassName: nginx
+  host: toot.community
+  tls:
+    - hosts:
+        - toot.community
+      secretName: cf-origin-certificate-tls
+
+jobs:
+  annotations: {}
+  cleanupMedia:
+    enabled: true
+    schedule: "0 5 * * *"
+    resources:
+      requests:
+        cpu: 1000m
+        memory: 400Mi
+    days: 7
+  psqlBackup:
+    enabled: true
+    schedule: "0 1 * * *"
+    resources:
+      requests:
+        cpu: 1000m # compression-heavy workload
+    postgresImage:
+      repository: postgres
+      tag: 14-alpine
+      pullPolicy: IfNotPresent
+    overrideDatabaseInfo: # to bypass the pool
+      name: mastodon
+      port: 25060
+    awsCliImage:
+      repository: amazon/aws-cli
+      tag: 2.9.2
+      pullPolicy: IfNotPresent
+  removePreviewCards:
+    enabled: true
+    schedule: "0 5 * * 1"
+    resources:
+      requests:
+        cpu: 500m
+        memory: 400Mi
+    days: 180
+
+onePassword:
+    ## Contents:
+    ## - tls.crt: <content>
+    ## - tls.key: <content>
+  - name: cf-origin-certificate-tls
+    itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/hpm4njgmdollluy5b4isc2zpgq
+    ## It holds the following keys:
+    ## - AWS_ACCESS_KEY_ID
+    ## - AWS_SECRET_ACCESS_KEY
+    ## - DB_PASS
+    ## - OTP_SECRET
+    ## - REDIS_PASSWORD
+    ## - SECRET_KEY_BASE
+    ## - SMTP_LOGIN
+    ## - SMTP_PASSWORD
+    ## - VAPID_PRIVATE_KEY
+    ## - VAPID_PUBLIC_KEY
+  - suffix: secrets-env
+    itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/oezhcrluaumwwkrwulo62wnmhe
+    ## Contents:
+    ## - credentials: <json content for awscli>
+  - suffix: creds-dbbackup
+    itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/jfozn7v2ufxp72ddnhigsjtmue
+
+keda:
+  prometheusAddress: http://prometheus-server.monitoring.svc.cluster.local
+  web:
+    enabled: false
+    cooldownPeriod: 30
+    maxReplicaCount: 20
+    minReplicaCount: 2
+    pollingInterval: 15
+    fallback:
+      enabled: true
+      replicas: 6
+      failureThreshold: 4 # allows prometheus to be down for (4 * 15) seconds before going to fallback
+    ignoreNullValues: false
+    threshold: 25 # 25/sec/pod
+    advanced:
+      horizontalPodAutoscalerConfig:
+        behavior:
+          scaleDown:
+            stabilizationWindowSeconds: 600
+  workers:
+    enabled: true
+    cooldownPeriod: 300
+    maxReplicaCount: 10
+    minReplicaCount: 1
+    pollingInterval: 10
+    ignoreNullValues: false
+    fallback:
+      enabled: true
+      replicas: 1
+      failureThreshold: 4
+    advanced:
+      horizontalPodAutoscalerConfig:
+        behavior:
+          scaleDown:
+            stabilizationWindowSeconds: 900
+          scaleUp:
+            stabilizationWindowSeconds: 30
+            policies:
+              - type: Pods
+                value: 1
+                periodSeconds: 30
+    queues:
+      - name: default
+        threshold: 5
+      - name: ingress
+        threshold: 5
+      - name: pull
+        threshold: 300
+      - name: push
+        threshold: 5

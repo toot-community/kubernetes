@@ -1,0 +1,37 @@
+{{ if .Values.keda.workers.enabled }}
+{{- $context := . }}
+{{- range .Values.keda.workers.queues }}
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  labels:
+    {{- include "mastodon.labels" $context | nindent 4 }}
+    scaledobject.keda.sh/name: sidekiq-worker-{{ .name }}
+  name: {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
+spec:
+  cooldownPeriod: {{ $context.Values.keda.workers.cooldownPeriod }}
+  maxReplicaCount: {{ $context.Values.keda.workers.maxReplicaCount }}
+  minReplicaCount: {{ $context.Values.keda.workers.minReplicaCount }}
+  pollingInterval: {{ $context.Values.keda.workers.pollingInterval }}
+  scaleTargetRef:
+    name: {{ include "mastodon.fullname" $context }}-web
+  {{- if $context.Values.keda.workers.fallback.enabled }}
+  fallback:
+    replicas: {{ $context.Values.keda.workers.fallback.replicas }}
+    failureThreshold: {{ $context.Values.keda.workers.fallback.failureThreshold }}
+  {{- end }}
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: {{ $context.Values.keda.prometheusAddress }}
+        metricName: queue_latency
+        query: sum(mastodon_sidekiq_queue_latency{queue="{{ .name }}"} * scalar(avg(kube_deployment_status_replicas{deployment="{{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}"})))
+        threshold: {{ .threshold | quote }}
+        ignoreNullValues: {{ $context.Values.keda.workers.ignoreNullValues | quote }}
+  advanced:
+    {{- if $context.Values.keda.web.advanced }}
+    {{- toYaml $context.Values.keda.web.advanced | nindent 4 }}
+    {{- end }}
+{{ end}}
+{{ end }}

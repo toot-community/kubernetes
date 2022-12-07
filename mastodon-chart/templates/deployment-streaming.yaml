@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    {{- include "mastodon.labels" . | nindent 4 }}
+    app: {{ include "mastodon.fullname" . }}-streaming
+    version: {{ .Chart.AppVersion | quote }}
+  name: {{ include "mastodon.fullname" . }}-streaming
+spec:
+  replicas: {{ .Values.streaming.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "mastodon.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: streaming
+  strategy:
+    {{- toYaml .Values.streaming.strategy | nindent 4 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "mastodon.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: streaming
+    spec:
+      containers:
+        - command:
+            - bash
+            - -c
+            - 'sed -i ''s/pgConfigs.production.ssl = true;/pgConfigs.production.ssl =
+          { rejectUnauthorized: false, };/g'' streaming/index.js && node ./streaming'
+          env:
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  key: DB_PASS
+                  name: {{ include "mastodon.fullname" . }}-secrets-env
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: REDIS_PASSWORD
+                  name: {{ include "mastodon.fullname" . }}-secrets-env
+            - name: PORT
+              value: "4000"
+          envFrom:
+            - configMapRef:
+                name: {{ include "mastodon.fullname" . }}-env
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          name: streaming
+          ports:
+            - containerPort: 4000
+              name: streaming
+              protocol: TCP
+          readinessProbe:
+            {{- toYaml .Values.streaming.readinessProbe | nindent 12 }}
+          startupProbe:
+            {{- toYaml .Values.streaming.startupProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.streaming.resources | nindent 12 }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+      restartPolicy: Always
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      serviceAccountName: {{ include "mastodon.serviceAccountName" . }}
+      terminationGracePeriodSeconds: 30

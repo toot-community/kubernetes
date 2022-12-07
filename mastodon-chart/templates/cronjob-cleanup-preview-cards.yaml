@@ -1,0 +1,36 @@
+{{ if .Values.jobs.removePreviewCards.enabled }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "mastodon.fullname" . }}-remove-preview-cards
+  labels:
+    {{- include "mastodon.labels" . | nindent 4 }}
+spec:
+  schedule: {{ .Values.jobs.removePreviewCards.schedule }}
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: {{ include "mastodon.fullname" . }}-cleanup-unused-media
+          {{- with .Values.jobs.annotations }}
+          annotations:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: remove-preview-cards
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              command:
+                - bash
+                - -c
+                - "bin/tootctl preview_cards remove --days={{ .Values.jobs.removePreviewCards.days }}"
+              envFrom:
+                - configMapRef:
+                    name: {{ include "mastodon.fullname" . }}-env
+                - secretRef:
+                    name: {{ include "mastodon.fullname" . }}-secrets-env
+              resources:
+                {{- toYaml .Values.jobs.removePreviewCards.resources | nindent 16 }}
+{{ end }}

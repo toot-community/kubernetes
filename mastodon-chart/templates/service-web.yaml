@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    {{- include "mastodon.labels" . | nindent 4 }}
+  name: {{ include "mastodon.fullname" . }}-web
+spec:
+  ports:
+    - name: http
+      port: 3000
+      targetPort: http
+  selector:
+    app.kubernetes.io/component: web
+    {{- include "mastodon.selectorLabels" . | nindent 4 }}
