@@ -1,0 +1,51 @@
+apiVersion: v1
+data:
+  DB_HOST: {{ .Values.configuration.database.host }}
+  DB_NAME: {{ .Values.configuration.database.name }}
+  DB_POOL: {{ .Values.configuration.database.poolsize | quote }}
+  DB_PORT: {{ .Values.configuration.database.port | quote }}
+  DB_SSLMODE: {{ .Values.configuration.database.sslmode }}
+  DB_USER: {{ .Values.configuration.database.user }}
+  DEFAULT_LOCALE: {{ .Values.configuration.defaultLocale }}
+  ES_ENABLED: "false"
+  LOCAL_DOMAIN: {{ .Values.configuration.localDomain }}
+  MALLOC_ARENA_MAX: "2"
+  NODE_ENV: production
+  PREPARED_STATEMENTS: "false"
+  RAILS_ENV: production
+  REDIS_HOST: {{ .Values.configuration.redis.host }}
+  REDIS_PORT: {{ .Values.configuration.redis.port | quote }}
+  REDIS_DB: {{ .Values.configuration.redis.database | default 0 | quote }}
+  S3_ALIAS_HOST: {{ .Values.configuration.s3.aliasHost }}
+  S3_BUCKET: {{ .Values.configuration.s3.bucket }}
+  S3_ENABLED: "true"
+  S3_ENDPOINT: {{ .Values.configuration.s3.endpoint }}
+  S3_HOSTNAME: {{ .Values.configuration.s3.hostname }}
+  S3_PROTOCOL: {{ .Values.configuration.s3.protocol }}
+  S3_REGION: {{ .Values.configuration.s3.region }}
+  SMTP_AUTH_METHOD: {{ .Values.configuration.smtp.authMethod }}
+  SMTP_CA_FILE: {{ .Values.configuration.smtp.caFile }}
+  SMTP_DELIVERY_METHOD: {{ .Values.configuration.smtp.deliveryMethod }}
+  SMTP_ENABLE_STARTTLS_AUTO: {{ .Values.configuration.smtp.enableStarttlsAuto | quote }}
+  SMTP_OPENSSL_VERIFY_MODE: {{ .Values.configuration.smtp.opensslVerifyMode }}
+  SMTP_PORT: {{ .Values.configuration.smtp.port | quote }}
+  SMTP_DOMAIN: {{ .Values.configuration.smtp.domain }}
+  SMTP_FROM_ADDRESS: {{ .Values.configuration.smtp.fromAddress }}
+  SMTP_SERVER: {{ .Values.configuration.smtp.smtpServer }}
+  STREAMING_CLUSTER_NUM: "1"
+  WEB_DOMAIN: {{ .Values.web.domain }}
+  WEB_CONCURRENCY: {{ .Values.web.concurrency | quote }}
+  MAX_THREADS: {{ .Values.web.maxThreads | quote }}
+  {{- if .Values.statistics.enabled }}
+  STATSD_ADDR: {{ .Values.statistics.address }}
+  {{- end }}
+  {{- if .Values.translations.enabled }}
+  ALLOWED_PRIVATE_ADDRESSES: {{ .Values.translations.privateAddressRange }}
+  LIBRE_TRANSLATE_ENDPOINT: {{ .Values.translations.endpoint }}
+  {{- end}}
+kind: ConfigMap
+metadata:
+  labels:
+    {{- include "mastodon.labels" . | nindent 4 }}
+  name: {{ include "mastodon.fullname" . }}-env
+

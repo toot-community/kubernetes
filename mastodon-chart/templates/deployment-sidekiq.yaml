@@ -1,0 +1,67 @@
+{{- $context := . }}
+{{- range .Values.sidekiq.workers }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    {{- include "mastodon.labels" $context | nindent 4 }}
+    app: {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
+    version: {{ $context.Chart.AppVersion | quote }}
+  name: {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "mastodon.selectorLabels" $context | nindent 6 }}
+      app.kubernetes.io/component: sidekiq-{{ .name }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        {{- include "mastodon.selectorLabels" $context | nindent 8 }}
+        app.kubernetes.io/component: sidekiq-{{ .name }}
+    spec:
+      nodeSelector:
+        {{- toYaml $context.Values.sidekiq.nodeSelector | nindent 8 }}
+      {{- with $context.Values.sidekiq.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - command:
+            - bundle
+            - exec
+            - sidekiq
+            {{- range .queues }}
+            - -q
+            - {{ . | quote }}
+            {{- end }}
+            - -c
+            - {{ .concurrency | quote }}
+          env:
+            - name: DB_POOL
+              value: {{ .concurrency | quote }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "mastodon.fullname" $context }}-env
+            - secretRef:
+                name: {{ include "mastodon.fullname" $context }}-secrets-env
+          image: "{{ $context.Values.image.repository }}:{{ $context.Values.image.tag | default $context.Chart.AppVersion }}"
+          imagePullPolicy: {{ $context.Values.image.pullPolicy }}
+          name: mastodon
+          resources:
+            {{- toYaml $context.Values.sidekiq.resources | nindent 12 }}
+          securityContext:
+            {{- toYaml $context.Values.securityContext | nindent 12 }}
+      restartPolicy: Always
+      {{- with $context.Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "mastodon.serviceAccountName" $context }}
+      terminationGracePeriodSeconds: 30
+{{- end }}

@@ -1,0 +1,70 @@
+{{ if .Values.jobs.psqlBackup.enabled }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "mastodon.fullname" . }}-psql-backup
+  labels:
+    {{- include "mastodon.labels" . | nindent 4 }}
+spec:
+  schedule: {{ .Values.jobs.psqlBackup.schedule }}
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: {{ include "mastodon.fullname" . }}-psql-backup
+        spec:
+          restartPolicy: OnFailure
+          volumes:
+            - name: backup-dir
+              emptyDir: { }
+            - name: awscli-credentials
+              secret:
+                secretName: {{ include "mastodon.fullname" . }}-creds-dbbackup
+                defaultMode: 0400
+          containers:
+            - name: {{ include "mastodon.fullname" . }}-create-database-backup
+              image: {{ .Values.jobs.psqlBackup.postgresImage.repository }}:{{ .Values.jobs.psqlBackup.postgresImage.tag }}
+              imagePullPolicy: {{ .Values.jobs.psqlBackup.postgresImage.pullPolicy }}
+              resources:
+                requests:
+                  cpu: 1000m # compression-heavy work
+              command:
+                - bash
+                - -c
+                - "NAME=mastodon-db-$(date +%Y-%m-%d).dump && pg_dump --host=$DB_HOST --port=$DB_PORT --username=$DB_USER --dbname=$DB_NAME --format=c --file=/backup/in_progress-$NAME && mv /backup/in_progress-$NAME /backup/complete-$NAME"
+              volumeMounts:
+                - mountPath: /backup
+                  name: backup-dir
+              env:
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ include "mastodon.fullname" . }}-secrets-env
+                      key: DB_PASS
+                - name: DB_HOST
+                  valueFrom:
+                    configMapKeyRef:
+                      name: {{ include "mastodon.fullname" . }}-env
+                      key: DB_HOST
+                - name: DB_USER
+                  valueFrom:
+                    configMapKeyRef:
+                      name: {{ include "mastodon.fullname" . }}-env
+                      key: DB_USER
+                - name: DB_NAME
+                  value: {{ .Values.jobs.psqlBackup.overrideDatabaseInfo.name | default .Values.configuration.database.name }}
+                - name: DB_PORT
+                  value: {{ .Values.jobs.psqlBackup.overrideDatabaseInfo.port | default .Values.configuration.database.port | quote }}
+            - name: {{ include "mastodon.fullname" . }}-transfer-postgres-backup
+              image: {{ .Values.jobs.psqlBackup.awsCliImage.repository }}:{{ .Values.jobs.psqlBackup.awsCliImage.tag }}
+              imagePullPolicy: {{ .Values.jobs.psqlBackup.awsCliImage.pullPolicy }}
+              command:
+                - bash
+                - -c
+                - "until ls /backup/ | grep complete-; do echo 'waiting for complete backup..'; sleep 3; done && aws --profile=digitalocean --endpoint=https://ams3.digitaloceanspaces.com s3 cp /backup/* s3://backup-toot-community/db-postgresql/"
+              volumeMounts:
+                - mountPath: /backup
+                  name: backup-dir
+                - mountPath: /root/.aws
+                  name: awscli-credentials
+{{ end }}

@@ -1,0 +1,19 @@
+{{ if .Values.streaming.podDisruptionBudget.enabled }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  labels:
+    {{- include "mastodon.labels" . | nindent 4 }}
+  name: {{ include "mastodon.fullname" . }}-streaming
+spec:
+  {{- if .Values.streaming.podDisruptionBudget.maxUnavailable }}
+  maxUnavailable: {{ .Values.streaming.podDisruptionBudget.maxUnavailable }}
+  {{- end }}
+  {{- if .Values.streaming.podDisruptionBudget.minAvailable }}
+  minAvailable: {{ .Values.streaming.podDisruptionBudget.minAvailable }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "mastodon.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: streaming
+{{ end }}
