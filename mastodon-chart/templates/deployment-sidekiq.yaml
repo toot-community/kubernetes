@@ -54,7 +54,7 @@ spec:
           imagePullPolicy: {{ $context.Values.image.pullPolicy }}
           name: mastodon
           resources:
-            {{- toYaml $context.Values.sidekiq.resources | nindent 12 }}
+            {{- toYaml .resources | nindent 12 }}
           securityContext:
             {{- toYaml $context.Values.securityContext | nindent 12 }}
       restartPolicy: Always
