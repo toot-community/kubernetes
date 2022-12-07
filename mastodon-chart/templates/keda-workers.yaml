@@ -15,7 +15,7 @@ spec:
   minReplicaCount: {{ $context.Values.keda.workers.minReplicaCount }}
   pollingInterval: {{ $context.Values.keda.workers.pollingInterval }}
   scaleTargetRef:
-    name: {{ include "mastodon.fullname" $context }}-web
+    name: {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
   {{- if $context.Values.keda.workers.fallback.enabled }}
   fallback:
     replicas: {{ $context.Values.keda.workers.fallback.replicas }}
