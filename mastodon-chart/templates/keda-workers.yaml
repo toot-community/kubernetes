@@ -7,7 +7,7 @@ kind: ScaledObject
 metadata:
   labels:
     {{- include "mastodon.labels" $context | nindent 4 }}
-    scaledobject.keda.sh/name: sidekiq-worker-{{ .name }}
+    scaledobject.keda.sh/name: {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
   name: {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
 spec:
   cooldownPeriod: {{ $context.Values.keda.workers.cooldownPeriod }}
