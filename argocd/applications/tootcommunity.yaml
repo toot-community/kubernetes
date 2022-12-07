@@ -8,6 +8,9 @@ spec:
     namespace: tootcommunity
     server: https://kubernetes.default.svc
   project: mastodon
+  syncPolicy:
+    automated:
+      selfHeal: true
   source:
     helm:
       valueFiles:
