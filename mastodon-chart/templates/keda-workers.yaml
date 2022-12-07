@@ -30,8 +30,8 @@ spec:
         threshold: {{ .threshold | quote }}
         ignoreNullValues: {{ $context.Values.keda.workers.ignoreNullValues | quote }}
   advanced:
-    {{- if $context.Values.keda.web.advanced }}
-    {{- toYaml $context.Values.keda.web.advanced | nindent 4 }}
+    {{- if $context.Values.keda.workers.advanced }}
+    {{- toYaml $context.Values.keda.workers.advanced | nindent 4 }}
     {{- end }}
 {{ end}}
 {{ end }}
