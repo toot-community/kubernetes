@@ -257,7 +257,7 @@ onePassword:
 keda:
   prometheusAddress: http://prometheus-server.monitoring.svc.cluster.local
   web:
-    enabled: false
+    enabled: true
     cooldownPeriod: 30
     maxReplicaCount: 20
     minReplicaCount: 2
