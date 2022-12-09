@@ -4,7 +4,6 @@ configuration:
     user: mastodon-test
   localDomain: test.toot.community
   redis:
-    host: redis-haproxy.haproxy.svc.cluster.local
     database: 5
   s3:
     aliasHost: test-files.toot.community/static

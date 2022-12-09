@@ -36,7 +36,7 @@ configuration:
   defaultLocale: en
   localDomain: toot.community
   redis:
-    host: do-redis.haproxy.svc.cluster.local
+    host: redis-haproxy.haproxy.svc.cluster.local
     port: 6379
     database: 0
   s3:
