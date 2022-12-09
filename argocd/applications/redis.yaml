@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: haproxy
+  name: redis
   namespace: argocd
 spec:
   destination:
@@ -9,6 +9,12 @@ spec:
     server: https://kubernetes.default.svc
   project: mastodon
   source:
-    path: haproxy
+    helm:
+      valueFiles:
+        - values.yaml
+    path: haproxy-chart
     repoURL: git@github.com:toot-community/kubernetes.git
     targetRevision: main
+  syncPolicy:
+    automated:
+      selfHeal: true

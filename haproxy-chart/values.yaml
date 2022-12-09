@@ -1,0 +1,49 @@
+replicaCount: 4
+
+image:
+  repository: haproxy
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations:
+  prometheus.io/port: "8404"
+  prometheus.io/scrape: "true"
+
+podSecurityContext:
+   fsGroup: 99
+
+securityContext:
+   capabilities:
+     drop:
+     - ALL
+   readOnlyRootFilesystem: true
+   runAsNonRoot: true
+   runAsUser: 99
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources:
+  requests:
+    cpu: 25m
+    memory: 80Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+upstreamRedis:
+  host: private-db-redis-ams3-toot-community-do-user-924064-0.b.db.ondigitalocean.com
+  port: 25061

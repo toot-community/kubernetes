@@ -18,6 +18,8 @@ resources:
   - applications/prometheus-statsd-exporter.yaml
   - applications/argocd.yaml
   - applications/libretranslate.yaml
+  - applications/haproxy.yaml
+  - applications/redis.yaml
 
   # this line below is enabled because toot.community uses 1Password to provision secrets to the Kubernetes cluster,
   # it's fine if you don't, but then remove this line & the corresponding file.

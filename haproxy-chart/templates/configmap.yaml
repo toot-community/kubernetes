@@ -1,4 +1,9 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "haproxy.fullname" . }}-config
+  labels:
+    {{- include "haproxy.labels" . | nindent 4 }}
 data:
   haproxy.cfg: |
     global
@@ -17,9 +22,9 @@ data:
       timeout retry      1s
       hold valid         1s
 
-    frontend do_redis
+    frontend redis
       bind :6379
-      default_backend do_redis_1
+      default_backend upstream_redis
 
     frontend stats
       mode http
@@ -29,9 +34,5 @@ data:
       stats uri /stats
       stats refresh 10s
 
-    backend do_redis_1
-      server do_redis_1 private-db-redis-ams3-toot-community-do-user-924064-0.b.db.ondigitalocean.com:25061 ssl verify none check inter 1s resolvers kube-dns
-kind: ConfigMap
-metadata:
-  name: do-redis-config
-  namespace: haproxy
+    backend upstream_redis
+      server upstream_redis {{ .Values.upstreamRedis.host }}:{{ .Values.upstreamRedis.port }} ssl verify none check inter 1s resolvers kube-dns
