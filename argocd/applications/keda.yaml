@@ -16,3 +16,9 @@ spec:
     chart: keda
     repoURL: https://kedacore.github.io/charts
     targetRevision: 2.9.0
+    helm:
+      values: |
+        operator:
+          replicaCount: 2
+        metricsServer:
+          replicaCount: 2
