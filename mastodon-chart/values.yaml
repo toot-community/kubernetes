@@ -134,17 +134,29 @@ sidekiq:
       concurrency: 25
       queues:
         - default
+        - ingress
+        - push
+        - pull
     - name: ingress
       concurrency: 25
       queues:
+        - ingress
+        - push
+        - pull
+        - default
+    - name: push
+      concurrency: 25
+      queues:
+        - push
+        - pull
+        - default
         - ingress
     - name: pull
       concurrency: 25
       queues:
         - pull
-    - name: push
-      concurrency: 25
-      queues:
+        - default
+        - ingress
         - push
     - name: mailers
       concurrency: 5
@@ -273,6 +285,6 @@ keda:
       - name: ingress
         threshold: 5
       - name: pull
-        threshold: 300
+        threshold: 5
       - name: push
         threshold: 5
