@@ -14,4 +14,5 @@ spec:
     name:       {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
   updatePolicy:
     updateMode: "Auto"
+    minReplicas: 1
 {{- end }}
