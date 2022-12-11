@@ -267,12 +267,12 @@ keda:
     advanced:
       horizontalPodAutoscalerConfig:
         behavior:
-          scaleDown:
-            stabilizationWindowSeconds: 300
-            policies:
-              - type: Pods
-                value: 1
-                periodSeconds: 60
+#          scaleDown:
+#            stabilizationWindowSeconds: 300
+#            policies:
+#              - type: Pods
+#                value: 1
+#                periodSeconds: 60
           scaleUp:
             stabilizationWindowSeconds: 30
             policies:
