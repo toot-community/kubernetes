@@ -268,7 +268,7 @@ keda:
       horizontalPodAutoscalerConfig:
         behavior:
           scaleUp:
-            stabilizationWindowSeconds: 30
+            stabilizationWindowSeconds: 60
             policies:
               - type: Pods
                 value: 1
