@@ -5,7 +5,8 @@ apiVersion: autoscaling.k8s.io/v1
 kind: VerticalPodAutoscaler
 metadata:
   name: {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
-  {{- include "mastodon.labels" $context | nindent 4 }}
+  labels:
+    {{- include "mastodon.labels" $context | nindent 4 }}
 spec:
   targetRef:
     apiVersion: "apps/v1"
