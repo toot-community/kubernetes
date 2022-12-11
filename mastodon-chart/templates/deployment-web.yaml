@@ -53,8 +53,6 @@ spec:
             {{- toYaml .Values.web.readinessProbe | nindent 12 }}
           startupProbe:
             {{- toYaml .Values.web.startupProbe | nindent 12 }}
-          resources:
-            {{- toYaml .Values.web.resources | nindent 12 }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
       restartPolicy: Always

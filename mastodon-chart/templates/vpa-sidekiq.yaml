@@ -13,5 +13,5 @@ spec:
     kind:       Deployment
     name:       {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
   updatePolicy:
-    updateMode: "Off"
+    updateMode: "Auto"
 {{- end }}

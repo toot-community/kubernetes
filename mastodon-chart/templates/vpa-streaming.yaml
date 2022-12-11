@@ -10,4 +10,4 @@ spec:
     kind:       Deployment
     name:       {{ include "mastodon.fullname" . }}-streaming
   updatePolicy:
-    updateMode: "Off"
+    updateMode: "Auto"

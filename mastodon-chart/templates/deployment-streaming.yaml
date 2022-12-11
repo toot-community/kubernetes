@@ -57,8 +57,6 @@ spec:
             {{- toYaml .Values.streaming.readinessProbe | nindent 12 }}
           startupProbe:
             {{- toYaml .Values.streaming.startupProbe | nindent 12 }}
-          resources:
-            {{- toYaml .Values.streaming.resources | nindent 12 }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
       restartPolicy: Always
