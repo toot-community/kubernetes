@@ -42,10 +42,6 @@ spec:
           persistentVolume:
             enabled: true
             size: 25Gi
-          resources:
-            requests:
-              cpu: 10m
-              memory: 1500Mi
           strategy:
             type: Recreate
           verticalAutoscaler:
