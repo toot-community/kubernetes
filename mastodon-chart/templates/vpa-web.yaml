@@ -1,0 +1,12 @@
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: {{ include "mastodon.fullname" . }}-web
+  {{- include "mastodon.labels" . | nindent 4 }}
+spec:
+  targetRef:
+    apiVersion: "apps/v1"
+    kind:       Deployment
+    name:       {{ include "mastodon.fullname" . }}-web
+  updatePolicy:
+    updateMode: "Off"
