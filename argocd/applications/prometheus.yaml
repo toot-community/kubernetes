@@ -24,20 +24,15 @@ spec:
             create: false
           server:
             create: true
-
         alertmanager:
           enabled: false
-
         configmapReload:
           prometheus:
             enabled: true
-
         kubeStateMetrics:
           enabled: false
-
         nodeExporter:
           enabled: false
-
         server:
           enabled: true
           replicaCount: 1
@@ -46,17 +41,22 @@ spec:
             scrape_timeout: 10s
           persistentVolume:
             enabled: true
-            size: 20Gi
+            size: 25Gi
           resources:
             requests:
               cpu: 10m
-              memory: 1000Mi
+              memory: 1500Mi
           strategy:
             type: Recreate
-
+          verticalAutoscaler:
+            enabled: true
+            updateMode: "Auto"
+            containerPolicies:
+            - containerName: 'prometheus-server'
         pushgateway:
           enabled: false
-
+        prometheus-pushgateway:
+          enabled: false
         prometheus-node-exporter:
           enabled: true
     repoURL: https://prometheus-community.github.io/helm-charts

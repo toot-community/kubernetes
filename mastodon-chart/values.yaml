@@ -19,6 +19,7 @@ podSecurityContext:
   runAsUser: 991
 
 securityContext:
+  allowPrivilegeEscalation: false
   capabilities:
     drop:
       - ALL
