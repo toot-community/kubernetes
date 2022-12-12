@@ -302,9 +302,13 @@ keda:
     queues:
       - name: default
         threshold: 5
+        queue: default
       - name: ingress
         threshold: 5
+        queue: ingress
       - name: pull
         threshold: 300
+        queue: pull
       - name: push
         threshold: 5
+        queue: push
