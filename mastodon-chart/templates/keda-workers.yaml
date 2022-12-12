@@ -11,8 +11,8 @@ metadata:
   name: {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
 spec:
   cooldownPeriod: {{ .cooldownPeriod | default $context.Values.keda.workers.cooldownPeriod }}
-  minReplicaCount: {{ .minReplicaCount }}
-  maxReplicaCount: {{ .maxReplicaCount }}
+  minReplicaCount: {{ $context.Values.keda.workers.minReplicaCount }}
+  maxReplicaCount: {{ $context.Values.keda.workers.maxReplicaCount }}
   pollingInterval: {{ .pollingInterval | default $context.Values.keda.workers.pollingInterval }}
   scaleTargetRef:
     name: {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
@@ -29,7 +29,6 @@ spec:
         query: avg(mastodon_sidekiq_queue_latency{queue="{{ .queue }}"})
         threshold: {{ .threshold | quote }}
         ignoreNullValues: {{ $context.Values.keda.workers.ignoreNullValues | quote }}
-        activationThreshold: {{ .activationThreshold | default .threshold | quote }}
   advanced:
     {{- if $context.Values.keda.workers.advanced }}
     {{- toYaml $context.Values.keda.workers.advanced | nindent 4 }}
