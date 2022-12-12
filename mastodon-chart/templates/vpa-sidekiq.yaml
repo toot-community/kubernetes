@@ -15,4 +15,9 @@ spec:
   updatePolicy:
     updateMode: "Auto"
     minReplicas: 1
+  resourcePolicy:
+    containerPolicies:
+      - containerName: '*'
+        maxAllowed:
+          cpu: '1.5'
 {{- end }}
