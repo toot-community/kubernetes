@@ -31,7 +31,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- if gt (.replicaCount | default 0) 0 }}
+      {{- if .replicaCount }}
       replicas: {{ .replicaCount }}
       {{- end }}
       containers:
