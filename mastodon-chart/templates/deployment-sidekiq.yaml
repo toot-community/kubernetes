@@ -19,6 +19,9 @@ spec:
       maxSurge: 25%
       maxUnavailable: 25%
     type: RollingUpdate
+  { { - if .replicaCount } }
+  replicas: { { .replicaCount } }
+  { { - end } }
   template:
     metadata:
       labels:
@@ -30,9 +33,6 @@ spec:
       {{- with $context.Values.sidekiq.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- if .replicaCount }}
-      replicas: {{ .replicaCount }}
       {{- end }}
       containers:
         - command:
