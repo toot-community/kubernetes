@@ -19,9 +19,9 @@ spec:
       maxSurge: 25%
       maxUnavailable: 25%
     type: RollingUpdate
-  { { - if .replicaCount } }
-  replicas: { { .replicaCount } }
-  { { - end } }
+  {{ - if .replicaCount }}
+  replicas: {{ .replicaCount }}
+  {{ - end }}
   template:
     metadata:
       labels:
