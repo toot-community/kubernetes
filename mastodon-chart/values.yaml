@@ -130,42 +130,35 @@ sidekiq:
       operator: Equal
       value: sidekiq
   workers:
-    - name: default
+    - name: generic
       concurrency: 25
+      replicaCount: 4
       queues:
         - default
         - ingress
         - push
         - pull
-    - name: ingress
+    - name: single-default
       concurrency: 25
       queues:
-        - ingress
-        - push
-        - pull
         - default
-    - name: push
+    - name: single-push
       concurrency: 25
       queues:
         - push
-        - pull
-        - default
-        - ingress
-    - name: pull
+    - name: single-pull
       concurrency: 25
       queues:
         - pull
-        - default
-        - ingress
-        - push
-    - name: mailers
-      concurrency: 5
+    - name: single-ingress
+      concurrency: 25
       queues:
-        - mailers
-    - name: scheduler
-      concurrency: 5
+        - ingress
+    - name: lowpriority
+      concurrency: 10
       queues:
         - scheduler
+        - mailers
 
 ingress:
   ingressClassName: nginx
@@ -272,19 +265,23 @@ keda:
                 value: 1
                 periodSeconds: 60
     queues:
-      - name: default
-        threshold: 5
-        minReplicaCount: 1
-        maxReplicaCount: 5
-      - name: ingress
-        threshold: 5
-        minReplicaCount: 1
-        maxReplicaCount: 5
-      - name: pull
+      - name: single-default
+        queue: default
         threshold: 5
         minReplicaCount: 0
         maxReplicaCount: 5
-      - name: push
+      - name: single-ingress
+        queue: ingress
+        threshold: 5
+        minReplicaCount: 0
+        maxReplicaCount: 5
+      - name: single-pull
+        queue: pull
+        threshold: 5
+        minReplicaCount: 0
+        maxReplicaCount: 5
+      - name: single-push
+        queue: push
         threshold: 5
         minReplicaCount: 0
         maxReplicaCount: 5
