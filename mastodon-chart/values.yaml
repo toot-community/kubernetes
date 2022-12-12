@@ -256,8 +256,6 @@ keda:
   workers:
     enabled: true
     cooldownPeriod: 300
-    maxReplicaCount: 5
-    minReplicaCount: 1
     pollingInterval: 10
     ignoreNullValues: false
     fallback:
@@ -276,9 +274,17 @@ keda:
     queues:
       - name: default
         threshold: 5
+        minReplicaCount: 1
+        maxReplicaCount: 5
       - name: ingress
         threshold: 5
+        minReplicaCount: 1
+        maxReplicaCount: 5
       - name: pull
         threshold: 5
+        minReplicaCount: 0
+        maxReplicaCount: 5
       - name: push
         threshold: 5
+        minReplicaCount: 0
+        maxReplicaCount: 5

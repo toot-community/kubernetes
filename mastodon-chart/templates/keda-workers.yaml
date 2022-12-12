@@ -10,10 +10,10 @@ metadata:
     scaledobject.keda.sh/name: {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
   name: {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
 spec:
-  cooldownPeriod: {{ $context.Values.keda.workers.cooldownPeriod }}
-  maxReplicaCount: {{ $context.Values.keda.workers.maxReplicaCount }}
-  minReplicaCount: {{ $context.Values.keda.workers.minReplicaCount }}
-  pollingInterval: {{ $context.Values.keda.workers.pollingInterval }}
+  cooldownPeriod: {{ .cooldownPeriod | default $context.Values.keda.workers.cooldownPeriod }}
+  maxReplicaCount: {{ .minReplicaCount }}
+  minReplicaCount: {{ .maxReplicaCount }}
+  pollingInterval: {{ .pollingInterval | default $context.Values.keda.workers.pollingInterval }}
   scaleTargetRef:
     name: {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
   {{- if $context.Values.keda.workers.fallback.enabled }}
@@ -29,6 +29,7 @@ spec:
         query: sum(mastodon_sidekiq_queue_latency{queue="{{ .name }}"} * scalar(avg(kube_deployment_status_replicas{deployment="{{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}"})))
         threshold: {{ .threshold | quote }}
         ignoreNullValues: {{ $context.Values.keda.workers.ignoreNullValues | quote }}
+        activationThreshold: {{ .activationThreshold | default .threshold | quote }}
   advanced:
     {{- if $context.Values.keda.workers.advanced }}
     {{- toYaml $context.Values.keda.workers.advanced | nindent 4 }}
