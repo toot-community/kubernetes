@@ -26,7 +26,7 @@ spec:
       metadata:
         serverAddress: {{ $context.Values.keda.prometheusAddress }}
         metricName: queue_latency
-        query: avg(mastodon_sidekiq_queue_latency{queue="{{ .name }}"})
+        query: avg(mastodon_sidekiq_queue_latency{queue="{{ .queue }}"})
         threshold: {{ .threshold | quote }}
         ignoreNullValues: {{ $context.Values.keda.workers.ignoreNullValues | quote }}
         activationThreshold: {{ .activationThreshold | default .threshold | quote }}
