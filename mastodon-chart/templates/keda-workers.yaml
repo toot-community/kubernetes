@@ -11,8 +11,8 @@ metadata:
   name: {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
 spec:
   cooldownPeriod: {{ .cooldownPeriod | default $context.Values.keda.workers.cooldownPeriod }}
-  maxReplicaCount: {{ .minReplicaCount }}
-  minReplicaCount: {{ .maxReplicaCount }}
+  minReplicaCount: {{ .minReplicaCount }}
+  maxReplicaCount: {{ .maxReplicaCount }}
   pollingInterval: {{ .pollingInterval | default $context.Values.keda.workers.pollingInterval }}
   scaleTargetRef:
     name: {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
