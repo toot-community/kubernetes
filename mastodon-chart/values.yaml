@@ -62,6 +62,10 @@ web:
   domain: toot.community
   concurrency: 2
   maxThreads: 6
+  resources:
+    requests:
+      cpu: 1000m
+      memory: 1000Mi
   startupProbe:
     httpGet:
       port: http
@@ -117,6 +121,10 @@ streaming:
       path: /api/v1/streaming/health
     periodSeconds: 3
     failureThreshold: 30
+  resources:
+    requests:
+      cpu: 50m
+      memory: 250Mi
   podDisruptionBudget:
     enabled: true
     minAvailable: 1
@@ -138,27 +146,63 @@ sidekiq:
         - ingress
         - push
         - pull
+      resources:
+        requests:
+          cpu: 750m
+          memory: 750Mi
     - name: single-default
       concurrency: 25
       queues:
         - default
+        - ingress
+        - push
+        - pull
+      resources:
+        requests:
+          cpu: 250m
+          memory: 500Mi
     - name: single-push
       concurrency: 25
       queues:
         - push
+        - default
+        - ingress
+        - pull
+      resources:
+        requests:
+          cpu: 250m
+          memory: 500Mi
     - name: single-pull
       concurrency: 25
       queues:
         - pull
+        - default
+        - ingress
+        - push
+      resources:
+        requests:
+          cpu: 250m
+          memory: 500Mi
     - name: single-ingress
       concurrency: 25
       queues:
         - ingress
+        - default
+        - push
+        - pull
+      resources:
+        requests:
+          cpu: 250m
+          memory: 500Mi
     - name: lowpriority
       concurrency: 10
       queues:
         - scheduler
         - mailers
+      resources:
+        requests:
+          cpu: 100m
+          memory: 300Mi
 
 ingress:
   ingressClassName: nginx

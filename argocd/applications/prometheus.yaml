@@ -42,13 +42,12 @@ spec:
           persistentVolume:
             enabled: true
             size: 25Gi
+          resources:
+            requests:
+              cpu: 50m
+              memory: 2000Mi
           strategy:
             type: Recreate
-          verticalAutoscaler:
-            enabled: true
-            updateMode: "Auto"
-            containerPolicies:
-            - containerName: 'prometheus-server'
         pushgateway:
           enabled: false
         prometheus-pushgateway:

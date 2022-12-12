@@ -56,6 +56,8 @@ spec:
           image: "{{ $context.Values.image.repository }}:{{ $context.Values.image.tag | default $context.Chart.AppVersion }}"
           imagePullPolicy: {{ $context.Values.image.pullPolicy }}
           name: mastodon
+          resources:
+            {{- toYaml .resources | nindent 12 }}
           securityContext:
             {{- toYaml $context.Values.securityContext | nindent 12 }}
       restartPolicy: Always
