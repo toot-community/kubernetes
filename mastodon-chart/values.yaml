@@ -286,5 +286,5 @@ keda:
         maxReplicaCount: 5
       - name: push
         threshold: 5
-        minReplicaCount: 1
+        minReplicaCount: 0
         maxReplicaCount: 5
