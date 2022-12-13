@@ -8,7 +8,6 @@ resources:
   - projects/infrastructure.yaml
   - projects/monitoring.yaml
   - projects/libretranslate.yaml
-  - projects/relay.yaml
   - applications/grafana.yaml
   - applications/prometheus.yaml
   - applications/ingress-nginx.yaml

@@ -7,7 +7,7 @@ spec:
   destination:
     namespace: relay
     server: https://kubernetes.default.svc
-  project: relay
+  project: mastodon
   syncPolicy:
     automated:
       selfHeal: true
