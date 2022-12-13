@@ -1,0 +1,6 @@
+apiVersion: v2
+name: asonix
+description: A Helm chart for running Asonix, a Mastodon relay server
+type: application
+version: 1.0.0
+appVersion: "0.3.69"
