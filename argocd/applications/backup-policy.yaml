@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: backup-policy
+  namespace: argocd
+spec:
+  destination:
+    namespace: velero
+    server: https://kubernetes.default.svc
+  project: infrastructure
+  source:
+    path: velero-backup-policy
+    repoURL: git@github.com:toot-community/kubernetes.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      selfHeal: true
