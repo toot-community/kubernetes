@@ -1,0 +1,27 @@
+{{- $context := . }}
+{{- range .Values.schedules }}
+---
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: {{ include "velero.fullname" $context }}-{{ .name }}
+  labels:
+      {{- include "velero.labels" $context | nindent 4 }}
+spec:
+  schedule: {{ .schedule }}
+  template:
+    csiSnapshotTimeout: 0s
+    hooks: {}
+    {{- if .includedNamespaces }}
+    includedNamespaces:
+      {{ toYaml .includedNamespaces | nindent 6 }}
+    {{- end }}
+    {{- if .excludedNamespaces }}
+    excludedNamespaces:
+      {{ toYaml .excludedNamespaces | nindent 6 }}
+    {{- end }}
+    metadata: {}
+    ttl: {{ .ttl }}
+    snapshotVolumes: {{ .snapshotVolumes | default true }}
+  useOwnerReferencesInBackup: false
+{{- end }}

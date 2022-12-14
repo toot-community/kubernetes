@@ -1,0 +1,33 @@
+schedules:
+  - name: daily-cluster-backup # keep for 7 days
+    schedule: "0 6 * * *"
+    ttl: 168h0m0s
+    excludedNamespaces:
+      - kube-system
+      - velero
+      - kube-public
+      - kube-node-lease
+      - default
+  - name: weekly-cluster-backup # keep for 8 weeks
+    schedule: "0 5 * * 1"
+    ttl: 1344h0m0s
+    excludedNamespaces:
+      - kube-system
+      - velero
+      - kube-public
+      - kube-node-lease
+      - default
+  - name: monthly-cluster-backup # keep for 12 months
+    schedule: "0 5 * * 1"
+    ttl: 8760h0m0s
+    excludedNamespaces:
+      - kube-system
+      - velero
+      - kube-public
+      - kube-node-lease
+      - default
+  - name: hourly-mastodon-backup # keep for 24 hours
+    schedule: "0 * * * *"
+    ttl: 24h0m0s
+    includedNamespaces:
+      - tootcommunity
