@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+data:
+  HOSTNAME: {{ .Values.asonix.hostname }}
+  ADDR: {{ .Values.asonix.address }}
+  PORT: {{ .Values.asonix.port | quote }}
+  DEBUG: {{ .Values.asonix.debug | quote }}
+  RESTRICTED_MODE: {{ .Values.asonix.restrictedMode | quote }}
+  VALIDATE_SIGNATURES: {{ .Values.asonix.validateSignatures | quote }}
+  HTTPS: {{ .Values.asonix.https | quote }}
+  PRETTY_LOG: {{ .Values.asonix.prettyLog | quote }}
+  PUBLISH_BLOCKS: {{ .Values.asonix.publishBlocks | quote }}
+  SLED_PATH: {{ .Values.asonix.sledPath }}
+  RUST_LOG: {{ .Values.asonix.rustLog }}
+  FOOTER_BLURB: {{ .Values.asonix.footerBlurb }}
+  LOCAL_DOMAINS: {{ .Values.asonix.localDomains }}
+  LOCAL_BLURB: {{ .Values.asonix.localBlurb }}
+metadata:
+  labels:
+    {{- include "asonix.labels" . | nindent 4 }}
+  name: {{ include "asonix.fullname" . }}-config
+

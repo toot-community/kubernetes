@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: relay
+  namespace: argocd
+spec:
+  destination:
+    namespace: relay
+    server: https://kubernetes.default.svc
+  project: mastodon
+  syncPolicy:
+    automated:
+      selfHeal: true
+  source:
+    helm:
+      valueFiles:
+      - values.yaml
+    path: asonix-chart
+    repoURL: git@github.com:toot-community/kubernetes.git
+    targetRevision: main

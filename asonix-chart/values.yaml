@@ -1,0 +1,76 @@
+replicaCount: 1
+
+image:
+  repository: asonix/relay
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+   fsGroup: 991
+
+securityContext:
+   capabilities:
+     drop:
+     - ALL
+   readOnlyRootFilesystem: true
+   runAsNonRoot: true
+   runAsUser: 991
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations: {}
+  hosts:
+    - host: relay.toot.community
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: cf-origin-certificate-tls
+      hosts:
+        - relay.toot.community
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 75Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+asonix:
+  hostname: relay.toot.community
+  address: 0.0.0.0
+  port: 8080
+  debug: false
+  restrictedMode: true
+  validateSignatures: true
+  https: true
+  prettyLog: false
+  publishBlocks: true
+  sledPath: /database
+  rustLog: warn
+  footerBlurb: "Contact <a href=\"https://toot.community/@jorijn\">@jorijn</a> for inquiries"
+  localDomains: toot.community
+  localBlurb: "<p>Private relay. Contact me to get added.</p>"
+
+onePassword:
+  itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/2xuoljx6vdnuiwunvznqpkuw7a
