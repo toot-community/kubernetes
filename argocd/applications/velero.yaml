@@ -12,7 +12,7 @@ spec:
     automated:
       selfHeal: true
   source:
-    chart: vmware-tanzu
+    chart: velero
     repoURL: https://vmware-tanzu.github.io/helm-charts/
     targetRevision: 2.32.4
     helm:
