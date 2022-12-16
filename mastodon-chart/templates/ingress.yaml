@@ -27,5 +27,23 @@ spec:
                   number: 4000
             path: /api/v1/streaming
             pathType: ImplementationSpecific
+          {{- if .Values.web.primaryDatabaseDeployment }}
+          {{- if .Values.web.primaryDatabaseDeployment.enabled }}
+          - backend:
+              service:
+                name: {{ include "mastodon.fullname" . }}-web-primary-db
+                port:
+                  number: 3000
+            path: /oauth
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: {{ include "mastodon.fullname" . }}-web-primary-db
+                port:
+                  number: 3000
+            path: /api/v1/accounts/verify_credentials
+            pathType: ImplementationSpecific
+          {{- end }}
+          {{- end }}
   tls:
     {{ .Values.ingress.tls | toYaml | nindent 4 }}

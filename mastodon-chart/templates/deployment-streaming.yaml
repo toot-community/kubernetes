@@ -31,6 +31,12 @@ spec:
             - 'sed -i ''s/pgConfigs.production.ssl = true;/pgConfigs.production.ssl =
           { rejectUnauthorized: false, };/g'' streaming/index.js && node ./streaming'
           env:
+            {{- if .Values.configuration.databaseReplicas.enabled }}
+            {{- with (first .Values.configuration.databaseReplicas.hosts) }}
+            - name: DB_HOST
+              value: {{ . }}
+            {{- end }}
+            {{- end }}
             - name: DB_PASS
               valueFrom:
                 secretKeyRef:
