@@ -281,12 +281,16 @@ keda:
       replicas: 5
       failureThreshold: 4 # allows prometheus to be down for (4 * 15) seconds before going to fallback
     ignoreNullValues: false
-    threshold: 35 # 35/sec/pod
+    threshold: 30 # 30 req/sec/pod
     advanced:
       horizontalPodAutoscalerConfig:
         behavior:
           scaleDown:
-            stabilizationWindowSeconds: 600
+            stabilizationWindowSeconds: 900
+            policies:
+              - type: Pods
+                value: 1
+                periodSeconds: 300
   workers:
     enabled: true
     cooldownPeriod: 300
