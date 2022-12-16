@@ -2,6 +2,8 @@ configuration:
   database:
     name: mastodon-pool-test
     user: mastodon-test
+  databaseReplicas:
+    enabled: false
   localDomain: test.toot.community
   redis:
     database: 5
@@ -17,6 +19,8 @@ web:
       cpu: 1m
       memory: 1Mi
   podDisruptionBudget:
+    enabled: false
+  primaryDatabaseDeployment:
     enabled: false
 
 statistics:

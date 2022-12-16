@@ -1,3 +1,5 @@
+{{ if .Values.web.primaryDatabaseDeployment }}
+{{ if .Values.web.primaryDatabaseDeployment.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -5,12 +7,13 @@ metadata:
     {{- include "mastodon.labels" . | nindent 4 }}
     app: {{ include "mastodon.fullname" . }}-web
     version: {{ .Chart.AppVersion | quote }}
-  name: {{ include "mastodon.fullname" . }}-web
+  name: {{ include "mastodon.fullname" . }}-web-primary-db
 spec:
+  replicas: {{ .Values.web.primaryDatabaseDeployment.replicaCount | default 1 }}
   selector:
     matchLabels:
       {{- include "mastodon.selectorLabels" . | nindent 6 }}
-      app.kubernetes.io/component: web
+      app.kubernetes.io/component: web-primary-db-only
   strategy:
     {{- toYaml .Values.web.strategy | nindent 4 }}
   template:
@@ -21,7 +24,7 @@ spec:
       {{- end }}
       labels:
         {{- include "mastodon.selectorLabels" . | nindent 8 }}
-        app.kubernetes.io/component: web
+        app.kubernetes.io/component: web-primary-db-only
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -49,20 +52,12 @@ spec:
             - containerPort: 3000
               name: http
               protocol: TCP
-          {{- if .Values.configuration.databaseReplicas }}
-          {{- if .Values.configuration.databaseReplicas.enabled }}
-          volumeMounts:
-            - name: db-config-override
-              mountPath: /opt/mastodon/config/database.yml
-              subPath: database.yml
-          {{- end }}
-          {{- end }}
           readinessProbe:
             {{- toYaml .Values.web.readinessProbe | nindent 12 }}
           startupProbe:
             {{- toYaml .Values.web.startupProbe | nindent 12 }}
           resources:
-            {{- toYaml .Values.web.resources | nindent 12 }}
+            {{- toYaml .Values.web.primaryDatabaseDeployment.resources | default .Values.web.resources | nindent 12 }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
       restartPolicy: Always
@@ -70,11 +65,5 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       serviceAccountName: {{ include "mastodon.serviceAccountName" . }}
       terminationGracePeriodSeconds: 30
-      {{- if .Values.configuration.databaseReplicas }}
-      {{- if .Values.configuration.databaseReplicas.enabled }}
-      volumes:
-        - name: db-config-override
-          configMap:
-            name: {{ include "mastodon.fullname" . }}-db-config-override
-      {{- end }}
-      {{- end }}
+{{ end }}
+{{ end }}

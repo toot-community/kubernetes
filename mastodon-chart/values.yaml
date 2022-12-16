@@ -34,6 +34,11 @@ configuration:
     port: 25061
     sslmode: require
     user: mastodon
+  databaseReplicas:
+    enabled: true
+    hosts:
+      - private-db-ro-postgresql-ams3-toot-community-01-do-user-924064.b.db.ondigitalocean.com
+      - private-db-ro-postgresql-ams3-toot-community-02-do-user-924064.b.db.ondigitalocean.com
   defaultLocale: en
   localDomain: toot.community
   redis:
@@ -89,6 +94,15 @@ web:
   podDisruptionBudget:
     enabled: true
     minAvailable: 1
+  # the primary db deployment will capture all /oauth & verify credential requests to workaround
+  # any race conditions during db replication
+  primaryDatabaseDeployment:
+    enabled: true
+    replicaCount: 2
+    resources:
+      requests:
+        cpu: 50m
+        memory: 200Mi
 
 statistics:
   enabled: true
