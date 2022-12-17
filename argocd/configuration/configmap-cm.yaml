@@ -12,6 +12,12 @@ data:
         - CiliumIdentity
       clusters:
         - "*"
+    - apiGroups:
+        - velero.io
+      kinds:
+        - Backup
+      clusters:
+        - "*"
   dex.config: |
     connectors:
       - type: github
