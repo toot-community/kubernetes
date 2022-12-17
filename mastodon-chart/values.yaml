@@ -38,7 +38,6 @@ configuration:
     enabled: true
     hosts:
       - private-db-ro-postgresql-ams3-toot-community-01-do-user-924064.b.db.ondigitalocean.com
-      - private-db-ro-postgresql-ams3-toot-community-02-do-user-924064.b.db.ondigitalocean.com
   defaultLocale: en
   localDomain: toot.community
   redis:
