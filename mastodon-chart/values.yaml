@@ -68,8 +68,8 @@ web:
   maxThreads: 6
   resources:
     requests:
-      cpu: 1000m
-      memory: 1000Mi
+      cpu: 400m
+      memory: 400Mi
   startupProbe:
     httpGet:
       port: http
@@ -272,24 +272,23 @@ keda:
   web:
     enabled: true
     cooldownPeriod: 30
-    maxReplicaCount: 20
+    maxReplicaCount: 100
     minReplicaCount: 2
     pollingInterval: 15
     fallback:
       enabled: true
-      replicas: 5
+      replicas: 12
       failureThreshold: 4 # allows prometheus to be down for (4 * 15) seconds before going to fallback
     ignoreNullValues: false
-    threshold: 25 # 25 req/sec/pod
+    threshold: 10
     advanced:
       horizontalPodAutoscalerConfig:
         behavior:
           scaleDown:
-            stabilizationWindowSeconds: 900
             policies:
-              - type: Pods
-                value: 1
-                periodSeconds: 300
+              - type: Percent
+                value: 10
+                periodSeconds: 60
   workers:
     enabled: true
     cooldownPeriod: 300
