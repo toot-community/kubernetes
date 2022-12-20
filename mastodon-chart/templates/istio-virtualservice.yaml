@@ -1,0 +1,42 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ include "mastodon.fullname" . }}
+  labels:
+      {{- include "mastodon.labels" . | nindent 4 }}
+spec:
+  hosts:
+    - {{ .Values.ingress.host }}
+  gateways:
+      - {{ include "mastodon.fullname" . }}-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /api/v1/streaming
+      route:
+        - destination:
+            port:
+              number: 4000
+            host: {{ include "mastodon.fullname" . }}-streaming
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            port:
+              number: 3000
+            host: {{ include "mastodon.fullname" . }}-web
+    {{- if .Values.web.primaryDatabaseDeployment }}
+    {{- if .Values.web.primaryDatabaseDeployment.enabled }}
+    - match:
+        - uri:
+            prefix: /oauth
+        - uri:
+            prefix: /api/v1/accounts/verify_credentials
+      route:
+        - destination:
+            port:
+              number: 3000
+            host: {{ include "mastodon.fullname" . }}-web-primary-db
+    {{- end }}
+    {{- end }}

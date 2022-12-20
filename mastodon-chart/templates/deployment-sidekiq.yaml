@@ -6,7 +6,7 @@ kind: Deployment
 metadata:
   labels:
     {{- include "mastodon.labels" $context | nindent 4 }}
-    app: {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
+    app: {{ include "mastodon.fullname" $context }}
     version: {{ $context.Chart.AppVersion | quote }}
   name: {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
 spec:
@@ -14,6 +14,8 @@ spec:
     matchLabels:
       {{- include "mastodon.selectorLabels" $context | nindent 6 }}
       app.kubernetes.io/component: sidekiq-{{ .name }}
+      app: {{ include "mastodon.fullname" $context }}
+      version: {{ $context.Chart.AppVersion | quote }}
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -27,6 +29,8 @@ spec:
       labels:
         {{- include "mastodon.selectorLabels" $context | nindent 8 }}
         app.kubernetes.io/component: sidekiq-{{ .name }}
+        app: {{ include "mastodon.fullname" $context }}
+        version: {{ $context.Chart.AppVersion | quote }}
     spec:
       nodeSelector:
         {{- toYaml $context.Values.sidekiq.nodeSelector | nindent 8 }}

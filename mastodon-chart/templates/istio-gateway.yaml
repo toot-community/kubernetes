@@ -1,0 +1,26 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: {{ include "mastodon.fullname" . }}-gateway
+  labels:
+    {{- include "mastodon.labels" . | nindent 4 }}
+spec:
+  selector:
+    {{ .Values.istio.ingressSelector | toYaml | nindent 4 }}
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - {{ .Values.ingress.host }}
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      hosts:
+        - {{ .Values.ingress.host }}
+      tls:
+        mode: MUTUAL
+        credentialName: cf-origin-certificate-tls
+{{/*        credentialName: {{ .Release.Namespace }}/cf-origin-certificate-tls*/}}

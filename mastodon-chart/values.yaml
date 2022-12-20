@@ -247,6 +247,7 @@ onePassword:
     ## Contents:
     ## - tls.crt: <content>
     ## - tls.key: <content>
+    ## - ca.crt: <content>
   - name: cf-origin-certificate-tls
     itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/hpm4njgmdollluy5b4isc2zpgq
     ## It holds the following keys:
@@ -330,3 +331,7 @@ keda:
       - name: push
         threshold: 5
         queue: push
+
+istio:
+  ingressSelector:
+    istio: ingress

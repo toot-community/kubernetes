@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   labels:
     {{- include "mastodon.labels" . | nindent 4 }}
-    app: {{ include "mastodon.fullname" . }}-web
+    app: {{ include "mastodon.fullname" . }}
     version: {{ .Chart.AppVersion | quote }}
   name: {{ include "mastodon.fullname" . }}-web
 spec:
@@ -11,6 +11,8 @@ spec:
     matchLabels:
       {{- include "mastodon.selectorLabels" . | nindent 6 }}
       app.kubernetes.io/component: web
+      app: {{ include "mastodon.fullname" . }}
+      version: {{ .Chart.AppVersion | quote }}
   strategy:
     {{- toYaml .Values.web.strategy | nindent 4 }}
   template:
@@ -22,6 +24,8 @@ spec:
       labels:
         {{- include "mastodon.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: web
+        app: {{ include "mastodon.fullname" . }}
+        version: {{ .Chart.AppVersion | quote }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   labels:
     {{- include "mastodon.labels" . | nindent 4 }}
-    app: {{ include "mastodon.fullname" . }}-streaming
+    app: {{ include "mastodon.fullname" . }}
     version: {{ .Chart.AppVersion | quote }}
   name: {{ include "mastodon.fullname" . }}-streaming
 spec:
@@ -12,6 +12,8 @@ spec:
     matchLabels:
       {{- include "mastodon.selectorLabels" . | nindent 6 }}
       app.kubernetes.io/component: streaming
+      app: {{ include "mastodon.fullname" . }}
+      version: {{ .Chart.AppVersion | quote }}
   strategy:
     {{- toYaml .Values.streaming.strategy | nindent 4 }}
   template:
@@ -23,6 +25,8 @@ spec:
       labels:
         {{- include "mastodon.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: streaming
+        app: {{ include "mastodon.fullname" . }}
+        version: {{ .Chart.AppVersion | quote }}
     spec:
       containers:
         - command:
