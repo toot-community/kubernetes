@@ -14,7 +14,7 @@ spec:
   source:
     chart: velero
     repoURL: https://vmware-tanzu.github.io/helm-charts/
-    targetRevision: 2.32.5
+    targetRevision: 3.0.0
     helm:
       values: |
         configuration:
