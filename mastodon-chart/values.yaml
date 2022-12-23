@@ -319,7 +319,7 @@ keda:
                 periodSeconds: 30
     queues:
       - name: default
-        threshold: 5
+        threshold: 1
         queue: default
       - name: ingress
         threshold: 5
