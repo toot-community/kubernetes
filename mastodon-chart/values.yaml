@@ -333,5 +333,9 @@ keda:
 
 fullTextSearch:
   enabled: true
-  host: tootcommunity-es-http.elastic-stack.svc.cluster.local
+  host: fts-es-http
   port: 9200
+  user: elastic
+  secretRef:
+    name: fts-es-elastic-user
+    key: elastic

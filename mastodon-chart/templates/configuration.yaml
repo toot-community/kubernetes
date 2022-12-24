@@ -47,6 +47,7 @@ data:
   ES_ENABLED: "true"
   ES_HOST: {{ .Values.fullTextSearch.host }}
   ES_PORT: {{ .Values.fullTextSearch.port | quote }}
+  ES_USER: {{ .Values.fullTextSearch.user }}
   {{- end }}
 kind: ConfigMap
 metadata:

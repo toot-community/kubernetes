@@ -1,8 +1,8 @@
 apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
-  name: tootcommunity
-  namespace: elastic-stack
+  name: fts
+  namespace: tootcommunity
 spec:
   version: 8.5.3
   nodeSets:

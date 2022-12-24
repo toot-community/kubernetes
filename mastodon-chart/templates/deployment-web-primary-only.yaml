@@ -40,6 +40,13 @@ spec:
           env:
             - name: PORT
               value: "3000"
+            {{- if .Values.fullTextSearch.enabled }}
+            - name: ES_PASS
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.fullTextSearch.secretRef.key }}
+                  name: {{ .Values.fullTextSearch.secretRef.name }}
+            {{- end }}
           envFrom:
             - configMapRef:
                 name: {{ include "mastodon.fullname" . }}-env
