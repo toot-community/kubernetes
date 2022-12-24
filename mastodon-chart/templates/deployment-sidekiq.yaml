@@ -48,12 +48,12 @@ spec:
           env:
             - name: DB_POOL
               value: {{ .concurrency | quote }}
-            {{- if .Values.fullTextSearch.enabled }}
+            {{- if $context.Values.fullTextSearch.enabled }}
             - name: ES_PASS
               valueFrom:
                 secretKeyRef:
-                  key: {{ .Values.fullTextSearch.secretRef.key }}
-                  name: {{ .Values.fullTextSearch.secretRef.name }}
+                  key: {{ $context.Values.fullTextSearch.secretRef.key }}
+                  name: {{ $context.Values.fullTextSearch.secretRef.name }}
             {{- end }}
           envFrom:
             - configMapRef:
