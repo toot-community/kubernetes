@@ -330,3 +330,8 @@ keda:
       - name: push
         threshold: 5
         queue: push
+
+fullTextSearch:
+  enabled: true
+  host: tootcommunity-es-http.elastic-stack.svc.cluster.local
+  port: 9200

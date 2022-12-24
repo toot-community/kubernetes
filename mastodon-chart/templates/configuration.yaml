@@ -43,6 +43,11 @@ data:
   ALLOWED_PRIVATE_ADDRESSES: {{ .Values.translations.privateAddressRange }}
   LIBRE_TRANSLATE_ENDPOINT: {{ .Values.translations.endpoint }}
   {{- end}}
+  {{- if .Values.fullTextSearch.enabled }}
+  ES_ENABLED: "true"
+  ES_HOST: {{ .Values.fullTextSearch.host }}
+  ES_PORT: {{ .Values.fullTextSearch.port | quote }}
+  {{- end }}
 kind: ConfigMap
 metadata:
   labels:
