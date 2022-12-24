@@ -26,6 +26,10 @@ spec:
         query: sum(rate(nginx_ingress_controller_requests{service="{{ include "mastodon.fullname" . }}-web"}[1m]))
         threshold: {{ .Values.keda.web.threshold | quote }}
         ignoreNullValues: {{ .Values.keda.web.ignoreNullValues | quote }}
+    - type: memory
+      metricType: Utilization
+      metadata:
+        value: "100"
   advanced:
     {{- if .Values.keda.web.advanced }}
     {{- toYaml .Values.keda.web.advanced | nindent 4 }}
