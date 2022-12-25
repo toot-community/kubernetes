@@ -10,6 +10,7 @@ data:
   ES_ENABLED: "false"
   LOCAL_DOMAIN: {{ .Values.configuration.localDomain }}
   MALLOC_ARENA_MAX: "2"
+  LD_PRELOAD: libjemalloc.so
   NODE_ENV: production
   PREPARED_STATEMENTS: "false"
   RAILS_ENV: production
