@@ -31,7 +31,7 @@ spec:
     - type: memory
       metricType: Utilization
       metadata:
-        value: {{ .Values.keda.web.memoryUtilizationScaling.value | quote }}
+        value: {{ .Values.keda.web.memoryUtilizationScaling.targetAverageUtilization | quote }}
     {{- end }}
     {{- end }}
   advanced:
