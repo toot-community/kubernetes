@@ -8,9 +8,9 @@ configuration:
   redis:
     database: 5
   s3:
-    aliasHost: test-files.toot.community/static
-    bucket: static
-    endpoint: https://test-files-toot-community.ams3.digitaloceanspaces.com
+    aliasHost: test-files.toot.community
+    bucket: test-files-toot-community
+    endpoint: https://ams3.digitaloceanspaces.com
 
 web:
   domain: test.toot.community

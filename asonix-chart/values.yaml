@@ -47,8 +47,8 @@ ingress:
 
 resources:
   requests:
-    cpu: 500m
-    memory: 250Mi
+    cpu: 50m
+    memory: 150Mi
 
 nodeSelector: {}
 
