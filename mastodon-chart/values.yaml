@@ -211,7 +211,7 @@ ingress:
 jobs:
   annotations: {}
   cleanupMedia:
-    enabled: true
+    enabled: false
     schedule: "0 5 * * *"
     days: 7
     resources:
