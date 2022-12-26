@@ -8,9 +8,11 @@ configuration:
   redis:
     database: 5
   s3:
-    aliasHost: test-files.toot.community
-    bucket: test-files-toot-community
-    endpoint: https://ams3.digitaloceanspaces.com
+    aliasHost: test-static.toot.community
+    bucket: test-static-toot-community
+    endpoint: https://0ae89288096e9795bb1a5d327d89aec5.r2.cloudflarestorage.com
+    hostname: 0ae89288096e9795bb1a5d327d89aec5.r2.cloudflarestorage.com
+    region: auto
 
 web:
   domain: test.toot.community

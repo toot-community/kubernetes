@@ -45,7 +45,7 @@ configuration:
     port: 6379
     database: 0
   s3:
-    aliasHost: files.toot.community/static
+    aliasHost: static.toot.community
     bucket: static
     endpoint: https://files-toot-community.ams3.digitaloceanspaces.com
     hostname: ams3.digitaloceanspaces.com
