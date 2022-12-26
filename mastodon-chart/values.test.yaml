@@ -10,10 +10,6 @@ configuration:
   s3:
     aliasHost: test-static.toot.community
     bucket: test-static-toot-community
-    endpoint: https://0ae89288096e9795bb1a5d327d89aec5.r2.cloudflarestorage.com
-    hostname: 0ae89288096e9795bb1a5d327d89aec5.r2.cloudflarestorage.com
-    region: auto
-
 web:
   domain: test.toot.community
   resources:

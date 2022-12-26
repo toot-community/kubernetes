@@ -46,11 +46,11 @@ configuration:
     database: 0
   s3:
     aliasHost: static.toot.community
-    bucket: static
-    endpoint: https://files-toot-community.ams3.digitaloceanspaces.com
-    hostname: ams3.digitaloceanspaces.com
+    bucket: static-toot-community
+    endpoint: https://0ae89288096e9795bb1a5d327d89aec5.r2.cloudflarestorage.com
+    hostname: 0ae89288096e9795bb1a5d327d89aec5.r2.cloudflarestorage.com
+    region: auto
     protocol: https
-    region: ams3
   smtp:
     authMethod: plain
     caFile: /etc/ssl/certs/ca-certificates.crt
