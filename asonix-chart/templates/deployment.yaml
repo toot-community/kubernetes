@@ -14,7 +14,9 @@ spec:
   template:
     metadata:
       annotations:
-        {{- toYaml .Values.podAnnotations | nindent 8 }}
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
         {{- if .Values.asonix.prometheusEndpoint }}
         {{- if .Values.asonix.prometheusEndpoint.enabled }}
         prometheus.io/scrape: "true"
