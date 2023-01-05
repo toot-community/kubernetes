@@ -18,7 +18,7 @@ spec:
         {{- if .Values.asonix.prometheusEndpoint }}
         {{- if .Values.asonix.prometheusEndpoint.enabled }}
         prometheus.io/scrape: "true"
-        prometheus.io/port: {{ .Values.asonix.scapeEndpoint.port | quote }}
+        prometheus.io/port: {{ .Values.asonix.prometheusEndpoint.port | quote }}
         {{- end }}
         {{- end }}
       labels:
