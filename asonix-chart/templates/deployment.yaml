@@ -13,10 +13,14 @@ spec:
       {{- include "asonix.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        {{- toYaml .Values.podAnnotations | nindent 8 }}
+        {{- if .Values.asonix.prometheusEndpoint }}
+        {{- if .Values.asonix.prometheusEndpoint.enabled }}
+        prometheus.io/scrape: "true"
+        prometheus.io/port: {{ .Values.asonix.scapeEndpoint.port | quote }}
+        {{- end }}
+        {{- end }}
       labels:
         {{- include "asonix.selectorLabels" . | nindent 8 }}
     spec:

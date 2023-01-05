@@ -72,5 +72,10 @@ asonix:
   localDomains: toot.community
   localBlurb: "<p>Private relay. Contact me to get added.</p>"
 
+  prometheusEndpoint:
+    enabled: true
+    address: 0.0.0.0
+    port: 9000
+
 onePassword:
   itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/2xuoljx6vdnuiwunvznqpkuw7a

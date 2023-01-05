@@ -15,6 +15,12 @@ data:
   FOOTER_BLURB: {{ .Values.asonix.footerBlurb }}
   LOCAL_DOMAINS: {{ .Values.asonix.localDomains }}
   LOCAL_BLURB: {{ .Values.asonix.localBlurb }}
+  {{- if .Values.asonix.prometheusEndpoint }}
+  {{- if .Values.asonix.prometheusEndpoint.enabled }}
+  PROMETHEUS_ADDR: {{ .Values.asonix.prometheusEndpoint.address }}
+  PROMETHEUS_PORT: {{ .Values.asonix.prometheusEndpoint.port | quote }}
+  {{- end }}
+  {{- end }}
 metadata:
   labels:
     {{- include "asonix.labels" . | nindent 4 }}
