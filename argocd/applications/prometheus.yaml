@@ -25,7 +25,19 @@ spec:
           server:
             create: true
         alertmanager:
-          enabled: false
+          enabled: true
+          receivers:
+          - name: 'robusta'
+            webhook_configs:
+              - url: 'http://robusta-runner.robusta.svc.cluster.local/api/alerts'
+                send_resolved: true
+          route:
+            routes:
+            - receiver: 'robusta'
+              match_re:
+                severity: 'info|warn|error|critical'
+              repeat_interval: 4h
+              continue: true
         configmapReload:
           prometheus:
             enabled: true
