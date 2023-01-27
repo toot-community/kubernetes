@@ -62,4 +62,4 @@ spec:
             role_attribute_path: contains(groups[*], '@toot-community/administrators') && 'GrafanaAdmin' || 'Viewer'
             allow_assign_grafana_admin: true
     repoURL: https://grafana.github.io/helm-charts
-    targetRevision: 6.47.1
+    targetRevision: 6.50.4
