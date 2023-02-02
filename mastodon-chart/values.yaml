@@ -293,7 +293,7 @@ keda:
             stabilizationWindowSeconds: 60
     memoryUtilizationScaling:
       enabled: true
-      targetAverageUtilization: 150
+      targetAverageUtilization: 125
   workers:
     enabled: true
     cooldownPeriod: 300
