@@ -109,8 +109,7 @@ statistics:
 
 translations:
   enabled: true
-  privateAddressRange: 10.245.0.0/16
-  endpoint: http://translate.libretranslate.svc.cluster.local
+  endpoint: https://translate.universeodon.com
 
 streaming:
   replicaCount: 3

@@ -40,7 +40,6 @@ data:
   STATSD_ADDR: {{ .Values.statistics.address }}
   {{- end }}
   {{- if .Values.translations.enabled }}
-  ALLOWED_PRIVATE_ADDRESSES: {{ .Values.translations.privateAddressRange }}
   LIBRE_TRANSLATE_ENDPOINT: {{ .Values.translations.endpoint }}
   {{- end}}
 kind: ConfigMap
