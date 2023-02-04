@@ -265,6 +265,11 @@ onePassword:
     ## - credentials: <json content for awscli>
   - suffix: creds-dbbackup
     itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/jfozn7v2ufxp72ddnhigsjtmue
+    ## Contents:
+    ## - ACCESS_KEY_ID: <content>
+    ## - ACCESS_SECRET_KEY: <content>
+  - name: db-backup-toot-community-creds
+    itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/2pry55mb7zpdtbssb4iohrc3iy
 
 keda:
   prometheusAddress: http://prometheus-server.monitoring.svc.cluster.local
