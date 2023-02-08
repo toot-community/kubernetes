@@ -38,7 +38,7 @@ configuration:
       usernameKey: username
       passwordKey: password
   databaseReplicas:
-    enabled: true
+    enabled: false
     hosts:
       - tootcommunity-db-pooler-ro
   defaultLocale: en
@@ -99,7 +99,7 @@ web:
   # the primary db deployment will capture all /oauth & verify credential requests to workaround
   # any race conditions during db replication
   primaryDatabaseDeployment:
-    enabled: true
+    enabled: false
     replicaCount: 2
     resources:
       requests:
