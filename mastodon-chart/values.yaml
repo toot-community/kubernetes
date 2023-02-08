@@ -28,16 +28,19 @@ securityContext:
 
 configuration:
   database:
-    host: private-db-postgresql-ams3-toot-community-do-user-924064-0.b.db.ondigitalocean.com
-    name: mastodon-pool
+    host: tootcommunity-db-pooler-rw
+    name: app
     poolsize: 25
-    port: 25061
-    sslmode: require
-    user: mastodon
+    port: 5432
+    sslmode: prefer
+    credentialSecret:
+      name: tootcommunity-db-app
+      usernameKey: username
+      passwordKey: password
   databaseReplicas:
-    enabled: false
+    enabled: true
     hosts:
-      - private-db-ro-postgresql-ams3-toot-community-01-do-user-924064.b.db.ondigitalocean.com
+      - tootcommunity-db-pooler-ro
   defaultLocale: en
   localDomain: toot.community
   redis:
@@ -96,7 +99,7 @@ web:
   # the primary db deployment will capture all /oauth & verify credential requests to workaround
   # any race conditions during db replication
   primaryDatabaseDeployment:
-    enabled: false
+    enabled: true
     replicaCount: 2
     resources:
       requests:
