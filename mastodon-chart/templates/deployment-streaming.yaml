@@ -37,11 +37,16 @@ spec:
               value: {{ . }}
             {{- end }}
             {{- end }}
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.configuration.database.credentialSecret.usernameKey }}
+                  name: {{ .Values.configuration.database.credentialSecret.name }}
             - name: DB_PASS
               valueFrom:
                 secretKeyRef:
-                  key: DB_PASS
-                  name: {{ include "mastodon.fullname" . }}-secrets-env
+                  key: {{ .Values.configuration.database.credentialSecret.passwordKey }}
+                  name: {{ .Values.configuration.database.credentialSecret.name }}
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:

@@ -5,7 +5,6 @@ data:
   DB_POOL: {{ .Values.configuration.database.poolsize | quote }}
   DB_PORT: {{ .Values.configuration.database.port | quote }}
   DB_SSLMODE: {{ .Values.configuration.database.sslmode }}
-  DB_USER: {{ .Values.configuration.database.user }}
   DEFAULT_LOCALE: {{ .Values.configuration.defaultLocale }}
   ES_ENABLED: "false"
   LOCAL_DOMAIN: {{ .Values.configuration.localDomain }}
