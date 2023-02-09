@@ -278,7 +278,7 @@ keda:
           scaleUp:
             stabilizationWindowSeconds: 60
     memoryUtilizationScaling:
-      enabled: true
+      enabled: false
       targetAverageUtilization: 125
   workers:
     enabled: true
