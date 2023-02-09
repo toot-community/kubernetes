@@ -71,7 +71,7 @@ web:
   maxThreads: 6
   resources:
     requests:
-      cpu: 1250m
+      cpu: 900m
       memory: 1000Mi
   startupProbe:
     httpGet:
