@@ -219,23 +219,6 @@ jobs:
     resources:
       requests:
         cpu: 1000m
-  psqlBackup:
-    enabled: true
-    schedule: "0 1 * * *"
-    resources:
-      requests:
-        cpu: 1000m # compression-heavy workload
-    postgresImage:
-      repository: postgres
-      tag: 14-alpine
-      pullPolicy: IfNotPresent
-    overrideDatabaseInfo: # to bypass the pool
-      name: mastodon
-      port: 25060
-    awsCliImage:
-      repository: amazon/aws-cli
-      tag: 2.9.2
-      pullPolicy: IfNotPresent
   removePreviewCards:
     enabled: true
     schedule: "0 5 * * 1"
@@ -264,10 +247,6 @@ onePassword:
     ## - VAPID_PUBLIC_KEY
   - suffix: secrets-env
     itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/oezhcrluaumwwkrwulo62wnmhe
-    ## Contents:
-    ## - credentials: <json content for awscli>
-  - suffix: creds-dbbackup
-    itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/jfozn7v2ufxp72ddnhigsjtmue
     ## Contents:
     ## - ACCESS_KEY_ID: <content>
     ## - ACCESS_SECRET_KEY: <content>
