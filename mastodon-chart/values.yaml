@@ -29,6 +29,7 @@ securityContext:
 configuration:
   database:
     host: tootcommunity-db-pooler-rw
+    hostWithoutPooler: tootcommunity-db-rw
     name: app
     poolsize: 25
     port: 5432
