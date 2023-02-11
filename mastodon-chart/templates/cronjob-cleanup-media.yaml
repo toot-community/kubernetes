@@ -25,7 +25,7 @@ spec:
               command:
                 - bash
                 - -c
-                - "bin/tootctl media remove --days={{ .Values.jobs.cleanupMedia.days | default 7 }}"
+                - "bin/tootctl media remove --days={{ .Values.jobs.cleanupMedia.days | default 7 }} --prune-profiles"
               envFrom:
                 - configMapRef:
                     name: {{ include "mastodon.fullname" . }}-env
