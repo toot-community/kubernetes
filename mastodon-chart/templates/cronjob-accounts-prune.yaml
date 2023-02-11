@@ -25,7 +25,7 @@ spec:
               command:
                 - bash
                 - -c
-                - "bin/tootctl accounts prune
+                - "bin/tootctl accounts prune"
               envFrom:
                 - configMapRef:
                     name: {{ include "mastodon.fullname" . }}-env
