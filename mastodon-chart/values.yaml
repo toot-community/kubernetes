@@ -215,14 +215,20 @@ jobs:
   annotations: {}
   cleanupMedia:
     enabled: true
-    schedule: "0 5 * * *"
+    schedule: "0 5 * * *" # every day at 5am
     days: 7
+    resources:
+      requests:
+        cpu: 1000m
+  accountsPrune:
+    enabled: true
+    schedule: "0 2 * * 1" # every monday at 2am
     resources:
       requests:
         cpu: 1000m
   removePreviewCards:
     enabled: true
-    schedule: "0 5 * * 1"
+    schedule: "0 5 * * 1" # every monday at 5am
     resources:
       requests:
         cpu: 500m
