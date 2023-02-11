@@ -1,7 +1,7 @@
 image:
   repository: tootsuite/mastodon
   pullPolicy: IfNotPresent
-  tag: "v4.0.2"
+  tag: "v4.1.0"
 
 imagePullSecrets: [ ]
 nameOverride: ""
