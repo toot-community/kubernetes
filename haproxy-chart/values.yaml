@@ -1,4 +1,4 @@
-replicaCount: 4
+replicaCount: 8
 
 image:
   repository: haproxy
@@ -40,7 +40,15 @@ resources:
 
 nodeSelector: {}
 
-tolerations: []
+tolerations:
+  - effect: NoSchedule
+    key: limit
+    operator: Equal
+    value: db
+  - effect: NoSchedule
+    key: limit
+    operator: Equal
+    value: sidekiq
 
 affinity: {}
 
