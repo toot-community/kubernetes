@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ include "mastodon.fullname" . }}-cleanup-unused-media
+  name: {{ include "mastodon.fullname" . }}-cleanup-unused-media-profiles
   labels:
     {{- include "mastodon.labels" . | nindent 4 }}
 spec:
@@ -11,7 +11,7 @@ spec:
     spec:
       template:
         metadata:
-          name: {{ include "mastodon.fullname" . }}-cleanup-unused-media
+          name: {{ include "mastodon.fullname" . }}-cleanup-unused-media-profiles
           {{- with .Values.jobs.annotations }}
           annotations:
             {{- toYaml . | nindent 12 }}
@@ -19,13 +19,13 @@ spec:
         spec:
           restartPolicy: OnFailure
           containers:
-            - name: cleanup-unused-media
+            - name: cleanup-unused-media-profiles
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
               imagePullPolicy: {{ .Values.image.pullPolicy }}
               command:
                 - bash
                 - -c
-                - "bin/tootctl media remove --days={{ .Values.jobs.cleanupMedia.days | default 7 }}"
+                - "bin/tootctl media remove --days={{ .Values.jobs.cleanupMedia.days | default 7 }} --prune-profiles"
               envFrom:
                 - configMapRef:
                     name: {{ include "mastodon.fullname" . }}-env
