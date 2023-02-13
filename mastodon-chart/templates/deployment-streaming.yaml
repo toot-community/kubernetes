@@ -54,6 +54,8 @@ spec:
                   name: {{ include "mastodon.fullname" . }}-secrets-env
             - name: PORT
               value: "4000"
+            - name: DB_SSLMODE
+              value: "disable"
           envFrom:
             - configMapRef:
                 name: {{ include "mastodon.fullname" . }}-env
