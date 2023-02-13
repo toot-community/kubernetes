@@ -6,6 +6,9 @@ metadata:
     app: {{ include "mastodon.fullname" . }}-streaming
     version: {{ .Chart.AppVersion | quote }}
   name: {{ include "mastodon.fullname" . }}-streaming
+  annotations:
+    prometheus.io/port: streaming
+    prometheus.io/scrape: "true"
 spec:
   replicas: {{ .Values.streaming.replicaCount }}
   selector:
