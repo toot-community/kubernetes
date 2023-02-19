@@ -73,7 +73,9 @@ web:
   resources:
     requests:
       cpu: 750m
-      memory: 750Mi
+      memory: 1250Mi
+    limits:
+      memory: 1250Mi
   startupProbe:
     httpGet:
       port: http
