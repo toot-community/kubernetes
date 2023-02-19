@@ -185,9 +185,9 @@ sidekiq:
       resources:
         requests:
           cpu: 500m
-          memory: 350Mi
+          memory: 750Mi
         limits:
-          memory: 350Mi
+          memory: 750Mi
     - name: push
       concurrency: 25
       queues:
