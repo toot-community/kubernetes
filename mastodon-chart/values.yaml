@@ -165,9 +165,9 @@ sidekiq:
       resources:
         requests:
           cpu: 500m
-          memory: 500Mi
+          memory: 750Mi
         limits:
-          memory: 500Mi
+          memory: 750Mi
     - name: ingress
       concurrency: 25
       queues:
