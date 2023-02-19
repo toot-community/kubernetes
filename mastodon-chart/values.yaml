@@ -142,7 +142,9 @@ streaming:
   resources:
     requests:
       cpu: 25m
-      memory: 150Mi
+      memory: 250Mi
+    limits:
+      memory: 250Mi
   podDisruptionBudget:
     enabled: true
     minAvailable: 1
@@ -163,7 +165,9 @@ sidekiq:
       resources:
         requests:
           cpu: 500m
-          memory: 350Mi
+          memory: 500Mi
+        limits:
+          memory: 500Mi
     - name: ingress
       concurrency: 25
       queues:
@@ -171,7 +175,9 @@ sidekiq:
       resources:
         requests:
           cpu: 750m
-          memory: 500Mi
+          memory: 1000Mi
+        limits:
+          memory: 1000Mi
     - name: pull
       concurrency: 25
       queues:
@@ -190,20 +196,26 @@ sidekiq:
           memory: 350Mi
     - name: mailers
       concurrency: 5
+      replicaCount: 1
       queues:
         - mailers
       resources:
         requests:
-          cpu: 100m
-          memory: 100Mi
+          cpu: 10m
+          memory: 250Mi
+        limits:
+          memory: 250Mi
     - name: scheduler
       concurrency: 5
+      replicaCount: 1
       queues:
         - scheduler
       resources:
         requests:
           cpu: 100m
-          memory: 100Mi
+          memory: 750Mi
+        limits:
+          memory: 750Mi
 
 ingress:
   ingressClassName: nginx
@@ -222,18 +234,26 @@ jobs:
     resources:
       requests:
         cpu: 1000m
+        memory: 1000Mi
+      limits:
+        memory: 1000Mi
   accountsPrune:
     enabled: true
     schedule: "0 2 * * 1" # every monday at 2am
     resources:
       requests:
         cpu: 1000m
+        memory: 1000Mi
+      limits:
+        memory: 1000Mi
   removePreviewCards:
     enabled: true
     schedule: "0 5 * * 1" # every monday at 5am
     resources:
       requests:
         cpu: 500m
+        memory: 400Mi
+      limits:
         memory: 400Mi
     days: 180
 
