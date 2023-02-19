@@ -202,9 +202,9 @@ sidekiq:
       resources:
         requests:
           cpu: 10m
-          memory: 250Mi
+          memory: 350Mi
         limits:
-          memory: 250Mi
+          memory: 350Mi
     - name: scheduler
       concurrency: 5
       replicaCount: 1
