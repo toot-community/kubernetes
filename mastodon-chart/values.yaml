@@ -186,6 +186,8 @@ sidekiq:
         requests:
           cpu: 500m
           memory: 350Mi
+        limits:
+          memory: 350Mi
     - name: push
       concurrency: 25
       queues:
@@ -193,6 +195,8 @@ sidekiq:
       resources:
         requests:
           cpu: 500m
+          memory: 350Mi
+        limits:
           memory: 350Mi
     - name: mailers
       concurrency: 5
