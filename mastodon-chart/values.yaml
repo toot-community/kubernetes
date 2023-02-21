@@ -49,6 +49,12 @@ configuration:
     host: redis-haproxy.haproxy.svc.cluster.local
     port: 6379
     database: 0
+    separateCache:
+      enabled: true
+      host: tootcommunity-cache-redis-master
+      port: 6379
+      authSecretName: tootcommunity-cache-creds
+      authSecretKey: password
   s3:
     aliasHost: static.toot.community
     bucket: static-toot-community

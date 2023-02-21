@@ -58,6 +58,13 @@ spec:
                 secretKeyRef:
                   key: {{ $context.Values.configuration.database.credentialSecret.passwordKey }}
                   name: {{ $context.Values.configuration.database.credentialSecret.name }}
+            {{- if $context.Values.configuration.redis.separateCache.enabled | default false }}
+            - name: CACHE_REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{ $context.Values.configuration.redis.separateCache.authSecretKey }}
+                  name: {{ $context.Values.configuration.redis.separateCache.authSecretName }}
+            {{- end }}
           envFrom:
             - configMapRef:
                 name: {{ include "mastodon.fullname" $context }}-env
