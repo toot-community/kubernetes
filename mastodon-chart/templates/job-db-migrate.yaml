@@ -1,3 +1,4 @@
+{{ if .Values.configuration.database.runDatabaseMigrations | default false }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -51,3 +52,4 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       serviceAccountName: {{ include "mastodon.serviceAccountName" . }}
       terminationGracePeriodSeconds: 30
+{{ end }}
