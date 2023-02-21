@@ -285,6 +285,11 @@ onePassword:
     ## - ACCESS_SECRET_KEY: <content>
   - name: db-backup-toot-community-creds
     itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/2pry55mb7zpdtbssb4iohrc3iy
+    ## Contents:
+    ## - ACCESS_KEY_ID: <content>
+    ## - ACCESS_SECRET_KEY: <content>
+  - name: tootcommunity-cache-creds
+    itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/s2wewklhkhfruuvtgyjrsme5iu
 
 keda:
   prometheusAddress: http://prometheus-server.monitoring.svc.cluster.local
