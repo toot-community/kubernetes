@@ -38,6 +38,7 @@ configuration:
       name: tootcommunity-db-app
       usernameKey: username
       passwordKey: password
+    runDatabaseMigrations: false
   databaseReplicas:
     enabled: false
     hosts:
@@ -289,7 +290,7 @@ onePassword:
     ## - ACCESS_KEY_ID: <content>
     ## - ACCESS_SECRET_KEY: <content>
   - name: tootcommunity-cache-creds
-    itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/s2wewklhkhfruuvtgyjrsme5iu
+    itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/6zcsxkpbl5bk2bau5ws7hwxc7m
 
 keda:
   prometheusAddress: http://prometheus-server.monitoring.svc.cluster.local
