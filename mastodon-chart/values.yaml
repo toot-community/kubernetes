@@ -50,7 +50,7 @@ configuration:
     port: 6379
     database: 0
     separateCache:
-      enabled: false
+      enabled: true
       host: tootcommunity-cache-redis-master
       port: 6379
       authSecretName: tootcommunity-cache-creds
