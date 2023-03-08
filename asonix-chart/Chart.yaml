@@ -3,4 +3,4 @@ name: asonix
 description: A Helm chart for running Asonix, a Mastodon relay server
 type: application
 version: 1.1.0
-appVersion: "0.3.81"
+appVersion: "0.3.82"
