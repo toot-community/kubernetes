@@ -16,6 +16,8 @@ spec:
           annotations:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          labels:
+            {{- include "mastodon.labels" . | nindent 12 }}
         spec:
           restartPolicy: OnFailure
           containers:
