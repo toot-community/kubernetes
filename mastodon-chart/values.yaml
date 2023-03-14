@@ -304,7 +304,7 @@ keda:
     enabled: true
     cooldownPeriod: 30
     maxReplicaCount: 40
-    minReplicaCount: 3
+    minReplicaCount: 2
     pollingInterval: 15
     fallback:
       enabled: true
@@ -320,8 +320,9 @@ keda:
               - type: Percent
                 value: 25
                 periodSeconds: 60
+            stabilizationWindowSeconds: 120
           scaleUp:
-            stabilizationWindowSeconds: 60
+            stabilizationWindowSeconds: 15
     memoryUtilizationScaling:
       enabled: false
       targetAverageUtilization: 125
