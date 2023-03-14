@@ -125,7 +125,7 @@ translations:
   endpoint: https://translate.universeodon.com
 
 streaming:
-  replicaCount: 3
+  replicaCount: 2
   strategy:
     rollingUpdate:
       maxSurge: 25%
