@@ -1,5 +1,5 @@
 image:
-  repository: tootsuite/mastodon
+  repository: ghcr.io/mastodon/mastodon
   pullPolicy: IfNotPresent
   tag: "v4.1.0"
 
