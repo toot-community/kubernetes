@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cnpg
+  namespace: argocd
+spec:
+  destination:
+    namespace: cnpg-system
+    server: https://kubernetes.default.svc
+  project: infrastructure
+  source:
+    chart: cloudnative-pg
+    helm:
+      parameters:
+      - name: config.create
+        value: "true"
+      values: |-
+        config:
+          data:
+            INHERITED_ANNOTATIONS: prometheus.io/port, prometheus.io/scrape
+            INHERITED_LABELS: velero.io/exclude-from-backup
+    repoURL: https://cloudnative-pg.github.io/charts
+    targetRevision: 0.17.0
