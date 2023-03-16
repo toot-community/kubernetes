@@ -1,0 +1,69 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tootcommunity-cache
+  namespace: argocd
+spec:
+  destination:
+    namespace: tootcommunity
+    server: https://kubernetes.default.svc
+  project: mastodon
+  source:
+    chart: redis
+    helm:
+      values: |
+        architecture: standalone
+
+        auth:
+          existingSecret: tootcommunity-cache-creds
+          existingSecretPasswordKey: password
+
+        commonConfiguration: |
+          maxmemory 512mb
+          maxmemory-policy allkeys-lru
+
+        master:
+          count: 1
+          disableCommands:
+            - FLUSHDB
+            - FLUSHALL
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              memory: 512Mi
+          nodeSelector:
+            doks.digitalocean.com/node-pool: pool-db-1
+          tolerations:
+            - effect: NoSchedule
+              key: limit
+              operator: Equal
+              value: db
+          persistence:
+            enabled: false
+          kind: Deployment
+
+        replica:
+          replicaCount: 0
+
+        networkPolicy:
+          enabled: true
+          allowExternal: false
+          extraIngress:
+            - from:
+                - podSelector:
+                    matchLabels:
+                      app.kubernetes.io/instance: tootcommunity
+              ports:
+                - protocol: TCP
+                  port: 6379
+
+        metrics:
+          enabled: true
+    repoURL: https://charts.bitnami.com/bitnami
+    targetRevision: 17.8.5
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
