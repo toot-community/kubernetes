@@ -119,12 +119,6 @@ For redundancy, we run two instances of Prometheus StatsD Exporter as containers
 cannot continue booting if Prometheus StatsD Exporter is unavailable; this is why we run at least two instances of
 Prometheus StatsD Exporter.
 
-### LibreTranslate
-
-LibreTranslate is a free and open-source machine translation API used by Mastodon. It's hosted on the cluster as well.
-All the configuration for LibreTranslate can be found in the directory `libretranslate/`. It's also deployed through
-ArgoCD.
-
 ### Mastodon (toot.community)
 
 Mastodon is an accessible, open-source social network server. It is a decentralized alternative to commercial platforms

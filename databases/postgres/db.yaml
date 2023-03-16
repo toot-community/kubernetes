@@ -1,0 +1,69 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: tootcommunity-db
+  namespace: tootcommunity
+  annotations:
+    prometheus.io/port: 9187                                                                                                                                                                                 │
+    prometheus.io/scrape: "true"
+  labels:
+    velero.io/exclude-from-backup: "true"
+spec:
+  instances: 2
+  primaryUpdateStrategy: unsupervised
+  imageName: ghcr.io/cloudnative-pg/postgresql:14.6
+  storage:
+    size: 80Gi
+
+  affinity:
+    nodeSelector:
+      doks.digitalocean.com/node-pool: pool-db-1
+    tolerations:
+      - effect: NoSchedule
+        key: limit
+        operator: Equal
+        value: db
+
+  postgresql:
+    parameters:
+      # https://pgtune.leopard.in.ua
+      shared_buffers: "1GB"
+      max_connections: "300"
+      effective_cache_size: "3GB"
+      maintenance_work_mem: "256MB"
+      checkpoint_completion_target: "0.9"
+      wal_buffers: "16MB"
+      default_statistics_target: "100"
+      random_page_cost: "1.1"
+      effective_io_concurrency: "200"
+      work_mem: "1747kB"
+      min_wal_size: "2GB"
+      max_wal_size: "8GB"
+      # https://cloudnative-pg.io/documentation/1.18/postgresql_conf/#enabling-pg_stat_statements
+      pg_stat_statements.max: "10000"
+      pg_stat_statements.track: all
+
+  resources:
+    requests:
+      memory: "4Gi"
+      cpu: 2
+    limits:
+      memory: "4Gi"
+
+  backup:
+    barmanObjectStore:
+      destinationPath: "s3://db-backup-toot-community/"
+      endpointURL: "https://0ae89288096e9795bb1a5d327d89aec5.r2.cloudflarestorage.com"
+      serverName: "toot-community-db"
+      s3Credentials:
+        accessKeyId:
+          name: db-backup-toot-community-creds
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: db-backup-toot-community-creds
+          key: ACCESS_SECRET_KEY
+      wal:
+        compression: gzip
+        maxParallel: 8
+        encryption: AES256
+    retentionPolicy: "30d"

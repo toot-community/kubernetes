@@ -7,7 +7,6 @@ resources:
   - projects/mastodon.yaml
   - projects/infrastructure.yaml
   - projects/monitoring.yaml
-  - projects/libretranslate.yaml
   - applications/grafana.yaml
   - applications/prometheus.yaml
   - applications/ingress-nginx.yaml
