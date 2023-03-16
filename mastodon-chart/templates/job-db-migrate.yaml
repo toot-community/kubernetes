@@ -31,8 +31,6 @@ spec:
           env:
             - name: DB_HOST
               value: {{ .Values.configuration.database.hostWithoutPooler }}
-            - name: PORT
-              value: "3000"
             - name: DB_USER
               valueFrom:
                 secretKeyRef:

@@ -38,7 +38,7 @@ configuration:
       name: tootcommunity-db-app
       usernameKey: username
       passwordKey: password
-    runDatabaseMigrations: false
+    runDatabaseMigrations: true
   databaseReplicas:
     enabled: false
     hosts:
