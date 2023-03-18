@@ -126,7 +126,7 @@ translations:
   endpoint: https://translate.universeodon.com
 
 streaming:
-  replicaCount: 2
+  replicaCount: 4
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -150,9 +150,9 @@ streaming:
   resources:
     requests:
       cpu: 25m
-      memory: 250Mi
+      memory: 200Mi
     limits:
-      memory: 250Mi
+      memory: 200Mi
   podDisruptionBudget:
     enabled: true
     minAvailable: 1
