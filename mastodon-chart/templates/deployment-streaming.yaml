@@ -7,7 +7,6 @@ metadata:
     version: {{ .Chart.AppVersion | quote }}
   name: {{ include "mastodon.fullname" . }}-streaming
 spec:
-  replicas: {{ .Values.streaming.replicaCount }}
   selector:
     matchLabels:
       {{- include "mastodon.selectorLabels" . | nindent 6 }}
