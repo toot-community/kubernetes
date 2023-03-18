@@ -327,6 +327,18 @@ keda:
     memoryUtilizationScaling:
       enabled: false
       targetAverageUtilization: 125
+  streaming:
+    enabled: true
+    cooldownPeriod: 30
+    maxReplicaCount: 20
+    minReplicaCount: 2
+    pollingInterval: 15
+    fallback:
+      enabled: true
+      replicas: 4
+      failureThreshold: 4
+    ignoreNullValues: false
+    threshold: 200
   workers:
     enabled: true
     cooldownPeriod: 300

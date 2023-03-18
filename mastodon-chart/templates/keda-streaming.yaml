@@ -1,0 +1,33 @@
+{{ if .Values.keda.streaming.enabled }}
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  labels:
+    {{- include "mastodon.labels" . | nindent 4 }}
+    scaledobject.keda.sh/name: {{ include "mastodon.fullname" . }}-streaming
+  name: {{ include "mastodon.fullname" . }}-streaming
+spec:
+  cooldownPeriod: {{ .Values.keda.streaming.cooldownPeriod }}
+  maxReplicaCount: {{ .Values.keda.streaming.maxReplicaCount }}
+  minReplicaCount: {{ .Values.keda.streaming.minReplicaCount }}
+  pollingInterval: {{ .Values.keda.streaming.pollingInterval }}
+  scaleTargetRef:
+    name: {{ include "mastodon.fullname" . }}-streaming
+  {{- if .Values.keda.streaming.fallback.enabled }}
+  fallback:
+    replicas: {{ .Values.keda.streaming.fallback.replicas }}
+    failureThreshold: {{ .Values.keda.streaming.fallback.failureThreshold }}
+  {{- end }}
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: {{ .Values.keda.prometheusAddress }}
+        metricName: access_frequency
+        query: sum(connected_clients) + sum(connected_channels)
+        threshold: {{ .Values.keda.streaming.threshold | quote }}
+        ignoreNullValues: {{ .Values.keda.streaming.ignoreNullValues | quote }}
+  advanced:
+    {{- if .Values.keda.streaming.advanced }}
+    {{- toYaml .Values.keda.streaming.advanced | nindent 4 }}
+    {{- end }}
+{{ end }}
