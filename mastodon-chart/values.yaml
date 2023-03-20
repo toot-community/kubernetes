@@ -337,7 +337,7 @@ keda:
       replicas: 4
       failureThreshold: 4
     ignoreNullValues: false
-    threshold: 200
+    threshold: 100
   workers:
     enabled: true
     cooldownPeriod: 300
