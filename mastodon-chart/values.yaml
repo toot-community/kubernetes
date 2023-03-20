@@ -80,8 +80,8 @@ web:
   maxThreads: 6
   resources:
     requests:
-      cpu: 750m
-      memory: 1000Mi
+      cpu: 500m
+      memory: 750Mi
     limits:
       memory: 1000Mi
   startupProbe:
@@ -312,7 +312,7 @@ keda:
       replicas: 5
       failureThreshold: 4 # allows prometheus to be down for (4 * 15) seconds before going to fallback
     ignoreNullValues: false
-    threshold: 25
+    threshold: 10
     advanced:
       horizontalPodAutoscalerConfig:
         behavior:
