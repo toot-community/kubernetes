@@ -62,7 +62,6 @@ configuration:
     hostname: 0ae89288096e9795bb1a5d327d89aec5.r2.cloudflarestorage.com
     region: auto
     protocol: https
-    permission: ''
   smtp:
     authMethod: plain
     caFile: /etc/ssl/certs/ca-certificates.crt
