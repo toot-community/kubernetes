@@ -18,7 +18,15 @@ spec:
         controller:
           metrics:
             enabled: true
+
           ingressClass: nginx
+
+          resources:
+            limits:
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
 
           extraVolumes:
           - name: origin-pull-certificate
