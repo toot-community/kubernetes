@@ -23,10 +23,10 @@ spec:
 
           resources:
             limits:
-              memory: 128Mi
+              memory: 256Mi
             requests:
               cpu: 100m
-              memory: 128Mi
+              memory: 256Mi
 
           extraVolumes:
           - name: origin-pull-certificate
