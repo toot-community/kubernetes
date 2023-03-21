@@ -68,4 +68,4 @@ spec:
         prometheus-node-exporter:
           enabled: true
     repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 19.7.2
+    targetRevision: 20.0.0
