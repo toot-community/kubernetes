@@ -1,0 +1,114 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: loki
+  namespace: argocd
+spec:
+  destination:
+    namespace: loki
+    server: https://kubernetes.default.svc
+  project: infrastructure
+  source:
+    chart: loki
+    helm:
+      values: |
+        loki:
+          storage:
+            bucketNames:
+              chunks: loki-toot-community
+              ruler: loki-toot-community
+              admin: loki-toot-community
+            type: s3
+            s3:
+              s3: s3://loki-toot-community
+              endpoint: https://0ae89288096e9795bb1a5d327d89aec5.r2.cloudflarestorage.com
+              secretAccessKey: ${S3_SECRET_ACCESS_KEY}
+              accessKeyId: ${S3_ACCESS_KEY}
+              s3ForcePathStyle: false
+              region: auto
+              insecure: false
+
+          compactor:
+            working_directory: /var/loki/compactor
+            shared_store: s3
+            compaction_interval: 10m
+            retention_enabled: true
+            retention_delete_delay: 2h
+            retention_delete_worker_count: 150
+
+          limits_config:
+            retention_period: 24h
+
+        read:
+          extraArgs:
+            - -config.expand-env=true
+          extraEnv:
+            - name: S3_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: loki-access-s3
+                  key: key
+            - name: S3_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: loki-access-s3
+                  key: secret-key
+          podAnnotations:
+            prometheus.io/port: http-metrics
+            prometheus.io/scrape: "true"
+          persistence:
+            enableStatefulSetAutoDeletePVC: false
+
+        write:
+          extraArgs:
+            - -config.expand-env=true
+          extraEnv:
+            - name: S3_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: loki-access-s3
+                  key: key
+            - name: S3_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: loki-access-s3
+                  key: secret-key
+          podAnnotations:
+            prometheus.io/port: http-metrics
+            prometheus.io/scrape: "true"
+
+          persistence:
+            enableStatefulSetAutoDeletePVC: false
+
+        test:
+          enabled: false
+
+        monitoring:
+          dashboards:
+            enabled: false
+          rules:
+            enabled: false
+            alerting: false
+          serviceMonitor:
+            enabled: false
+          selfMonitoring:
+            enabled: false
+            grafanaAgent:
+              installOperator: false
+          lokiCanary:
+            enabled: false
+            tolerations:
+              - effect: NoSchedule
+                key: limit
+                operator: Equal
+                value: db
+              - effect: NoSchedule
+                key: limit
+                operator: Equal
+                value: sidekiq
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 4.8.0
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

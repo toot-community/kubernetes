@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: promtail
+  namespace: argocd
+spec:
+  destination:
+    namespace: loki
+    server: https://kubernetes.default.svc
+  project: infrastructure
+  source:
+    chart: promtail
+    helm:
+      values: |
+        tolerations:
+          - key: node-role.kubernetes.io/master
+            operator: Exists
+            effect: NoSchedule
+          - key: node-role.kubernetes.io/control-plane
+            operator: Exists
+            effect: NoSchedule
+          - effect: NoSchedule
+            key: limit
+            operator: Equal
+            value: db
+          - effect: NoSchedule
+            key: limit
+            operator: Equal
+            value: sidekiq
+
+        config:
+          clients:
+            - url: http://loki-gateway/loki/api/v1/push
+              tenant_id: tootcommunity
+
+        podAnnotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/port: "http-metrics"
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 6.9.3
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
