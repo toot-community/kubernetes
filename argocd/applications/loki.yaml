@@ -37,7 +37,7 @@ spec:
             retention_delete_worker_count: 150
 
           limits_config:
-            retention_period: 24h
+            retention_period: 1440h
 
         read:
           extraArgs:
