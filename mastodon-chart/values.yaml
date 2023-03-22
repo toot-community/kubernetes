@@ -45,6 +45,7 @@ configuration:
       - tootcommunity-db-pooler-ro
   defaultLocale: en
   localDomain: toot.community
+  allowedPrivateAddresses: 10.245.0.0/16
   redis:
     host: redis-haproxy.haproxy.svc.cluster.local
     port: 6379

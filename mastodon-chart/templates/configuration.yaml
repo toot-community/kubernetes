@@ -39,6 +39,7 @@ data:
   WEB_DOMAIN: {{ .Values.web.domain }}
   WEB_CONCURRENCY: {{ .Values.web.concurrency | quote }}
   MAX_THREADS: {{ .Values.web.maxThreads | quote }}
+  ALLOWED_PRIVATE_ADDRESSES: {{ .Values.configuration.allowedPrivateAddresses }}
   {{- if .Values.statistics.enabled }}
   STATSD_ADDR: {{ .Values.statistics.address }}
   {{- end }}
