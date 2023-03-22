@@ -21,3 +21,7 @@ spec:
             INHERITED_LABELS: velero.io/exclude-from-backup
     repoURL: https://cloudnative-pg.github.io/charts
     targetRevision: 0.17.1
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

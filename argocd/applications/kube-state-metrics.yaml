@@ -11,6 +11,7 @@ spec:
   syncPolicy:
     automated:
       selfHeal: true
+      prune: true
   source:
     chart: kube-state-metrics
     repoURL: https://prometheus-community.github.io/helm-charts
