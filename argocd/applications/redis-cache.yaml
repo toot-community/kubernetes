@@ -48,16 +48,7 @@ spec:
           replicaCount: 0
 
         networkPolicy:
-          enabled: true
-          allowExternal: false
-          extraIngress:
-            - from:
-                - podSelector:
-                    matchLabels:
-                      app.kubernetes.io/instance: tootcommunity
-              ports:
-                - protocol: TCP
-                  port: 6379
+          enabled: false
 
         metrics:
           enabled: true
