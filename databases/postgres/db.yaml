@@ -13,7 +13,7 @@ spec:
   primaryUpdateStrategy: unsupervised
   imageName: ghcr.io/cloudnative-pg/postgresql:14.6
   storage:
-    size: 80Gi
+    size: 150Gi
 
   affinity:
     nodeSelector:
