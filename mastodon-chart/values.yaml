@@ -81,9 +81,9 @@ web:
   resources:
     requests:
       cpu: 750m
-      memory: 1000Mi
+      memory: 1250Mi
     limits:
-      memory: 1000Mi
+      memory: 1250Mi
   startupProbe:
     httpGet:
       port: http
@@ -325,8 +325,8 @@ keda:
           scaleUp:
             stabilizationWindowSeconds: 15
     memoryUtilizationScaling:
-      enabled: false
-      targetAverageUtilization: 125
+      enabled: true
+      targetAverageUtilization: 80
   streaming:
     enabled: true
     cooldownPeriod: 30
