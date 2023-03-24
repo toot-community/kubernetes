@@ -62,7 +62,7 @@ spec:
         metrics:
           enabled: true
     repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: 17.9.1
+    targetRevision: 17.9.2
   syncPolicy:
     automated:
       prune: true
