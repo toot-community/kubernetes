@@ -9,6 +9,7 @@ resources:
   - projects/monitoring.yaml
   - applications/kube-prometheus-stack.yaml
   - applications/prometheus-operator-crds.yaml
+  - applications/monitoring-manifests.yaml
   - applications/ingress-nginx.yaml
   - applications/keda.yaml
   - applications/kube-state-metrics.yaml
