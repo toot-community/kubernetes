@@ -1,0 +1,85 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-prometheus-stack
+  namespace: argocd
+spec:
+  destination:
+    namespace: monitoring
+    server: https://kubernetes.default.svc
+  project: monitoring
+  source:
+    chart: kube-prometheus-stack
+    helm:
+      skipCrds: true
+      values: |
+        grafana:
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            hosts:
+              - monitoring.toot.community
+            tls:
+              - hosts:
+                  - monitoring.toot.community
+                secretName: cf-origin-certificate-tls
+
+          sidecar:
+            dashboards:
+              enabled: true
+              label: grafana_dashboard
+
+          extraSecretMounts:
+            - name: auth-oauth-secret-mount
+              secretName: grafana-auth-oauth-secret
+              defaultMode: 0440
+              mountPath: /etc/secrets/auth_oauth
+              readOnly: true
+
+          grafana.ini:
+            check_for_updates: false
+            reporting_enabled: false
+            server:
+              root_url: https://monitoring.toot.community
+              enable_gzip: true
+            auth:
+              disable_login_form: true
+            auth.github:
+              enabled: true
+              allow_sign_up: true
+              client_id: $__file{/etc/secrets/auth_oauth/client_id}
+              client_secret: $__file{/etc/secrets/auth_oauth/client_secret}
+              scopes: user:email,read:org
+              auth_url: https://github.com/login/oauth/authorize
+              token_url: https://github.com/login/oauth/access_token
+              api_url: https://api.github.com/user
+              allowed_organizations: toot-community
+              role_attribute_path: contains(groups[*], '@toot-community/administrators') && 'GrafanaAdmin' || 'Viewer'
+              allow_assign_grafana_admin: true
+
+        prometheus:
+          prometheusSpec:
+            retention: 30d
+            podMonitorNamespaceSelector: {}
+            podMonitorSelector: {}
+            podMonitorSelectorNilUsesHelmValues: false
+            serviceMonitorNamespaceSelector: {}
+            serviceMonitorSelector: {}
+            serviceMonitorSelectorNilUsesHelmValues: false
+            ruleNamespaceSelector: {}
+            ruleSelectorNilUsesHelmValues: false
+            ruleSelector: {}
+
+            storageSpec:
+              volumeClaimTemplate:
+                spec:
+                  resources:
+                    requests:
+                      storage: 40Gi
+
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 45.7.1
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

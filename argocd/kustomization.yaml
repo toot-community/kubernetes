@@ -30,6 +30,10 @@ resources:
   # it's fine if you don't, but then remove this line & the corresponding file.
   - configuration/1p-secrets.yaml
 
+  # add monitoring to ArgoCD
+  - monitoring/servicemonitors.yaml
+  - monitoring/dashboard.yaml
+
 patchesStrategicMerge:
   - configuration/configmap-cm.yaml
   - configuration/configmap-rbac-cm.yaml

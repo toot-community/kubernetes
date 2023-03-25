@@ -24,6 +24,9 @@ spec:
         operator: Equal
         value: db
 
+  monitoring:
+    enablePodMonitor: true
+
   postgresql:
     parameters:
       # https://pgtune.leopard.in.ua
