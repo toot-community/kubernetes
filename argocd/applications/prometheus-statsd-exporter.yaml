@@ -18,6 +18,9 @@ spec:
       values: |
         replicaCount: 2
 
+        serviceMonitor:
+          enabled: true
+
         statsd:
           mappingConfig: |
             ## Prometheus Statsd Exporter mapping for Mastodon 4.0+
