@@ -7,8 +7,8 @@ resources:
   - projects/mastodon.yaml
   - projects/infrastructure.yaml
   - projects/monitoring.yaml
-  - applications/grafana.yaml
-  - applications/prometheus.yaml
+  - applications/kube-prometheus-stack.yaml
+  - applications/prometheus-operator-crds.yaml
   - applications/ingress-nginx.yaml
   - applications/keda.yaml
   - applications/kube-state-metrics.yaml
