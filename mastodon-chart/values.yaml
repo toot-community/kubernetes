@@ -300,7 +300,7 @@ onePassword:
     itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/6zcsxkpbl5bk2bau5ws7hwxc7m
 
 keda:
-  prometheusAddress: http://prometheus-server.monitoring.svc.cluster.local
+  prometheusAddress: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local
   web:
     enabled: true
     cooldownPeriod: 30
@@ -348,7 +348,7 @@ keda:
     ignoreNullValues: false
     fallback:
       enabled: true
-      replicas: 1
+      replicas: 3
       failureThreshold: 4
     advanced:
       horizontalPodAutoscalerConfig:
