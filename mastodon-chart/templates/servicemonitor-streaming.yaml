@@ -9,9 +9,6 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/component: streaming
-  namespaceSelector:
-    matchNames:
-      - {{ .Release.Namespace }}
   endpoints:
     - port: {{ .Values.streaming.serviceMonitor.port }}
       interval: {{ .Values.streaming.serviceMonitor.interval }}
