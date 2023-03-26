@@ -15,7 +15,8 @@ spec:
       values: |
         defaultRules:
           rules:
-            kublet: false
+            kubelet: false
+            kubeSchedulerAlerting: false
 
         grafana:
           ingress:
