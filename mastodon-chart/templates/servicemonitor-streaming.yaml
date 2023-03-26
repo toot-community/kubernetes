@@ -1,16 +1,16 @@
-{{ if .Values.streaming.serviceMonitor.enabled }}
+{{ if .Values.streaming.podMonitor.enabled }}
 apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
+kind: PodMonitor
 metadata:
   name: {{ include "mastodon.fullname" . }}-streaming
 spec:
   selector:
     matchLabels:
       app.kubernetes.io/component: streaming
-  endpoints:
-    - port: {{ .Values.streaming.serviceMonitor.port }}
-      interval: {{ .Values.streaming.serviceMonitor.interval }}
-      scrapeTimeout: {{ .Values.streaming.serviceMonitor.scrapeTimeout }}
-      path: {{ .Values.streaming.serviceMonitor.path }}
-      scheme: {{ .Values.streaming.serviceMonitor.scheme }}
+  podMetricsEndpoints:
+    - port: {{ .Values.streaming.podMonitor.port }}
+      interval: {{ .Values.streaming.podMonitor.interval }}
+      scrapeTimeout: {{ .Values.streaming.podMonitor.scrapeTimeout }}
+      path: {{ .Values.streaming.podMonitor.path }}
+      scheme: {{ .Values.streaming.podMonitor.scheme }}
 {{ end }}

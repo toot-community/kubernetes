@@ -156,7 +156,7 @@ streaming:
   podDisruptionBudget:
     enabled: true
     minAvailable: 1
-  serviceMonitor:
+  podMonitor:
     enabled: true
     interval: 30s
     scrapeTimeout: 10s
