@@ -3,8 +3,6 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: {{ include "mastodon.fullname" . }}-streaming
-  labels:
-    {{- include "mastodon.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
