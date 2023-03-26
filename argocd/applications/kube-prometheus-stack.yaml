@@ -59,7 +59,6 @@ spec:
 
         prometheus:
           prometheusSpec:
-            image: quay.io/prometheus/prometheus:v2.43.0
             retention: 30d
             podMonitorNamespaceSelector: {}
             podMonitorSelector: {}
