@@ -44,7 +44,7 @@ data:
             "type": "dashboard"
           },
           {
-            "datasource": "${DS_PROMETHEUS}",
+            "datasource": "${DataSource}",
             "enable": true,
             "expr": "sum(changes(nginx_ingress_controller_config_last_reload_successful_timestamp_seconds{instance!=\"unknown\",controller_class=~\"$controller_class\",namespace=~\"$namespace\"}[30s])) by (controller_class)",
             "hide": false,
@@ -75,7 +75,7 @@ data:
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "${DataSource}",
           "format": "ops",
           "gauge": {
             "maxValue": 100,
@@ -157,7 +157,7 @@ data:
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "${DataSource}",
           "format": "none",
           "gauge": {
             "maxValue": 100,
@@ -240,7 +240,7 @@ data:
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "${DataSource}",
           "format": "percentunit",
           "gauge": {
             "maxValue": 100,
@@ -322,7 +322,7 @@ data:
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "${DataSource}",
           "decimals": 0,
           "format": "none",
           "gauge": {
@@ -406,7 +406,7 @@ data:
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "${DataSource}",
           "decimals": 0,
           "format": "none",
           "gauge": {
@@ -486,7 +486,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "${DataSource}",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -596,7 +596,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "${DataSource}",
           "decimals": 2,
           "editable": false,
           "error": false,
@@ -697,7 +697,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "${DataSource}",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -813,7 +813,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "${DataSource}",
           "decimals": 2,
           "editable": false,
           "error": false,
@@ -915,7 +915,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "${DataSource}",
           "decimals": 3,
           "editable": false,
           "error": false,
@@ -1018,7 +1018,7 @@ data:
         },
         {
           "columns": [],
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "${DataSource}",
           "fontSize": "100%",
           "gridPos": {
             "h": 8,
@@ -1243,7 +1243,7 @@ data:
               "value": "current"
             }
           ],
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "${DataSource}",
           "fontSize": "100%",
           "gridPos": {
             "h": 8,
@@ -1331,7 +1331,7 @@ data:
               "text": "All",
               "value": "$__all"
             },
-            "datasource": "${DS_PROMETHEUS}",
+            "datasource": "${DataSource}",
             "hide": 0,
             "includeAll": true,
             "label": "Namespace",
@@ -1354,7 +1354,7 @@ data:
               "text": "All",
               "value": "$__all"
             },
-            "datasource": "${DS_PROMETHEUS}",
+            "datasource": "${DataSource}",
             "hide": 0,
             "includeAll": true,
             "label": "Controller Class",
@@ -1377,7 +1377,7 @@ data:
               "text": "All",
               "value": "$__all"
             },
-            "datasource": "${DS_PROMETHEUS}",
+            "datasource": "${DataSource}",
             "hide": 0,
             "includeAll": true,
             "label": "Controller",
@@ -1401,7 +1401,7 @@ data:
               "text": "All",
               "value": "$__all"
             },
-            "datasource": "${DS_PROMETHEUS}",
+            "datasource": "${DataSource}",
             "hide": 0,
             "includeAll": true,
             "label": "Ingress",
