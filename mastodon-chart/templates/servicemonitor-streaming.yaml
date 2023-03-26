@@ -1,0 +1,19 @@
+{{ if .Values.streaming.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "mastodon.fullname" . }}-streaming
+  labels:
+    {{- include "mastodon.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "mastodon.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: streaming
+  endpoints:
+    - port: {{ .Values.streaming.serviceMonitor.port }}
+      interval: {{ .Values.streaming.serviceMonitor.interval }}
+      scrapeTimeout: {{ .Values.streaming.serviceMonitor.scrapeTimeout }}
+      path: {{ .Values.streaming.serviceMonitor.path }}
+      scheme: {{ .Values.streaming.serviceMonitor.scheme }}
+{{ end }}

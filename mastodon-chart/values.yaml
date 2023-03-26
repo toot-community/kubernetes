@@ -156,6 +156,13 @@ streaming:
   podDisruptionBudget:
     enabled: true
     minAvailable: 1
+  serviceMonitor:
+    enabled: true
+    interval: 30s
+    scrapeTimeout: 10s
+    path: /metrics
+    port: streaming
+    scheme: http
 
 sidekiq:
   nodeSelector:
