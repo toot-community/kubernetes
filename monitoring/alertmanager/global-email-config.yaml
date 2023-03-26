@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: global-email-config
+  namespace: monitoring
+spec:
+  route:
+    groupBy: ['job']
+    groupWait: 30s
+    groupInterval: 5m
+    repeatInterval: 12h
+    receiver: 'global-email-receiver'
+  receivers:
+    - name: 'global-email-receiver'
+      emailConfigs:
+        - to: 'jorijn@toot.community'
+          sendResolved: true
+        - to: 'mijndert@toot.community'
+          sendResolved: true
