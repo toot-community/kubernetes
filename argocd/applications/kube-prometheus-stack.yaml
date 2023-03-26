@@ -14,7 +14,7 @@ spec:
       skipCrds: true
       values: |
         grafana:
-          image: grafana/grafana:9.3.8
+          image: grafana/grafana:9.4.7
 
           ingress:
             enabled: true
