@@ -13,6 +13,10 @@ spec:
     helm:
       skipCrds: true
       values: |
+        defaultRules:
+          rules:
+            kublet: false
+
         grafana:
           ingress:
             enabled: true
