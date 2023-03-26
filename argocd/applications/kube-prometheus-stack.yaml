@@ -14,8 +14,6 @@ spec:
       skipCrds: true
       values: |
         grafana:
-          image: grafana/grafana:9.3.8
-
           ingress:
             enabled: true
             ingressClassName: nginx
