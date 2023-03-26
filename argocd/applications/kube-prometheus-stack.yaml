@@ -14,6 +14,8 @@ spec:
       skipCrds: true
       values: |
         grafana:
+          image: grafana/grafana:9.3.8
+
           ingress:
             enabled: true
             ingressClassName: nginx
@@ -58,12 +60,8 @@ spec:
               allow_assign_grafana_admin: true
 
         prometheus:
-          image:
-            registry: quay.io
-            repository: prometheus/prometheus
-            tag: v2.42.0
-
           prometheusSpec:
+            image: quay.io/prometheus/prometheus:v2.42.0
             retention: 30d
             podMonitorNamespaceSelector: {}
             podMonitorSelector: {}
@@ -84,6 +82,7 @@ spec:
 
         alertmanager:
           alertmanagerSpec:
+            image: quay.io/prometheus/alertmanager:v0.25.0
             replicas: 2
             alertmanagerConfigSelector:
               matchLabels:

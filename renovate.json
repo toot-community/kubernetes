@@ -5,5 +5,14 @@
   ],
   "argocd": {
     "fileMatch": ["argocd/applications/.+\\.yaml$"]
-  }
+  },
+  "regexManagers": [
+    {
+      "description": "Update docker image references in ArgoCD applications (Helm values)",
+      "fileMatch": ["^argocd\\/applications\\/.+\\.yaml$"],
+      "matchStrings": [
+        "image: (?<depName>.*?):(?<currentValue>.*?)\\s+",
+      ],
+      "datasourceTemplate": "docker"
+    }]
 }
