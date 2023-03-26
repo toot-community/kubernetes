@@ -8,8 +8,10 @@ metadata:
 spec:
   selector:
     matchLabels:
-      {{- include "mastodon.selectorLabels" . | nindent 6 }}
       app.kubernetes.io/component: streaming
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
   endpoints:
     - port: {{ .Values.streaming.serviceMonitor.port }}
       interval: {{ .Values.streaming.serviceMonitor.interval }}

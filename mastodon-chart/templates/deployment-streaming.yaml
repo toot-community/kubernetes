@@ -15,9 +15,6 @@ spec:
     {{- toYaml .Values.streaming.strategy | nindent 4 }}
   template:
     metadata:
-      annotations:
-        prometheus.io/port: streaming
-        prometheus.io/scrape: "true"
       labels:
         {{- include "mastodon.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: streaming
