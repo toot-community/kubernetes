@@ -11,7 +11,7 @@ data:
     datasources:
       - name: loki
         type: loki
-        url: "http://loki-gateway"
+        url: "http://loki-gateway.loki.svc.cluster.local"
         jsonData:
           httpHeaderName1: 'X-Scope-OrgID'
         secureJsonData:
