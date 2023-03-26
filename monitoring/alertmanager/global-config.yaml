@@ -1,0 +1,33 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: alertmanager-global-config
+  namespace: monitoring
+  labels:
+    alertmanagerConfig: global
+spec:
+  route:
+    groupBy: [ 'job' ]
+    groupWait: 30s
+    groupInterval: 5m
+    repeatInterval: 12h
+    receiver: 'global-email-receiver'
+  receivers:
+    - name: 'global-email-receiver'
+      emailConfigs:
+        - to: 'jorijn@toot.community'
+          from: notifications@ses.toot.community
+          sendResolved: true
+          smarthost: email-smtp.eu-west-1.amazonaws.com:587
+          authUsername: AKIA4XREBEBV5D3FVD5H
+          authPassword:
+            key: smtp_password
+            name: smtp-credentials-alertmanager
+        - to: 'mijndert@toot.community'
+          from: notifications@ses.toot.community
+          sendResolved: true
+          smarthost: email-smtp.eu-west-1.amazonaws.com:587
+          authUsername: AKIA4XREBEBV5D3FVD5H
+          authPassword:
+            key: smtp_password
+            name: smtp-credentials-alertmanager

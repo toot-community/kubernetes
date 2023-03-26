@@ -58,6 +58,11 @@ spec:
               allow_assign_grafana_admin: true
 
         prometheus:
+          image:
+            registry: quay.io
+            repository: prometheus/prometheus
+            tag: v2.42.0
+
           prometheusSpec:
             retention: 30d
             podMonitorNamespaceSelector: {}
@@ -77,9 +82,12 @@ spec:
                     requests:
                       storage: 40Gi
 
-        alertmanagerSpec:
-          alertmanagerConfiguration:
-            - global-email-config
+        alertmanager:
+          alertmanagerSpec:
+            replicas: 2
+            alertmanagerConfigSelector:
+              matchLabels:
+                alertmanagerConfig: global
 
     repoURL: https://prometheus-community.github.io/helm-charts
     targetRevision: 45.7.1
