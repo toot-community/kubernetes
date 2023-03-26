@@ -1616,7 +1616,7 @@ data:
               "value": "$__all"
             },
             "datasource": {
-              "uid": "${DataSource}"
+              "uid": "prometheus"
             },
             "definition": "",
             "hide": 0,
@@ -1642,7 +1642,7 @@ data:
               "value": "$__all"
             },
             "datasource": {
-              "uid": "${DataSource}"
+              "uid": "prometheus"
             },
             "definition": "",
             "hide": 0,
@@ -1668,7 +1668,7 @@ data:
               "value": "$__all"
             },
             "datasource": {
-              "uid": "${DataSource}"
+              "uid": "prometheus"
             },
             "definition": "",
             "hide": 0,
@@ -1695,7 +1695,7 @@ data:
               "value": "$__all"
             },
             "datasource": {
-              "uid": "${DataSource}"
+              "uid": "prometheus"
             },
             "definition": "",
             "hide": 0,
