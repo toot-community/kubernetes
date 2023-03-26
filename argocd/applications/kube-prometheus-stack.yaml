@@ -13,11 +13,6 @@ spec:
     helm:
       skipCrds: true
       values: |
-        defaultRules:
-          rules:
-            kubelet: false
-            kubeSchedulerAlerting: false
-
         grafana:
           ingress:
             enabled: true
