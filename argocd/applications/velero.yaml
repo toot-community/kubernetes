@@ -51,6 +51,13 @@ spec:
           existingSecret: cloud-credentials
           extraSecretRef: cloud-credentials-env
 
+        metrics:
+          enabled: true
+            serviceMonitor:
+              enabled: true
+          prometheusRule:
+            enabled: true
+
         extraObjects:
           - apiVersion: onepassword.com/v1
             kind: OnePasswordItem
