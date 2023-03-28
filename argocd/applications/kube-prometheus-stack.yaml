@@ -79,7 +79,6 @@ spec:
 
         alertmanager:
           alertmanagerSpec:
-            image: quay.io/prometheus/alertmanager:v0.25.0
             replicas: 2
             alertmanagerConfigSelector:
               matchLabels:
