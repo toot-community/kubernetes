@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: mastodon-streaming-api
+  namespace: tootcommunity
+spec:
+  groups:
+    - name: mastodon-streaming-api
+      rules:
+        - alert: MastodonLowNetworkReceiveBytesForStreaming
+          expr: |
+            sum(sort_desc(sum(irate(container_network_receive_bytes_total{job="kubelet", metrics_path="/metrics/cadvisor", cluster="", namespace=~"tootcommunity"}[4h:5m])
+            * on (namespace, pod)
+            group_left(workload, workload_type)
+            namespace_workload_pod:kube_pod_owner:relabel{cluster="", namespace=~"tootcommunity", workload=~"tootcommunity-mastodon-streaming", workload_type="deployment"}) by (pod))) < 5000
+          for: 5m
+          labels:
+            severity: warning
+            alert_group: mastodon
+          annotations:
+            summary: "Low network receive bytes for at least 5 minutes"
+            description: "The average network receive bytes for the tootcommunity-mastodon-streaming deployment has been below 5000 for at least 5 minutes."

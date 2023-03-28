@@ -99,6 +99,8 @@ web:
     periodSeconds: 10
     successThreshold: 1
     timeoutSeconds: 10
+  annotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -163,6 +165,8 @@ streaming:
     path: /metrics
     port: streaming
     scheme: http
+  annotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
 
 sidekiq:
   nodeSelector:

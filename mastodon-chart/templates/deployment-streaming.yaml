@@ -5,6 +5,10 @@ metadata:
     {{- include "mastodon.labels" . | nindent 4 }}
     app: {{ include "mastodon.fullname" . }}-streaming
     version: {{ .Chart.AppVersion | quote }}
+  {{- if .Values.streaming.annotations }}
+    annotations:
+      {{- toYaml .Values.streaming.annotations | nindent 4 }}
+  {{- end }}
   name: {{ include "mastodon.fullname" . }}-streaming
 spec:
   selector:
