@@ -177,6 +177,20 @@ sidekiq:
       operator: Equal
       value: sidekiq
   workers:
+    - name: generic
+      concurrency: 25
+      replicaCount: 2
+      queues:
+        - default
+        - ingress
+        - pull
+        - push
+      resources:
+        requests:
+          cpu: 1000m
+          memory: 1000Mi
+        limits:
+          memory: 1000Mi
     - name: default
       concurrency: 25
       queues:
@@ -354,7 +368,7 @@ keda:
     enabled: true
     cooldownPeriod: 300
     maxReplicaCount: 10
-    minReplicaCount: 1
+    minReplicaCount: 0
     pollingInterval: 10
     ignoreNullValues: false
     fallback:
@@ -378,7 +392,7 @@ keda:
                 periodSeconds: 30
     queues:
       - name: default
-        threshold: 1
+        threshold: 5
         queue: default
       - name: ingress
         threshold: 5
