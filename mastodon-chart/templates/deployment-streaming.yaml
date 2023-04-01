@@ -77,9 +77,4 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       serviceAccountName: {{ include "mastodon.serviceAccountName" . }}
-      {{- if .Values.streaming.recycle }}
-      {{- if .Values.streaming.recycle.enabled }}
-      activeDeadlineSeconds: {{ .Values.streaming.recycle.activeDeadlineSeconds }}
-      terminationGracePeriodSeconds: {{ .Values.streaming.recycle.terminationGracePeriodSeconds }}
-      {{- end }}
-      {{- end }}
+      terminationGracePeriodSeconds: 30
