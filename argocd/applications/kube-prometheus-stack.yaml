@@ -13,6 +13,13 @@ spec:
     helm:
       skipCrds: true
       values: |
+        defaultRules:
+          create: true
+            rules:
+              kubeControllerManager: false
+              kubeSchedulerAlerting: false
+              kubeSchedulerRecording: false
+
         grafana:
           ingress:
             enabled: true
