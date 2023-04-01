@@ -12,6 +12,10 @@ spec:
     groupInterval: 5m
     repeatInterval: 12h
     receiver: 'global-email-receiver'
+    routes:
+      - match:
+          severity: warning
+        receiver: 'global-email-receiver'
   receivers:
     - name: 'global-email-receiver'
       emailConfigs:
