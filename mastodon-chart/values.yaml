@@ -167,6 +167,16 @@ streaming:
     scheme: http
   annotations:
     cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+  #
+  # The Streaming API seems to suffer some sort of bug where it will
+  # stop passing through events after a certain amount of time. It varies
+  # but appears to happen somewhere after 36 hours. While I figure this out,
+  # this is a workaround to restart the streaming pods every 24 hours.
+  #
+  recycle:
+    enabled: true
+    activeDeadlineSeconds: 86400 # 24 hours
+    terminationGracePeriodSeconds: 60 # 1 minute
 
 sidekiq:
   nodeSelector:
