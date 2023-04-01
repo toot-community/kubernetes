@@ -12,8 +12,8 @@ spec:
     groupInterval: 5m
     repeatInterval: 12h
     receiver: 'global-email-receiver'
-    match:
-      severity: "warning|critical"
+#    match:
+#      severity: "warning|critical"
   receivers:
     - name: 'global-email-receiver'
       emailConfigs:
