@@ -26,8 +26,3 @@ schedules:
       - kube-public
       - kube-node-lease
       - default
-  - name: hourly-mastodon-backup # keep for 24 hours
-    schedule: "0 * * * *"
-    ttl: 24h0m0s
-    includedNamespaces:
-      - tootcommunity
