@@ -23,11 +23,8 @@ spec:
 
         nodeAgent:
           resources:
-            requests:
-              cpu: 100m
-              memory: 128Mi
+            requests: ~
             limits:
-              cpu: 500m
               memory: 512Mi
           tolerations:
             - effect: NoSchedule
