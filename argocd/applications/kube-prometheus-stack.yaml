@@ -89,7 +89,7 @@ spec:
             replicas: 2
             alertmanagerConfigSelector:
               matchLabels:
-                alertmanagerConfig: "global"
+                alertmanagerConfig: global
             alertmanagerConfigMatcherStrategy:
               type: None
 
