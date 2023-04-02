@@ -15,10 +15,10 @@ spec:
       values: |
         defaultRules:
           create: true
-            rules:
-              kubeControllerManager: false
-              kubeSchedulerAlerting: false
-              kubeSchedulerRecording: false
+          rules:
+            kubeControllerManager: false
+            kubeSchedulerAlerting: false
+            kubeSchedulerRecording: false
 
         grafana:
           ingress:
