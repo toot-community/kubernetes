@@ -8,6 +8,8 @@ data:
   haproxy.cfg: |
     global
       log stdout format raw local0
+      nbthread 4
+      cpu-map auto:1/1-4 0-3
 
     defaults
      log global
@@ -25,6 +27,7 @@ data:
     frontend redis
       bind :6379
       default_backend upstream_redis
+      mode tcp
 
     frontend stats
       mode http
@@ -36,3 +39,5 @@ data:
 
     backend upstream_redis
       server upstream_redis {{ .Values.upstreamRedis.host }}:{{ .Values.upstreamRedis.port }} ssl verify none check inter 1s resolvers kube-dns
+      mode tcp
+      balance roundrobin

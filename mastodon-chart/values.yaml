@@ -167,6 +167,8 @@ streaming:
     scheme: http
   annotations:
     cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+  redis:
+    url: rediss://private-db-redis-ams3-toot-community-do-user-924064-0.b.db.ondigitalocean.com:25061
 
 sidekiq:
   nodeSelector:

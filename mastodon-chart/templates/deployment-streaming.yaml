@@ -36,6 +36,16 @@ spec:
               value: {{ . }}
             {{- end }}
             {{- end }}
+            {{- if .Values.streaming.redis }}
+            {{- if .Values.streaming.redis.url }}
+            - name: REDIS_URL
+              value: {{ .Values.streaming.redis.url }}
+            - name: REDIS_HOST
+              value: empty
+            - name: REDIS_PORT
+              value: empty
+            {{- end }}
+            {{- end }}
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
