@@ -4,6 +4,25 @@
     "config:base"
   ],
   "argocd": {
-    "fileMatch": ["argocd/applications/.+\\.yaml$"]
-  }
+    "fileMatch": [
+      "argocd/applications/.+\\.yaml$"
+    ]
+  },
+  "packageRules": [
+    {
+      "description": "Automerge non-major updates",
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "matchCurrentVersion": "!/^0/",
+      "automerge": true,
+      "matchPackagePatterns": [
+        "*",
+        "!cloudnative-pg",
+        "!ghcr.io/mastodon/mastodon",
+        "!asonix/relay"
+      ]
+    }
+  ]
 }
