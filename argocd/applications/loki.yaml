@@ -53,9 +53,6 @@ spec:
                 secretKeyRef:
                   name: loki-access-s3
                   key: secret-key
-          podAnnotations:
-            prometheus.io/port: http-metrics
-            prometheus.io/scrape: "true"
           persistence:
             enableStatefulSetAutoDeletePVC: false
 
@@ -73,10 +70,23 @@ spec:
                 secretKeyRef:
                   name: loki-access-s3
                   key: secret-key
-          podAnnotations:
-            prometheus.io/port: http-metrics
-            prometheus.io/scrape: "true"
+          persistence:
+            enableStatefulSetAutoDeletePVC: false
 
+        backend:
+          extraArgs:
+            - -config.expand-env=true
+          extraEnv:
+            - name: S3_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: loki-access-s3
+                  key: key
+            - name: S3_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: loki-access-s3
+                  key: secret-key
           persistence:
             enableStatefulSetAutoDeletePVC: false
 
