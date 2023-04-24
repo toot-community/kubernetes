@@ -360,10 +360,10 @@ keda:
     pollingInterval: 15
     fallback:
       enabled: true
-      replicas: 4
+      replicas: 3
       failureThreshold: 4
     ignoreNullValues: false
-    threshold: 100
+    threshold: 500
   workers:
     enabled: true
     cooldownPeriod: 300
