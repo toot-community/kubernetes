@@ -22,8 +22,9 @@
         "!cloudnative-pg",
         "!ghcr.io/mastodon/mastodon",
         "!asonix/relay"
-      ]
+      ],
+      "automergeType": "branch"
     }
   ],
-  "ignoreTests": "true"
+  "ignoreTests": true
 }
