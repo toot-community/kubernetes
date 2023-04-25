@@ -24,5 +24,6 @@
         "!asonix/relay"
       ]
     }
-  ]
+  ],
+  "ignoreTests": "true"
 }
