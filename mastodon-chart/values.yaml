@@ -81,9 +81,9 @@ web:
   resources:
     requests:
       cpu: 750m
-      memory: 1250Mi
+      memory: 1565M
     limits:
-      memory: 1500Mi
+      memory: 1565M
   startupProbe:
     httpGet:
       port: http
@@ -151,10 +151,10 @@ streaming:
     failureThreshold: 30
   resources:
     requests:
-      cpu: 25m
-      memory: 200Mi
+      cpu: 19m
+      memory: 210M
     limits:
-      memory: 200Mi
+      memory: 210M
   podDisruptionBudget:
     enabled: true
     minAvailable: 1
@@ -189,10 +189,10 @@ sidekiq:
         - push
       resources:
         requests:
-          cpu: 1000m
-          memory: 1000Mi
+          cpu: 1128m
+          memory: 1389M
         limits:
-          memory: 1000Mi
+          memory: 1389M
     - name: default
       concurrency: 25
       queues:
@@ -240,10 +240,10 @@ sidekiq:
         - mailers
       resources:
         requests:
-          cpu: 10m
-          memory: 400Mi
+          cpu: 5m
+          memory: 310M
         limits:
-          memory: 400Mi
+          memory: 310M
     - name: scheduler
       concurrency: 5
       replicaCount: 1
@@ -251,10 +251,10 @@ sidekiq:
         - scheduler
       resources:
         requests:
-          cpu: 100m
-          memory: 750Mi
+          cpu: 32m
+          memory: 1093M
         limits:
-          memory: 750Mi
+          memory: 1093M
 
 ingress:
   ingressClassName: nginx
@@ -272,19 +272,29 @@ jobs:
     days: 7
     resources:
       requests:
-        cpu: 1000m
-        memory: 1000Mi
+        cpu: 254m
+        memory: 451M
       limits:
-        memory: 1000Mi
+        memory: 451M
+  cleanupMediaProfiles:
+    enabled: true
+    schedule: "0 5 * * *" # every day at 5am
+    days: 7
+    resources:
+      requests:
+        cpu: 1092m
+        memory: 363M
+      limits:
+        memory: 363M
   accountsPrune:
     enabled: true
     schedule: "0 2 * * 1" # every monday at 2am
     resources:
       requests:
-        cpu: 1000m
-        memory: 1000Mi
+        cpu: 1033m
+        memory: 584M
       limits:
-        memory: 1000Mi
+        memory: 584M
   removePreviewCards:
     enabled: true
     schedule: "0 5 * * 1" # every monday at 5am
@@ -351,7 +361,7 @@ keda:
             stabilizationWindowSeconds: 120
     memoryUtilizationScaling:
       enabled: true
-      targetAverageUtilization: 100
+      targetAverageUtilization: 90
   streaming:
     enabled: true
     cooldownPeriod: 30

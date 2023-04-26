@@ -1,4 +1,4 @@
-{{ if .Values.jobs.cleanupMedia.enabled }}
+{{ if .Values.jobs.cleanupMediaProfiles.enabled }}
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "mastodon.labels" . | nindent 4 }}
 spec:
-  schedule: {{ .Values.jobs.cleanupMedia.schedule }}
+  schedule: {{ .Values.jobs.cleanupMediaProfiles.schedule }}
   jobTemplate:
     spec:
       template:
@@ -27,7 +27,7 @@ spec:
               command:
                 - bash
                 - -c
-                - "bin/tootctl media remove --days={{ .Values.jobs.cleanupMedia.days | default 7 }} --prune-profiles"
+                - "bin/tootctl media remove --days={{ .Values.jobs.cleanupMediaProfiles.days | default 7 }} --prune-profiles"
               envFrom:
                 - configMapRef:
                     name: {{ include "mastodon.fullname" . }}-env
@@ -52,5 +52,5 @@ spec:
                       name: {{ .Values.configuration.redis.separateCache.authSecretName }}
                 {{- end }}
               resources:
-                {{- toYaml .Values.jobs.cleanupMedia.resources | nindent 16 }}
+                {{- toYaml .Values.jobs.cleanupMediaProfiles.resources | nindent 16 }}
 {{ end }}
