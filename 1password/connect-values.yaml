@@ -2,25 +2,22 @@ connect:
   api:
     resources:
       requests:
-        cpu: 15m
-        memory: 128Mi
+        cpu: 22m
+        memory: 282M
       limits:
-        cpu: 100m
-        memory: 256Mi
+        memory: 282M
   sync:
     resources:
       requests:
-        cpu: 10m
-        memory: 64Mi
+        cpu: 5m
+        memory: 141M
       limits:
-        cpu: 100m
-        memory: 128Mi
+        memory: 141M
 
 operator:
   resources:
     requests:
-      cpu: 10m
-      memory: 64Mi
+      cpu: 5m
+      memory: 36M
     limits:
-      cpu: 100m
-      memory: 128Mi
+      memory: 36M
