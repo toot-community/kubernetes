@@ -20,4 +20,4 @@ operator:
       cpu: 5m
       memory: 36M
     limits:
-      memory: 36M
+      memory: 128Mi
