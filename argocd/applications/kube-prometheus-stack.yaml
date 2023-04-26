@@ -76,6 +76,12 @@ spec:
             ruleNamespaceSelector: {}
             ruleSelectorNilUsesHelmValues: false
             ruleSelector: {}
+            resources:
+              requests:
+                cpu: 74m
+                memory: 2739M
+              limits:
+                memory: 2739M
 
             storageSpec:
               volumeClaimTemplate:
@@ -92,6 +98,12 @@ spec:
                 alertmanagerConfig: global
             alertmanagerConfigMatcherStrategy:
               type: None
+            resources:
+              requests:
+                  cpu: 5m
+                  memory: 71M
+              limits:
+                  memory: 71M
 
     repoURL: https://prometheus-community.github.io/helm-charts
     targetRevision: 45.21.0
