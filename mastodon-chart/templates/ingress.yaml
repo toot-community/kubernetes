@@ -4,6 +4,7 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 40m
+    nginx.ingress.kubernetes.io/client-body-buffer-size: 40m
   labels:
     {{- include "mastodon.labels" . | nindent 4 }}
   name: {{ $fullName }}
