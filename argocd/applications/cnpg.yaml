@@ -20,7 +20,7 @@ spec:
             INHERITED_ANNOTATIONS: prometheus.io/port, prometheus.io/scrape
             INHERITED_LABELS: velero.io/exclude-from-backup
     repoURL: https://cloudnative-pg.github.io/charts
-    targetRevision: 0.17.1
+    targetRevision: 0.18.0
   syncPolicy:
     automated:
       selfHeal: true
