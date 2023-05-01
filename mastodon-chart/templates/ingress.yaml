@@ -3,8 +3,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: 40m
-    nginx.ingress.kubernetes.io/client-body-buffer-size: 40m
+    nginx.ingress.kubernetes.io/proxy-body-size: 80m
+    nginx.ingress.kubernetes.io/client-body-buffer-size: 80m
   labels:
     {{- include "mastodon.labels" . | nindent 4 }}
   name: {{ $fullName }}
