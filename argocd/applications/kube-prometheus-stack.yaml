@@ -31,7 +31,8 @@ spec:
             tls:
               - hosts:
                   - monitoring.toot.community
-                secretName: cf-origin-certificate-tls
+                secretName: monitoring.toot.community-tls
+                # secretName: cf-origin-certificate-tls
 
           sidecar:
             dashboards:
