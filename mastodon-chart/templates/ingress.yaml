@@ -5,6 +5,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 80m
     nginx.ingress.kubernetes.io/client-body-buffer-size: 80m
+    cert-manager.io/cluster-issuer: letsencrypt-prod
   labels:
     {{- include "mastodon.labels" . | nindent 4 }}
   name: {{ $fullName }}

@@ -83,9 +83,9 @@ spec:
             enable-real-ip: "true"
             proxy-real-ip-cidr: "0.0.0.0/0"
             forwarded-for-header: "X-Forwarded-For"
-            server-snippet: |
-              ssl_client_certificate /var/lib/certificates/cloudflare/authenticated_origin_pull_ca.pem;
-              ssl_verify_client on;
+          #  server-snippet: |
+          #    ssl_client_certificate /var/lib/certificates/cloudflare/authenticated_origin_pull_ca.pem;
+          #    ssl_verify_client on;
 
           replicaCount: 3
 
