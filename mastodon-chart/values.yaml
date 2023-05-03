@@ -262,7 +262,8 @@ ingress:
   tls:
     - hosts:
         - toot.community
-      secretName: cf-origin-certificate-tls
+#      secretName: cf-origin-certificate-tls
+      secretName: toot.community-tls
 
 jobs:
   annotations: {}
