@@ -36,27 +36,31 @@ spec:
       # Total Memory (RAM): 5 GB
       # CPUs num: 4
       # Data Storage: ssd
-      shared_buffers: "1280MB"
-      max_connections: "200"
-      effective_cache_size: "3840MB"
-      maintenance_work_mem: "320MB"
+      shared_buffers: "3GB"
+      max_connections: "300"
+      effective_cache_size: "9GB"
+      maintenance_work_mem: "768MB"
       checkpoint_completion_target: "0.9"
       wal_buffers: "16MB"
       default_statistics_target: "100"
       random_page_cost: "1.1"
       effective_io_concurrency: "200"
-      work_mem: "3276kB"
+      work_mem: "3932kB"
       min_wal_size: "1GB"
       max_wal_size: "4GB"
+      max_worker_processes: "8"
+      max_parallel_workers_per_gather: "4"
+      max_parallel_workers: "8"
+      max_parallel_maintenance_workers: "4"
       # https://cloudnative-pg.io/documentation/1.18/postgresql_conf/#enabling-pg_stat_statements
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
 
   resources:
     requests:
-      memory: "5Gi"
+      memory: "14Gi"
     limits:
-      memory: "5Gi"
+      memory: "14Gi"
 
   backup:
     barmanObjectStore:
