@@ -23,7 +23,7 @@ spec:
                   - key: doks.digitalocean.com/node-pool
                     operator: In
                     values:
-                      - pool-db-1
+                      - pool-db-3
       containers: []
       tolerations:
         - effect: NoSchedule

@@ -17,7 +17,7 @@ spec:
 
   affinity:
     nodeSelector:
-      doks.digitalocean.com/node-pool: pool-db-1
+      doks.digitalocean.com/node-pool: pool-db-3
     tolerations:
       - effect: NoSchedule
         key: limit
