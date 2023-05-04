@@ -15,18 +15,18 @@ spec:
       default_pool_size: "145"
   template:
     spec:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: doks.digitalocean.com/node-pool
-                    operator: In
-                    values:
-                      - pool-db-3
+#      affinity:
+#        nodeAffinity:
+#          requiredDuringSchedulingIgnoredDuringExecution:
+#            nodeSelectorTerms:
+#              - matchExpressions:
+#                  - key: doks.digitalocean.com/node-pool
+#                    operator: In
+#                    values:
+#                      - pool-db-3
       containers: []
-      tolerations:
-        - effect: NoSchedule
-          key: limit
-          operator: Equal
-          value: db
+#      tolerations:
+#        - effect: NoSchedule
+#          key: limit
+#          operator: Equal
+#          value: db
