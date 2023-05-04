@@ -15,14 +15,14 @@ spec:
   storage:
     size: 150Gi
 
-  affinity:
-    nodeSelector:
-      doks.digitalocean.com/node-pool: pool-db-3
-    tolerations:
-      - effect: NoSchedule
-        key: limit
-        operator: Equal
-        value: db
+#  affinity:
+#    nodeSelector:
+#      doks.digitalocean.com/node-pool: pool-db-3
+#    tolerations:
+#      - effect: NoSchedule
+#        key: limit
+#        operator: Equal
+#        value: db
 
   monitoring:
     enablePodMonitor: true
@@ -33,34 +33,34 @@ spec:
       # DB Version: 14
       # OS Type: linux
       # DB Type: web
-      # Total Memory (RAM): 5 GB
-      # CPUs num: 4
+      # Total Memory (RAM): 10 GB
+      # CPUs num: 6
       # Data Storage: ssd
-      shared_buffers: "3GB"
-      max_connections: "300"
-      effective_cache_size: "9GB"
-      maintenance_work_mem: "768MB"
+      shared_buffers: "2560MB"
+      max_connections: "200"
+      effective_cache_size: "7680MB"
+      maintenance_work_mem: "640MB"
       checkpoint_completion_target: "0.9"
       wal_buffers: "16MB"
       default_statistics_target: "100"
       random_page_cost: "1.1"
       effective_io_concurrency: "200"
-      work_mem: "3932kB"
+      work_mem: "4369kB"
       min_wal_size: "1GB"
       max_wal_size: "4GB"
-      max_worker_processes: "8"
-      max_parallel_workers_per_gather: "4"
-      max_parallel_workers: "8"
-      max_parallel_maintenance_workers: "4"
+      max_worker_processes: "6"
+      max_parallel_workers_per_gather: "3"
+      max_parallel_workers: "6"
+      max_parallel_maintenance_workers: "3"
       # https://cloudnative-pg.io/documentation/1.18/postgresql_conf/#enabling-pg_stat_statements
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
 
   resources:
     requests:
-      memory: "14Gi"
+      memory: "10Gi"
     limits:
-      memory: "14Gi"
+      memory: "11Gi"
 
   backup:
     barmanObjectStore:
