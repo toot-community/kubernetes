@@ -33,13 +33,13 @@ spec:
               memory: 512Mi
             limits:
               memory: 512Mi
-          #nodeSelector:
-          #  doks.digitalocean.com/node-pool: pool-db-3
-          #tolerations:
-          #  - effect: NoSchedule
-          #    key: limit
-          #    operator: Equal
-          #    value: db
+          nodeSelector:
+            doks.digitalocean.com/node-pool: pool-db-2
+          tolerations:
+            - effect: NoSchedule
+              key: limit
+              operator: Equal
+              value: db
           persistence:
             enabled: false
           kind: Deployment

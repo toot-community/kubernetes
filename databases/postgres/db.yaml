@@ -58,9 +58,9 @@ spec:
 
   resources:
     requests:
-      memory: "10Gi"
-    limits:
       memory: "11Gi"
+    limits:
+      memory: "13Gi"
 
   backup:
     barmanObjectStore:
