@@ -21,11 +21,18 @@ spec:
         snapshotsEnabled: false
         deployNodeAgent: true
 
+        resources:
+          requests:
+            cpu: 71m
+            memory: 128Mi
+          limits:
+            memory: 512Mi
+
         nodeAgent:
           resources:
             requests:
               cpu: 1m
-              memory: 32Mi
+              memory: 176M
             limits:
               memory: 512Mi
           tolerations:

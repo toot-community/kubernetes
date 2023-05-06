@@ -29,7 +29,7 @@ spec:
             - FLUSHALL
           resources:
             requests:
-              cpu: 100m
+              cpu: 17m
               memory: 512Mi
             limits:
               memory: 512Mi

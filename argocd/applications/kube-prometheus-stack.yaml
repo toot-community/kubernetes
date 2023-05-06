@@ -13,6 +13,15 @@ spec:
     helm:
       skipCrds: true
       values: |
+        prometheusOperator:
+          prometheusConfigReloader:
+            resources:
+              requests:
+                cpu: 5m
+                memory: 50Mi
+              limits:
+                memory: 50Mi
+
         defaultRules:
           create: true
           rules:

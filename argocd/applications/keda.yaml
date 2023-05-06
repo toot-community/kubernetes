@@ -22,3 +22,22 @@ spec:
           replicaCount: 2
         metricsServer:
           replicaCount: 2
+        resources:
+          operator:
+            requests:
+              cpu: 5m
+              memory: 82M
+            limits:
+              memory: 82M
+          webhooks:
+            requests:
+              cpu: 5m
+              memory: 23M
+            limits:
+              memory: 23M
+          metricServer:
+            requests:
+              cpu: 5m
+              memory: 51M
+            limits:
+              memory: 51M
