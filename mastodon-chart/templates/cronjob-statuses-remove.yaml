@@ -11,7 +11,7 @@ spec:
     spec:
       template:
         metadata:
-          name: {{ include "mastodon.fullname" . }}-cleanup-unused-media
+          name: {{ include "mastodon.fullname" . }}-statuses-remove
           {{- with .Values.jobs.annotations }}
           annotations:
             {{- toYaml . | nindent 12 }}
