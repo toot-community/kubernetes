@@ -1,0 +1,49 @@
+{{ if .Values.jobs.statusesRemove.enabled }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "mastodon.fullname" . }}-statuses-remove
+  labels:
+    {{- include "mastodon.labels" . | nindent 4 }}
+spec:
+  schedule: {{ .Values.jobs.statusesRemove.schedule }}
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: {{ include "mastodon.fullname" . }}-cleanup-unused-media
+          {{- with .Values.jobs.annotations }}
+          annotations:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          labels:
+            {{- include "mastodon.labels" . | nindent 12 }}
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: statuses-remove
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              command:
+                - bash
+                - -c
+                - "bin/tootctl statuses remove --days={{ .Values.jobs.statusesRemove.days }} --no-clean-followed --no-compress-database"
+              env:
+                - name: DB_USER
+                  valueFrom:
+                    secretKeyRef:
+                      key: {{ .Values.configuration.database.credentialSecret.usernameKey }}
+                      name: {{ .Values.configuration.database.credentialSecret.name }}
+                - name: DB_PASS
+                  valueFrom:
+                    secretKeyRef:
+                      key: {{ .Values.configuration.database.credentialSecret.passwordKey }}
+                      name: {{ .Values.configuration.database.credentialSecret.name }}
+              envFrom:
+                - configMapRef:
+                    name: {{ include "mastodon.fullname" . }}-env
+                - secretRef:
+                    name: {{ include "mastodon.fullname" . }}-secrets-env
+              resources:
+                {{- toYaml .Values.jobs.statusesRemove.resources | nindent 16 }}
+{{ end }}
