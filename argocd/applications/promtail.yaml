@@ -37,7 +37,7 @@ spec:
           prometheus.io/scrape: "true"
           prometheus.io/port: "http-metrics"
     repoURL: https://grafana.github.io/helm-charts
-    targetRevision: 6.11.0
+    targetRevision: 6.11.1
   syncPolicy:
     automated:
       prune: true
