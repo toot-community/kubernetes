@@ -278,9 +278,9 @@ jobs:
     resources:
       requests:
         cpu: 1000m
-        memory: 1000M
+        memory: 3000M
       limits:
-        memory: 1000M
+        memory: 3000M
   cleanupMediaProfiles:
     enabled: true
     schedule: "0 5 * * *" # every day at 5am
