@@ -12,7 +12,7 @@ spec:
     poolMode: transaction
     parameters:
       max_client_conn: "1000"
-      default_pool_size: "145"
+      default_pool_size: "90"
   template:
     spec:
       affinity:
