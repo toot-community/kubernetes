@@ -50,12 +50,6 @@ configuration:
     host: redis-haproxy.haproxy.svc.cluster.local
     port: 6379
     database: 0
-    separateCache:
-      enabled: true
-      host: tootcommunity-cache-redis-master
-      port: 6379
-      authSecretName: tootcommunity-cache-creds
-      authSecretKey: password
   s3:
     aliasHost: static.toot.community
     bucket: static-toot-community
@@ -341,11 +335,6 @@ onePassword:
     ## - ACCESS_SECRET_KEY: <content>
   - name: db-backup-toot-community-creds
     itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/2pry55mb7zpdtbssb4iohrc3iy
-    ## Contents:
-    ## - ACCESS_KEY_ID: <content>
-    ## - ACCESS_SECRET_KEY: <content>
-  - name: tootcommunity-cache-creds
-    itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/6zcsxkpbl5bk2bau5ws7hwxc7m
 
 keda:
   prometheusAddress: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090

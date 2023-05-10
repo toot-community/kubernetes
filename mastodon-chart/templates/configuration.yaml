@@ -15,10 +15,6 @@ data:
   REDIS_HOST: {{ .Values.configuration.redis.host }}
   REDIS_PORT: {{ .Values.configuration.redis.port | quote }}
   REDIS_DB: {{ .Values.configuration.redis.database | default 0 | quote }}
-  {{- if .Values.configuration.redis.separateCache.enabled | default false }}
-  CACHE_REDIS_HOST: {{ .Values.configuration.redis.separateCache.host }}
-  CACHE_REDIS_PORT: {{ .Values.configuration.redis.separateCache.port | quote }}
-  {{- end }}
   S3_ALIAS_HOST: {{ .Values.configuration.s3.aliasHost }}
   S3_BUCKET: {{ .Values.configuration.s3.bucket }}
   S3_ENABLED: "true"

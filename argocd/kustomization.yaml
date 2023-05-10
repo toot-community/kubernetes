@@ -21,7 +21,6 @@ resources:
   - applications/velero.yaml
   - applications/relay.yaml
   - applications/backup-policy.yaml
-  - applications/redis-cache.yaml
   - applications/tootcommunity-db.yaml
   - applications/cnpg.yaml
   - applications/loki.yaml
