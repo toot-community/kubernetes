@@ -273,14 +273,14 @@ jobs:
         memory: 451M
   statusesRemove:
     enabled: true
-    schedule: "5 4 * * 6" # every day at 5am
+    schedule: "5 4 * * 6"
     days: 90
     resources:
       requests:
-        cpu: 1000m
-        memory: 3000M
+        cpu: 300m
+        memory: 1500M
       limits:
-        memory: 3000M
+        memory: 1500M
   cleanupMediaProfiles:
     enabled: true
     schedule: "0 5 * * *" # every day at 5am
