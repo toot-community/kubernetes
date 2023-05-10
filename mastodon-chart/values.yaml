@@ -190,9 +190,9 @@ sidekiq:
       resources:
         requests:
           cpu: 1128m
-          memory: 1389M
+          memory: 1798M
         limits:
-          memory: 1389M
+          memory: 1798M
     - name: default
       concurrency: 25
       queues:
