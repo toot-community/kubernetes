@@ -342,7 +342,7 @@ keda:
     enabled: true
     cooldownPeriod: 30
     maxReplicaCount: 40
-    minReplicaCount: 2
+    minReplicaCount: 3
     pollingInterval: 15
     fallback:
       enabled: true
