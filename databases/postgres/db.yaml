@@ -9,7 +9,16 @@ metadata:
   labels:
     velero.io/exclude-from-backup: "true"
 spec:
-  instances: 2
+  managed:
+    roles:
+      - name: app
+        passwordSecret:
+          name: tootcommunity-db-app
+        superuser: false
+        login: true
+        replication: false
+
+  instances: 1
   primaryUpdateStrategy: unsupervised
   imageName: ghcr.io/cloudnative-pg/postgresql:14.7
   storage:
