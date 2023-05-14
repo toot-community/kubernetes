@@ -1,4 +1,4 @@
-replicaCount: 8
+replicaCount: 3
 
 image:
   repository: haproxy
@@ -35,22 +35,14 @@ service:
 
 resources:
   requests:
-    cpu: 27m
-    memory: 100Mi
+    cpu: 50m
+    memory: 200Mi
   limits:
-    memory: 100Mi
+    memory: 200Mi
 
 nodeSelector: {}
 
-tolerations:
-  - effect: NoSchedule
-    key: limit
-    operator: Equal
-    value: db
-  - effect: NoSchedule
-    key: limit
-    operator: Equal
-    value: sidekiq
+tolerations: []
 
 affinity: {}
 
