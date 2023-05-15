@@ -69,23 +69,11 @@ spec:
               cpu: 21m
               memory: 198Mi
 
-          extraVolumes:
-          - name: tootcommunity-custom-ca
-            secret:
-              secretName: tootcommunity-custom-ca
-
-          extraVolumeMounts:
-          - name: tootcommunity-custom-ca
-            mountPath: /var/lib/certificates/tootcommunity
-
           config:
             use-http2: "true"
             enable-real-ip: "true"
             proxy-real-ip-cidr: "0.0.0.0/0"
             forwarded-for-header: "X-Forwarded-For"
-          #  server-snippet: |
-          #    ssl_client_certificate /var/lib/certificates/tootcommunity/ca.pem;
-          #    ssl_verify_client on;
 
           replicaCount: 3
 
