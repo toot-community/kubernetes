@@ -70,13 +70,13 @@ spec:
               memory: 198Mi
 
           extraVolumes:
-          - name: origin-pull-certificate
+          - name: tootcommunity-custom-ca
             secret:
-              secretName: cloudflare-authenticated-origin-pull-ca
+              secretName: tootcommunity-custom-ca
 
           extraVolumeMounts:
-          - name: origin-pull-certificate
-            mountPath: /var/lib/certificates/cloudflare
+          - name: tootcommunity-custom-ca
+            mountPath: /var/lib/certificates/tootcommunity
 
           config:
             use-http2: "true"
@@ -84,7 +84,7 @@ spec:
             proxy-real-ip-cidr: "0.0.0.0/0"
             forwarded-for-header: "X-Forwarded-For"
           #  server-snippet: |
-          #    ssl_client_certificate /var/lib/certificates/cloudflare/authenticated_origin_pull_ca.pem;
+          #    ssl_client_certificate /var/lib/certificates/tootcommunity/ca.pem;
           #    ssl_verify_client on;
 
           replicaCount: 3
