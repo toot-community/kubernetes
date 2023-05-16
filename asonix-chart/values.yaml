@@ -42,7 +42,6 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
   tls:
-#    - secretName: cf-origin-certificate-tls
     - secretName: relay.toot.community-tls
       hosts:
         - relay.toot.community

@@ -53,9 +53,9 @@ configuration:
   s3:
     aliasHost: static.toot.community
     bucket: static-toot-community
-    endpoint: https://0ae89288096e9795bb1a5d327d89aec5.r2.cloudflarestorage.com
-    hostname: 0ae89288096e9795bb1a5d327d89aec5.r2.cloudflarestorage.com
-    region: auto
+    endpoint: https://ams3.digitaloceanspaces.com
+    hostname: ams3.digitaloceanspaces.com
+    region: ams3
     protocol: https
   smtp:
     authMethod: plain
@@ -256,7 +256,6 @@ ingress:
   tls:
     - hosts:
         - toot.community
-#      secretName: cf-origin-certificate-tls
       secretName: toot.community-tls
 
 jobs:
@@ -312,11 +311,6 @@ jobs:
     days: 180
 
 onePassword:
-    ## Contents:
-    ## - tls.crt: <content>
-    ## - tls.key: <content>
-  - name: cf-origin-certificate-tls
-    itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/hpm4njgmdollluy5b4isc2zpgq
     ## It holds the following keys:
     ## - AWS_ACCESS_KEY_ID
     ## - AWS_SECRET_ACCESS_KEY

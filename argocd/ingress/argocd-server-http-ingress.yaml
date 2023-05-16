@@ -23,5 +23,4 @@ spec:
   tls:
     - hosts:
         - argocd.toot.community
-#      secretName: cf-origin-certificate-tls
       secretName: argocd.toot.community-tls
