@@ -309,6 +309,11 @@ jobs:
       limits:
         memory: 400Mi
     days: 180
+  registrationFailsafe:
+    enabled: true
+    schedule: "*/5 * * * *" # every 5th minute
+    triggerAfter: 25
+    triggerSetting: approved
 
 onePassword:
     ## It holds the following keys:
