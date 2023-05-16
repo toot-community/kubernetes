@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "mastodon.labels" . | nindent 4 }}
 spec:
-  schedule: {{ .Values.jobs.accountsPrune.schedule }}
+  schedule: {{ .Values.jobs.accountsPrune.schedule | quote }}
   jobTemplate:
     spec:
       template:
