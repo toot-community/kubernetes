@@ -311,7 +311,7 @@ jobs:
     days: 180
   registrationFailsafe:
     enabled: true
-    schedule: "*/5 * * * *" # every 5th minute
+    schedule: "* * * * *" # every 5th minute
     triggerAfter: 25
     triggerSetting: approved
 
