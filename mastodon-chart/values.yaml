@@ -336,6 +336,10 @@ onePassword:
     itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/2pry55mb7zpdtbssb4iohrc3iy
   - name: client-verify-ca
     itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/inkjop6yia45h7ttvv4cdt656e
+  - name: tootcommunity-ca-secret
+    itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/inkjop6yia45h7ttvv4cdt656e
+  - name: tootcommunity-tls-secret
+    itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/55ne3om63nhotaml7krbtwswou
 
 keda:
   prometheusAddress: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
