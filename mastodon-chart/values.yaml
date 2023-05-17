@@ -310,7 +310,7 @@ jobs:
         memory: 400Mi
     days: 180
   registrationFailsafe:
-    enabled: true
+    enabled: false
     schedule: "* * * * *" # every 5th minute
     triggerAfter: 25
     triggerSetting: approved
