@@ -41,16 +41,6 @@ spec:
           env:
             - name: PORT
               value: "3000"
-            - name: DB_USER
-              valueFrom:
-                secretKeyRef:
-                  key: {{ .Values.configuration.database.credentialSecret.usernameKey }}
-                  name: {{ .Values.configuration.database.credentialSecret.name }}
-            - name: DB_PASS
-              valueFrom:
-                secretKeyRef:
-                  key: {{ .Values.configuration.database.credentialSecret.passwordKey }}
-                  name: {{ .Values.configuration.database.credentialSecret.name }}
           envFrom:
             - configMapRef:
                 name: {{ include "mastodon.fullname" . }}-env
