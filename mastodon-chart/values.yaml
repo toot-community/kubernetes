@@ -261,7 +261,7 @@ ingress:
 jobs:
   annotations: {}
   cleanupMedia:
-    enabled: false
+    enabled: true
     schedule: "0 5 * * *" # every day at 5am
     days: 7
     resources:
@@ -281,7 +281,7 @@ jobs:
       limits:
         memory: 1500M
   cleanupMediaProfiles:
-    enabled: false
+    enabled: true
     schedule: "0 5 * * *" # every day at 5am
     days: 7
     resources:
@@ -291,7 +291,7 @@ jobs:
       limits:
         memory: 721M
   accountsPrune:
-    enabled: false
+    enabled: true
     schedule: "0 2 * * 1" # every monday at 2am
     resources:
       requests:
@@ -300,7 +300,7 @@ jobs:
       limits:
         memory: 584M
   removePreviewCards:
-    enabled: false
+    enabled: true
     schedule: "0 5 * * 1" # every monday at 5am
     resources:
       requests:
@@ -311,7 +311,7 @@ jobs:
     days: 180
   registrationFailsafe:
     enabled: false
-    schedule: "* * * * *" # every 5th minute
+    schedule: "* * * * *" # every minute
     triggerAfter: 25
     triggerSetting: approved
 
