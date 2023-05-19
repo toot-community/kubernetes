@@ -179,8 +179,8 @@ sidekiq:
       queues:
         - default
         - ingress
-        - pull
         - push
+        - pull
       resources:
         requests:
           cpu: 1128m
