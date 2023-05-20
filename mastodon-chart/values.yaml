@@ -366,7 +366,7 @@ keda:
             stabilizationWindowSeconds: 120
     memoryUtilizationScaling:
       enabled: true
-      targetAverageUtilization: 90
+      targetAverageUtilization: 95
   streaming:
     enabled: true
     cooldownPeriod: 30
