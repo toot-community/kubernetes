@@ -24,7 +24,10 @@ spec:
         app.kubernetes.io/component: streaming
     spec:
       containers:
-        - env:
+        - command:
+          - node
+          - ./streaming
+          env:
             {{- if .Values.configuration.databaseReplicas.enabled }}
             {{- with (first .Values.configuration.databaseReplicas.hosts) }}
             - name: DB_HOST
