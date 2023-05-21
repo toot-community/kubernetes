@@ -48,16 +48,6 @@ spec:
           env:
             - name: DB_POOL
               value: {{ .concurrency | quote }}
-            - name: DB_USER
-              valueFrom:
-                secretKeyRef:
-                  key: {{ $context.Values.configuration.database.credentialSecret.usernameKey }}
-                  name: {{ $context.Values.configuration.database.credentialSecret.name }}
-            - name: DB_PASS
-              valueFrom:
-                secretKeyRef:
-                  key: {{ $context.Values.configuration.database.credentialSecret.passwordKey }}
-                  name: {{ $context.Values.configuration.database.credentialSecret.name }}
           envFrom:
             - configMapRef:
                 name: {{ include "mastodon.fullname" $context }}-env

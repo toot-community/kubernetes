@@ -28,16 +28,14 @@ securityContext:
 
 configuration:
   database:
-    host: tootcommunity-db-pooler-rw
-    hostWithoutPooler: tootcommunity-db-rw
-    name: app
+    host: private-db-postgresql-ams3-toot-community-do-user-924064-0.b.db.ondigitalocean.com
+    name: app-pool
     poolsize: 25
-    port: 5432
-    sslmode: prefer
-    credentialSecret:
-      name: tootcommunity-db-app
-      usernameKey: username
-      passwordKey: password
+    port: 25061
+    dbMigrations: # to circumvent pgpooler
+      port: 25060
+      name: app
+    sslmode: require
     runDatabaseMigrations: true
   databaseReplicas:
     enabled: false

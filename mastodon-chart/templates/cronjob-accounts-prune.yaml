@@ -31,17 +31,6 @@ spec:
                     name: {{ include "mastodon.fullname" . }}-env
                 - secretRef:
                     name: {{ include "mastodon.fullname" . }}-secrets-env
-              env:
-                - name: DB_USER
-                  valueFrom:
-                    secretKeyRef:
-                      key: {{ .Values.configuration.database.credentialSecret.usernameKey }}
-                      name: {{ .Values.configuration.database.credentialSecret.name }}
-                - name: DB_PASS
-                  valueFrom:
-                    secretKeyRef:
-                      key: {{ .Values.configuration.database.credentialSecret.passwordKey }}
-                      name: {{ .Values.configuration.database.credentialSecret.name }}
               resources:
                 {{- toYaml .Values.jobs.accountsPrune.resources | nindent 16 }}
 {{ end }}

@@ -28,17 +28,6 @@ spec:
                 - bash
                 - -c
                 - "bin/tootctl statuses remove --days={{ .Values.jobs.statusesRemove.days }} --no-clean-followed --no-compress-database"
-              env:
-                - name: DB_USER
-                  valueFrom:
-                    secretKeyRef:
-                      key: {{ .Values.configuration.database.credentialSecret.usernameKey }}
-                      name: {{ .Values.configuration.database.credentialSecret.name }}
-                - name: DB_PASS
-                  valueFrom:
-                    secretKeyRef:
-                      key: {{ .Values.configuration.database.credentialSecret.passwordKey }}
-                      name: {{ .Values.configuration.database.credentialSecret.name }}
               envFrom:
                 - configMapRef:
                     name: {{ include "mastodon.fullname" . }}-env

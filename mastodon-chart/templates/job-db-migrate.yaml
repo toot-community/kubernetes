@@ -29,18 +29,10 @@ spec:
             - rake
             - db:migrate
           env:
-            - name: DB_HOST
-              value: {{ .Values.configuration.database.hostWithoutPooler }}
-            - name: DB_USER
-              valueFrom:
-                secretKeyRef:
-                  key: {{ .Values.configuration.database.credentialSecret.usernameKey }}
-                  name: {{ .Values.configuration.database.credentialSecret.name }}
-            - name: DB_PASS
-              valueFrom:
-                secretKeyRef:
-                  key: {{ .Values.configuration.database.credentialSecret.passwordKey }}
-                  name: {{ .Values.configuration.database.credentialSecret.name }}
+            - name: DB_PORT
+              value: {{ .Values.configuration.database.dbMigrations.port }}
+            - name: DB_NAME
+              value: {{ .Values.configuration.database.dbMigrations.name }}
           envFrom:
             - configMapRef:
                 name: {{ include "mastodon.fullname" . }}-env
