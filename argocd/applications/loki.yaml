@@ -38,6 +38,7 @@ spec:
 
           limits_config:
             retention_period: 1440h
+            max_streams_per_user: 100000
 
         read:
           extraArgs:
