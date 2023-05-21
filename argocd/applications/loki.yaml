@@ -37,8 +37,7 @@ spec:
             retention_delete_worker_count: 150
 
           limits_config:
-            retention_period: 1440h
-            max_streams_per_user: 100000
+            retention_period: 2160h
 
         read:
           extraArgs:
