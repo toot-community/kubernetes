@@ -49,6 +49,11 @@ spec:
                 secretKeyRef:
                   key: REDIS_PASSWORD
                   name: {{ include "mastodon.fullname" . }}-secrets-env
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  key: DB_PASS
+                  name: {{ include "mastodon.fullname" . }}-secrets-env
             - name: PORT
               value: "4000"
             - name: DB_SSLMODE
