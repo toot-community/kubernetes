@@ -177,8 +177,8 @@ sidekiq:
       queues:
         - default
         - ingress
-        - pull
         - push
+        - pull
       resources:
         requests:
           cpu: 1128m
@@ -345,7 +345,7 @@ keda:
     enabled: true
     cooldownPeriod: 30
     maxReplicaCount: 40
-    minReplicaCount: 3
+    minReplicaCount: 2
     pollingInterval: 15
     fallback:
       enabled: true
@@ -364,7 +364,7 @@ keda:
             stabilizationWindowSeconds: 120
     memoryUtilizationScaling:
       enabled: true
-      targetAverageUtilization: 90
+      targetAverageUtilization: 95
   streaming:
     enabled: true
     cooldownPeriod: 30
