@@ -30,7 +30,7 @@ spec:
             - db:migrate
           env:
             - name: DB_PORT
-              value: {{ .Values.configuration.database.dbMigrations.port }}
+              value: {{ .Values.configuration.database.dbMigrations.port | quote }}
             - name: DB_NAME
               value: {{ .Values.configuration.database.dbMigrations.name }}
           envFrom:
