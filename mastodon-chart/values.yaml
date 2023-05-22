@@ -269,7 +269,7 @@ jobs:
       limits:
         memory: 451M
   statusesRemove:
-    enabled: false
+    enabled: true
     schedule: "5 4 * * 6"
     days: 90
     resources:
