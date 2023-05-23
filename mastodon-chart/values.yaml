@@ -72,10 +72,10 @@ web:
   maxThreads: 5
   resources:
     requests:
-      cpu: 280m
-      memory: 1743M
+      cpu: 500m
+      memory: 1536Mi
     limits:
-      memory: 1743M
+      memory: 3072Mi
   startupProbe:
     httpGet:
       port: http
