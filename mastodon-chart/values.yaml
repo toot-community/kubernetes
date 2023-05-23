@@ -249,6 +249,8 @@ sidekiq:
           memory: 969M
 
 ingress:
+  maxBodySize: 80m
+  upstreamProxyTimeout: 180
   ingressClassName: nginx
   host: toot.community
   tls:
