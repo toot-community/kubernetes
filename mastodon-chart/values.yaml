@@ -73,9 +73,9 @@ web:
   resources:
     requests:
       cpu: 500m
-      memory: 1536Mi
+      memory: 1Gi
     limits:
-      memory: 3072Mi
+      memory: 2.5Gi # higher due to the need to convert big images using ImageMagick
   startupProbe:
     httpGet:
       port: http
@@ -249,8 +249,8 @@ sidekiq:
           memory: 969M
 
 ingress:
-  maxBodySize: 80m
-  upstreamProxyTimeout: 180
+  maxBodySize: 100m
+  upstreamProxyTimeout: 120
   ingressClassName: nginx
   host: toot.community
   tls:
