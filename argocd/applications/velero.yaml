@@ -54,7 +54,7 @@ spec:
             bucket: velero-toot-community
             config:
               region: auto
-              s3Url: https://0ae89288096e9795bb1a5d327d89aec5.r2.cloudflarestorage.com
+              s3Url: https://ams3.digitaloceanspaces.com
 
         initContainers:
           - name: velero-plugin-for-aws
@@ -67,7 +67,6 @@ spec:
         credentials:
           useSecret: true
           existingSecret: cloud-credentials
-          extraSecretRef: cloud-credentials-env
 
         metrics:
           enabled: true
