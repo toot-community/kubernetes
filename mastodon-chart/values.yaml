@@ -290,6 +290,26 @@ jobs:
         memory: 721M
       limits:
         memory: 721M
+  psqlBackup:
+    enabled: true
+    schedule: "0 3 * * *"
+    s3:
+      endpoint: https://ams3.digitaloceanspaces.com
+      bucket: db-backup-toot-community
+    resources:
+      requests:
+        cpu: 1000m # compression-heavy workload
+    postgresImage:
+      repository: postgres
+      tag: 15-alpine
+      pullPolicy: IfNotPresent
+    overrideDatabaseInfo: # to bypass the pool
+      name: app
+      port: 25060
+    awsCliImage:
+      repository: amazon/aws-cli
+      tag: latest
+      pullPolicy: IfNotPresent
   accountsPrune:
     enabled: true
     schedule: "0 2 * * 1" # every monday at 2am
