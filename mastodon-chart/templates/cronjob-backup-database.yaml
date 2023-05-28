@@ -45,8 +45,8 @@ spec:
                       key: DB_HOST
                 - name: DB_USER
                   valueFrom:
-                    configMapKeyRef:
-                      name: {{ include "mastodon.fullname" . }}-env
+                    secretKeyRef:
+                      name: {{ include "mastodon.fullname" . }}-secrets-env
                       key: DB_USER
                 - name: DB_NAME
                   value: {{ .Values.jobs.psqlBackup.overrideDatabaseInfo.name | default .Values.configuration.database.name }}
