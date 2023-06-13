@@ -26,11 +26,11 @@ spec:
       metadata:
         address: {{ $context.Values.keda.redis.address }}
         listName: "queue:{{ .queue }}"
-        listLength: {{ .threshold | quote }}
+        listLength: {{ .listLength | quote }}
         enableTLS: {{ $context.Values.keda.redis.tls.enabled | quote }}
         databaseIndex: {{ $context.Values.keda.redis.index | quote }}
         {{- if .activationThreshold }}
-        activationListLength: {{ .activationThreshold | quote }}
+        activationListLength: {{ .activationListLength | quote }}
         {{- end }}
       authenticationRef:
         name: {{ include "mastodon.fullname" $context }}-worker-redis-auth
