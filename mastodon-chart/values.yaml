@@ -427,18 +427,18 @@ keda:
                 periodSeconds: 30
     queues:
       - name: default
-        threshold: 1000
-        activationThreshold: 1000
+        listLength: 1000
+        activationListLength: 1000
         queue: default
       - name: ingress
-        threshold: 1000
-        activationThreshold: 1000
+        listLength: 1000
+        activationListLength: 1000
         queue: ingress
       - name: pull
-        threshold: 1000
-        activationThreshold: 1000
+        listLength: 1000
+        activationListLength: 1000
         queue: pull
       - name: push
-        threshold: 1000
-        activationThreshold: 1000
+        listLength: 1000
+        activationListLength: 1000
         queue: push

@@ -30,7 +30,7 @@ spec:
         enableTLS: {{ $context.Values.keda.redis.tls.enabled | quote }}
         databaseIndex: {{ $context.Values.keda.redis.index | quote }}
         {{- if .activationThreshold }}
-        activationThreshold: {{ .activationThreshold | quote }}
+        activationListLength: {{ .activationThreshold | quote }}
         {{- end }}
       authenticationRef:
         name: {{ include "mastodon.fullname" $context }}-worker-redis-auth
