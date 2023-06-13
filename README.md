@@ -108,17 +108,6 @@ Prometheus is used to collect metrics from all the components in our cluster. It
 all Pods containing a specific annotation. In our case, this annotation is `prometheus.io/scrape: "true"`.
 Most [CNCF](https://landscape.cncf.io) components are configured to expose metrics in this way.
 
-### Prometheus StatsD Exporter
-
-Prometheus StatsD Exporter is a simple service that listens for StatsD metrics and exports them as Prometheus metrics.
-
-Mastodon can push relevant metrics about its operation to StatsD. Prometheus is configured to scrape metrics from these
-Pods. Prometheus StatsD Exporter is used to convert these metrics to Prometheus metrics.
-
-For redundancy, we run two instances of Prometheus StatsD Exporter as containers are temporary, and Mastodon
-cannot continue booting if Prometheus StatsD Exporter is unavailable; this is why we run at least two instances of
-Prometheus StatsD Exporter.
-
 ### Mastodon (toot.community)
 
 Mastodon is an accessible, open-source social network server. It is a decentralized alternative to commercial platforms

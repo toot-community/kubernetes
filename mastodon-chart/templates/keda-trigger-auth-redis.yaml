@@ -1,0 +1,11 @@
+apiVersion: keda.k8s.io/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: {{ include "mastodon.fullname" . }}-worker-redis-auth
+  labels:
+    {{- include "mastodon.labels" . | nindent 4 }}
+spec:
+  secretTargetRef:
+    - parameter: password
+      name: {{ include "mastodon.fullname" . }}-secrets-env
+      key: REDIS_PASSWORD

@@ -36,9 +36,6 @@ data:
   WEB_CONCURRENCY: {{ .Values.web.concurrency | quote }}
   MAX_THREADS: {{ .Values.web.maxThreads | quote }}
   ALLOWED_PRIVATE_ADDRESSES: {{ .Values.configuration.allowedPrivateAddresses }}
-  {{- if .Values.statistics.enabled }}
-  STATSD_ADDR: {{ .Values.statistics.address }}
-  {{- end }}
   {{- if .Values.translations.enabled }}
   LIBRE_TRANSLATE_ENDPOINT: {{ .Values.translations.endpoint }}
   {{- end}}

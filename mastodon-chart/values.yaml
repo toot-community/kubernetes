@@ -111,10 +111,6 @@ web:
         cpu: 50m
         memory: 200Mi
 
-statistics:
-  enabled: true
-  address: exporter-prometheus-statsd-exporter.monitoring.svc.cluster.local:9125
-
 translations:
   enabled: true
   endpoint: https://translate.universeodon.com
@@ -363,6 +359,11 @@ onePassword:
 
 keda:
   prometheusAddress: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
+  redis:
+    address: private-db-redis-ams3-toot-community-do-user-924064-0.b.db.ondigitalocean.com:25061
+    tls:
+      enabled: true
+      index: 0
   web:
     enabled: true
     cooldownPeriod: 30
@@ -405,7 +406,6 @@ keda:
     maxReplicaCount: 10
     minReplicaCount: 0
     pollingInterval: 10
-    ignoreNullValues: false
     fallback:
       enabled: true
       replicas: 3
@@ -427,18 +427,18 @@ keda:
                 periodSeconds: 30
     queues:
       - name: default
-        threshold: 5
-        activationThreshold: 5
+        threshold: 1000
+        activationThreshold: 1000
         queue: default
       - name: ingress
-        threshold: 5
-        activationThreshold: 5
+        threshold: 1000
+        activationThreshold: 1000
         queue: ingress
       - name: pull
-        threshold: 5
-        activationThreshold: 300
+        threshold: 1000
+        activationThreshold: 1000
         queue: pull
       - name: push
-        threshold: 5
-        activationThreshold: 5
+        threshold: 1000
+        activationThreshold: 1000
         queue: push

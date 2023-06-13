@@ -15,7 +15,6 @@ resources:
   - applications/kube-state-metrics.yaml
   - applications/tootcommunity.yaml
   - applications/metrics-server.yaml
-  - applications/prometheus-statsd-exporter.yaml
   - applications/argocd.yaml
   - applications/redis.yaml
   - applications/velero.yaml

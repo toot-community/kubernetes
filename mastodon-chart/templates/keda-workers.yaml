@@ -22,16 +22,18 @@ spec:
     failureThreshold: {{ $context.Values.keda.workers.fallback.failureThreshold }}
   {{- end }}
   triggers:
-    - type: prometheus
+    - type: redis
       metadata:
-        serverAddress: {{ $context.Values.keda.prometheusAddress }}
-        metricName: queue_latency
-        query: avg(mastodon_sidekiq_queue_latency{queue="{{ .queue }}"})
+        address: {{ $context.Values.keda.redis.address }}
+        listName: "queue:{{ .queue }}"
+        listLength: {{ .threshold | quote }}
+        enableTLS: {{ $context.Values.keda.redis.tls.enabled | quote }}
+        databaseIndex: {{ $context.Values.keda.redis.index | quote }}
         {{- if .activationThreshold }}
         activationThreshold: {{ .activationThreshold | quote }}
         {{- end }}
-        threshold: {{ .threshold | quote }}
-        ignoreNullValues: {{ $context.Values.keda.workers.ignoreNullValues | quote }}
+      authenticationRef:
+        name: {{ include "mastodon.fullname" . }}-worker-redis-auth
   advanced:
     {{- if $context.Values.keda.workers.advanced }}
     {{- toYaml $context.Values.keda.workers.advanced | nindent 4 }}
