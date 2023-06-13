@@ -33,7 +33,7 @@ spec:
         activationThreshold: {{ .activationThreshold | quote }}
         {{- end }}
       authenticationRef:
-        name: {{ include "mastodon.fullname" . }}-worker-redis-auth
+        name: {{ include "mastodon.fullname" $context }}-worker-redis-auth
   advanced:
     {{- if $context.Values.keda.workers.advanced }}
     {{- toYaml $context.Values.keda.workers.advanced | nindent 4 }}
