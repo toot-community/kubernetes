@@ -38,7 +38,13 @@ data:
   ALLOWED_PRIVATE_ADDRESSES: {{ .Values.configuration.allowedPrivateAddresses }}
   {{- if .Values.translations.enabled }}
   LIBRE_TRANSLATE_ENDPOINT: {{ .Values.translations.endpoint }}
-  {{- end}}
+  {{- end }}
+  {{- if .Values.configuration.search.enabled }}
+  ES_ENABLED: "true"
+  ES_HOST: {{ .Values.configuration.search.host }}
+  ES_PORT: {{ .Values.configuration.search.port | quote }}
+  ES_USER: {{ .Values.configuration.search.user }}
+  {{- end }}
 kind: ConfigMap
 metadata:
   labels:

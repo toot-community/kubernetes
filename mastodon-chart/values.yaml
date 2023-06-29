@@ -65,6 +65,16 @@ configuration:
     domain: ses.toot.community
     fromAddress: notifications@ses.toot.community
     smtpServer: email-smtp.eu-west-1.amazonaws.com
+  search:
+    enabled: true
+    host: https://tootcommunity-search-es-http
+    port: 9200
+    scheme: http
+    user: elastic
+    password:
+      secretKeyRef:
+        name: tootcommunity-search-es-elastic-user
+        key: elastic
 
 web:
   domain: toot.community
@@ -325,11 +335,6 @@ jobs:
       limits:
         memory: 400Mi
     days: 180
-  registrationFailsafe:
-    enabled: false
-    schedule: "* * * * *" # every minute
-    triggerAfter: 25
-    triggerSetting: approved
 
 onePassword:
     ## It holds the following keys:

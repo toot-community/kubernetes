@@ -48,6 +48,13 @@ spec:
           env:
             - name: DB_POOL
               value: {{ .concurrency | quote }}
+            {{- if $context.Values.configuration.search.enabled }}
+            - name: ES_PASS
+              valueFrom:
+                secretKeyRef:
+                  key: {{ $context.Values.configuration.search.password.secretRef.key }}
+                  name: {{ $context.Values.configuration.search.password.secretRef.name }}
+            {{- end }}
           envFrom:
             - configMapRef:
                 name: {{ include "mastodon.fullname" $context }}-env

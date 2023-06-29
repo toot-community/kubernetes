@@ -33,6 +33,14 @@ spec:
                     name: {{ include "mastodon.fullname" . }}-env
                 - secretRef:
                     name: {{ include "mastodon.fullname" . }}-secrets-env
+              {{- if .Values.configuration.search.enabled }}
+              env:
+                - name: ES_PASS
+                  valueFrom:
+                    secretKeyRef:
+                      key: {{ .Values.configuration.search.password.secretRef.key }}
+                      name: {{ .Values.configuration.search.password.secretRef.name }}
+              {{- end }}
               resources:
                 {{- toYaml .Values.jobs.statusesRemove.resources | nindent 16 }}
 {{ end }}
