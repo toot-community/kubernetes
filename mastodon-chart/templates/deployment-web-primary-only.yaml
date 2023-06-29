@@ -48,8 +48,8 @@ spec:
             - name: ES_PASS
               valueFrom:
                 secretKeyRef:
-                  key: {{ .Values.configuration.search.password.secretRef.key }}
-                  name: {{ .Values.configuration.search.password.secretRef.name }}
+                  key: {{ .Values.configuration.search.password.secretKeyRef.key }}
+                  name: {{ .Values.configuration.search.password.secretKeyRef.name }}
             {{- end }}
           envFrom:
             - configMapRef:

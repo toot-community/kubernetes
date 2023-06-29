@@ -52,8 +52,8 @@ spec:
             - name: ES_PASS
               valueFrom:
                 secretKeyRef:
-                  key: {{ $context.Values.configuration.search.password.secretRef.key }}
-                  name: {{ $context.Values.configuration.search.password.secretRef.name }}
+                  key: {{ $context.Values.configuration.search.password.secretKeyRef.key }}
+                  name: {{ $context.Values.configuration.search.password.secretKeyRef.name }}
             {{- end }}
           envFrom:
             - configMapRef:
