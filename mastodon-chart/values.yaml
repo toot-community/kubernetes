@@ -67,7 +67,7 @@ configuration:
     smtpServer: email-smtp.eu-west-1.amazonaws.com
   search:
     enabled: true
-    host: https://tootcommunity-search-es-http
+    host: tootcommunity-search-es-http
     port: 9200
     scheme: http
     user: elastic
@@ -75,6 +75,10 @@ configuration:
       secretKeyRef:
         name: tootcommunity-search-es-elastic-user
         key: elastic
+#    tls:
+#      secretKeyRef:
+#        name: tootcommunity-search-es-http-certs-public
+#        key: tls.crt
 
 web:
   domain: toot.community
