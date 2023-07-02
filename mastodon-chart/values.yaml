@@ -38,9 +38,9 @@ configuration:
     sslmode: require
     runDatabaseMigrations: true
   databaseReplicas:
-    enabled: false
+    enabled: true
     hosts:
-      - tootcommunity-db-pooler-ro
+      - private-db-postgresql-ams3-toot-community-ro-0-do-user-924064-0.b.db.ondigitalocean.com
   defaultLocale: en
   localDomain: toot.community
   allowedPrivateAddresses: 10.245.0.0/16
@@ -75,10 +75,6 @@ configuration:
       secretKeyRef:
         name: tootcommunity-search-es-elastic-user
         key: elastic
-#    tls:
-#      secretKeyRef:
-#        name: tootcommunity-search-es-http-certs-public
-#        key: tls.crt
 
 web:
   domain: toot.community
@@ -118,7 +114,7 @@ web:
   # the primary db deployment will capture all /oauth & verify credential requests to workaround
   # any race conditions during db replication
   primaryDatabaseDeployment:
-    enabled: false
+    enabled: true
     replicaCount: 2
     resources:
       requests:
