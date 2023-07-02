@@ -46,15 +46,14 @@ spec:
               value: sidekiq
 
         configuration:
-          provider: aws
           defaultVolumesToFsBackup: true
-
           backupStorageLocation:
-            name: default
-            bucket: velero-toot-community
-            config:
-              region: auto
-              s3Url: https://ams3.digitaloceanspaces.com
+            - name: default
+              provider: aws
+              bucket: velero-toot-community
+              config:
+                region: auto
+                s3Url: https://ams3.digitaloceanspaces.com
 
         initContainers:
           - name: velero-plugin-for-aws
