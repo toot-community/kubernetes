@@ -95,12 +95,6 @@ spec:
           - apiVersion: onepassword.com/v1
             kind: OnePasswordItem
             metadata:
-              name: cloud-credentials-env
-            spec:
-              itemPath: "vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/3zmgafrnm6e24x2kxlsskmpqhu"
-          - apiVersion: onepassword.com/v1
-            kind: OnePasswordItem
-            metadata:
               name: cloud-credentials
             spec:
               itemPath: "vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/pqvlwqwzf6vv37yzku6xiti3oq"
