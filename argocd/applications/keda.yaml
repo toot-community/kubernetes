@@ -12,6 +12,8 @@ spec:
     automated:
       selfHeal: true
       prune: true
+    syncOptions:
+      - ServerSideApply=true
   source:
     chart: keda
     repoURL: https://kedacore.github.io/charts
