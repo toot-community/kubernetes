@@ -82,8 +82,8 @@ web:
   maxThreads: 5
   resources:
     requests:
-      cpu: 500m
-      memory: 1Gi
+      cpu: 1500m
+      memory: 1.5Gi
     limits:
       memory: 2.5Gi # higher due to the need to convert big images using ImageMagick
   startupProbe:
@@ -373,7 +373,7 @@ keda:
     enabled: true
     cooldownPeriod: 30
     maxReplicaCount: 40
-    minReplicaCount: 2
+    minReplicaCount: 3
     pollingInterval: 15
     fallback:
       enabled: true

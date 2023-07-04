@@ -11,7 +11,7 @@ spec:
         disabled: true
   nodeSets:
     - name: default
-      count: 2
+      count: 1
       volumeClaimTemplates:
         - metadata:
             name: elasticsearch-data
