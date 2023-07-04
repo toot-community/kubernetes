@@ -38,7 +38,7 @@ configuration:
     sslmode: require
     runDatabaseMigrations: true
   databaseReplicas:
-    enabled: true
+    enabled: false
     hosts:
       - private-db-postgresql-ams3-toot-community-ro-0-do-user-924064-0.b.db.ondigitalocean.com
   defaultLocale: en
@@ -114,7 +114,7 @@ web:
   # the primary db deployment will capture all /oauth & verify credential requests to workaround
   # any race conditions during db replication
   primaryDatabaseDeployment:
-    enabled: true
+    enabled: false
     replicaCount: 2
     resources:
       requests:
