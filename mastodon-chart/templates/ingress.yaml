@@ -9,6 +9,11 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-read-timeout: {{ .Values.ingress.upstreamProxyTimeout | quote }}
     nginx.ingress.kubernetes.io/proxy-send-timeout: {{ .Values.ingress.upstreamProxyTimeout | quote }}
     cert-manager.io/cluster-issuer: letsencrypt-prod
+    {{- if .Values.ingress.verifyClient.enabled }}
+    nginx.ingress.kubernetes.io/auth-tls-secret: {{ .Values.ingress.verifyClient.secretName }}
+    nginx.ingress.kubernetes.io/auth-tls-verify-client: "on"
+    nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: "false"
+    {{- end }}
   labels:
     {{- include "mastodon.labels" . | nindent 4 }}
   name: {{ $fullName }}

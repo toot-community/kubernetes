@@ -259,6 +259,9 @@ ingress:
   upstreamProxyTimeout: 120
   ingressClassName: nginx
   host: toot.community
+  verifyClient:
+    enabled: true
+    secretName: tootcommunity/tootcommunity-ca-secret
   tls:
     - hosts:
         - toot.community
@@ -337,22 +340,8 @@ jobs:
     days: 180
 
 onePassword:
-    ## It holds the following keys:
-    ## - AWS_ACCESS_KEY_ID
-    ## - AWS_SECRET_ACCESS_KEY
-    ## - DB_PASS
-    ## - OTP_SECRET
-    ## - REDIS_PASSWORD
-    ## - SECRET_KEY_BASE
-    ## - SMTP_LOGIN
-    ## - SMTP_PASSWORD
-    ## - VAPID_PRIVATE_KEY
-    ## - VAPID_PUBLIC_KEY
   - suffix: secrets-env
     itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/oezhcrluaumwwkrwulo62wnmhe
-    ## Contents:
-    ## - ACCESS_KEY_ID: <content>
-    ## - ACCESS_SECRET_KEY: <content>
   - name: db-backup-toot-community-creds
     itemPath: vaults/dhwqy3tub7zdwf2zj6cv4lprlu/items/2pry55mb7zpdtbssb4iohrc3iy
   - name: client-verify-ca
