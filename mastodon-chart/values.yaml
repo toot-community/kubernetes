@@ -1,7 +1,7 @@
 image:
   repository: ghcr.io/mastodon/mastodon
   pullPolicy: IfNotPresent
-  tag: "nightly-2023-07-06-security"
+  tag: "nightly-2023-07-07-v4.1.4"
 
 imagePullSecrets: [ ]
 nameOverride: ""
