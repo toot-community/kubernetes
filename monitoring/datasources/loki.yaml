@@ -14,5 +14,6 @@ data:
         url: "http://loki-gateway.loki.svc.cluster.local"
         jsonData:
           httpHeaderName1: 'X-Scope-OrgID'
+          timeout: "900"
         secureJsonData:
           httpHeaderValue1: 'tootcommunity'
