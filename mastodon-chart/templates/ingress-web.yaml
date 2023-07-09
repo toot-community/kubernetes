@@ -30,13 +30,6 @@ spec:
                   number: 3000
             path: /
             pathType: ImplementationSpecific
-          - backend:
-              service:
-                name: {{ include "mastodon.fullname" . }}-streaming
-                port:
-                  number: 4000
-            path: /api/v1/streaming
-            pathType: ImplementationSpecific
           {{- if .Values.web.primaryDatabaseDeployment }}
           {{- if .Values.web.primaryDatabaseDeployment.enabled }}
           - backend:
