@@ -19,12 +19,23 @@
       "automerge": true,
       "matchPackagePatterns": [
         "*",
-        "!cloudnative-pg",
         "!ghcr.io/mastodon/mastodon",
         "!asonix/relay"
       ],
       "automergeType": "branch"
     }
   ],
-  "ignoreTests": true
+  "ignoreTests": true,
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "^elasticsearch/elasticsearch\\.yaml$"
+      ],
+      "matchStrings": [
+        "spec:\\r?\\n\\s*version: (?<currentValue>\\d+\\.\\d+\\.\\d+)"
+      ],
+      "depNameTemplate": "docker.elastic.co/elasticsearch/elasticsearch",
+      "datasourceTemplate": "docker"
+    }
+  ]
 }
