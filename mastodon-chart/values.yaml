@@ -243,7 +243,7 @@ sidekiq:
           cpu: 100m
           memory: 250Mi
         limits:
-          limit: 250m
+          cpu: 250m
           memory: 500Mi
     - name: scheduler
       concurrency: 5
