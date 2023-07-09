@@ -78,11 +78,11 @@ configuration:
 
 web:
   domain: toot.community
-  concurrency: 4
+  concurrency: 8
   maxThreads: 5
   resources:
     requests:
-      cpu: 1500m
+      cpu: 1000m
       memory: 1.5Gi
     limits:
       memory: 2.5Gi # higher due to the need to convert big images using ImageMagick
@@ -101,8 +101,7 @@ web:
     periodSeconds: 10
     successThreshold: 1
     timeoutSeconds: 10
-  annotations:
-    cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+  annotations: ~
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -110,7 +109,7 @@ web:
     type: RollingUpdate
   podDisruptionBudget:
     enabled: true
-    minAvailable: 1
+    minAvailable: 2
   # the primary db deployment will capture all /oauth & verify credential requests to workaround
   # any race conditions during db replication
   primaryDatabaseDeployment:
@@ -163,19 +162,18 @@ streaming:
     path: /metrics
     port: streaming
     scheme: http
-  annotations:
-    cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+  annotations: ~
   redis:
     url: rediss://private-db-redis-ams3-toot-community-do-user-924064-0.b.db.ondigitalocean.com:25061
 
 sidekiq:
-  nodeSelector:
-    doks.digitalocean.com/node-pool: pool-sidekiq-3
-  tolerations:
-    - effect: NoSchedule
-      key: limit
-      operator: Equal
-      value: sidekiq
+  # nodeSelector:
+  #  doks.digitalocean.com/node-pool: pool-sidekiq-3
+  # tolerations:
+  #   - effect: NoSchedule
+  #     key: limit
+  #     operator: Equal
+  #     value: sidekiq
   workers:
     - name: generic
       concurrency: 25
@@ -187,10 +185,11 @@ sidekiq:
         - pull
       resources:
         requests:
-          cpu: 1128m
-          memory: 1798M
+          cpu: 1000m
+          memory: 1250M
         limits:
-          memory: 1798M
+          cpu: 1000m
+          memory: 2000M
     - name: default
       concurrency: 25
       queues:
@@ -200,6 +199,7 @@ sidekiq:
           cpu: 500m
           memory: 750Mi
         limits:
+          cpu: 500m
           memory: 750Mi
     - name: ingress
       concurrency: 25
@@ -207,9 +207,10 @@ sidekiq:
         - ingress
       resources:
         requests:
-          cpu: 750m
+          cpu: 1000m
           memory: 1000Mi
         limits:
+          cpu: 1000m
           memory: 1000Mi
     - name: pull
       concurrency: 25
@@ -220,6 +221,7 @@ sidekiq:
           cpu: 500m
           memory: 750Mi
         limits:
+          cpu: 500m
           memory: 750Mi
     - name: push
       concurrency: 25
@@ -238,10 +240,11 @@ sidekiq:
         - mailers
       resources:
         requests:
-          cpu: 5m
-          memory: 310M
+          cpu: 100m
+          memory: 250Mi
         limits:
-          memory: 310M
+          limit: 250m
+          memory: 500Mi
     - name: scheduler
       concurrency: 5
       replicaCount: 1
@@ -249,10 +252,10 @@ sidekiq:
         - scheduler
       resources:
         requests:
-          cpu: 208m
-          memory: 969M
+          cpu: 150m
+          memory: 500Mi
         limits:
-          memory: 969M
+          memory: 1000Mi
 
 ingress:
   maxBodySize: 100m

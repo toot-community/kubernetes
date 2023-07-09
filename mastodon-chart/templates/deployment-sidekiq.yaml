@@ -28,8 +28,10 @@ spec:
         {{- include "mastodon.selectorLabels" $context | nindent 8 }}
         app.kubernetes.io/component: sidekiq-{{ .name }}
     spec:
+      {{- if $context.Values.sidekiq.nodeSelector }}
       nodeSelector:
         {{- toYaml $context.Values.sidekiq.nodeSelector | nindent 8 }}
+      {{- end }}
       {{- with $context.Values.sidekiq.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
