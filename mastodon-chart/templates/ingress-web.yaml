@@ -16,7 +16,7 @@ metadata:
     {{- end }}
   labels:
     {{- include "mastodon.labels" . | nindent 4 }}
-  name: {{ $fullName }}
+  name: {{ $fullName }}-web
 spec:
   ingressClassName: {{ .Values.ingress.ingressClassName }}
   rules:
