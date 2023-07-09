@@ -263,7 +263,7 @@ ingress:
   ingressClassName: nginx
   host: toot.community
   verifyClient:
-    enabled: false
+    enabled: true
     secretName: tootcommunity/tootcommunity-ca-secret
   tls:
     - hosts:
