@@ -8,9 +8,9 @@ metadata:
     {{- include "mastodon.labels" . | nindent 4 }}
   name: {{ $fullName }}-streaming
 spec:
-  ingressClassName: {{ .Values.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.ingress.streaming.ingressClassName }}
   rules:
-    - host: {{ .Values.ingress.host }}
+    - host: {{ .Values.ingress.streaming.host }}
       http:
         paths:
           - backend:
@@ -21,4 +21,4 @@ spec:
             path: /api/v1/streaming
             pathType: ImplementationSpecific
   tls:
-    {{ .Values.ingress.tls | toYaml | nindent 4 }}
+    {{ .Values.ingress.streaming.tls | toYaml | nindent 4 }}

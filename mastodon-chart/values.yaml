@@ -165,6 +165,7 @@ streaming:
   annotations: ~
   redis:
     url: rediss://private-db-redis-ams3-toot-community-do-user-924064-0.b.db.ondigitalocean.com:25061
+  baseURL: wss://streaming.toot.community
 
 sidekiq:
   # nodeSelector:
@@ -258,17 +259,25 @@ sidekiq:
           memory: 1000Mi
 
 ingress:
-  maxBodySize: 100m
-  upstreamProxyTimeout: 120
-  ingressClassName: nginx
-  host: toot.community
-  verifyClient:
-    enabled: false
-    secretName: tootcommunity/tootcommunity-ca-secret
-  tls:
-    - hosts:
-        - toot.community
-      secretName: toot.community-tls
+  web:
+    maxBodySize: 100m
+    upstreamProxyTimeout: 120
+    ingressClassName: nginx
+    host: toot.community
+    verifyClient:
+      enabled: true
+      secretName: tootcommunity/tootcommunity-ca-secret
+    tls:
+      - hosts:
+          - toot.community
+        secretName: toot.community-tls
+  streaming:
+    host: streaming.toot.community
+    ingressClassName: nginx
+    tls:
+      - hosts:
+          - streaming.toot.community
+        secretName: streaming.toot.community-tls
 
 jobs:
   annotations: {}

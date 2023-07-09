@@ -45,6 +45,9 @@ data:
   ES_PORT: {{ .Values.configuration.search.port | quote }}
   ES_USER: {{ .Values.configuration.search.user }}
   {{- end }}
+  {{- if .Values.streaming.baseURL }}
+  STREAMING_API_BASE_URL: {{ .Values.streaming.baseURL }}
+  {{- end }}
 kind: ConfigMap
 metadata:
   labels:
