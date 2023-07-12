@@ -211,10 +211,10 @@ sidekiq:
         - ingress
       resources:
         requests:
-          cpu: 1000m
+          cpu: 1500m
           memory: 1000Mi
         limits:
-          cpu: 1000m
+          cpu: 1500m
           memory: 1000Mi
     - name: pull
       concurrency: 50
