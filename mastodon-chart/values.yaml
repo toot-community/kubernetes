@@ -189,10 +189,10 @@ sidekiq:
         - pull
       resources:
         requests:
-          cpu: 1000m
+          cpu: 1500m
           memory: 1250M
         limits:
-          cpu: 1000m
+          cpu: 1500m
           memory: 2000M
     - name: default
       concurrency: 25
