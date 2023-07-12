@@ -436,18 +436,18 @@ keda:
                 periodSeconds: 30
     queues:
       - name: default
-        threshold: 1
-        activationThreshold: 1
+        latencyThreshold: 5
+        enqueuedJobsThreshold: 500
         queue: default
       - name: ingress
-        threshold: 3
-        activationThreshold: 3
+        latencyThreshold: 10
+        enqueuedJobsThreshold: 500
         queue: ingress
       - name: pull
-        threshold: 3
-        activationThreshold: 3
+        latencyThreshold: 10
+        enqueuedJobsThreshold: 500
         queue: pull
       - name: push
-        threshold: 3
-        activationThreshold: 3
+        latencyThreshold: 10
+        enqueuedJobsThreshold: 500
         queue: push

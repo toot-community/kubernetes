@@ -25,12 +25,22 @@ spec:
     - type: prometheus
       metadata:
         serverAddress: {{ $context.Values.keda.prometheusAddress }}
-        metricName: queue_latency
-        query: avg(sidekiq_queue_latency_seconds{name="{{ .queue }}"})
-        {{- if .activationThreshold }}
-        activationThreshold: {{ .activationThreshold | quote }}
+        metricName: sidekiq_{{ .queue }}_queue_latency_seconds
+        query: max(sidekiq_queue_latency_seconds{queue="{{ .queue }}"})
+        {{- if .latencyThreshold }}
+        activationThreshold: {{ .latencyThreshold | quote }}
         {{- end }}
-        threshold: {{ .threshold | quote }}
+        threshold: {{ .latencyThreshold | quote }}
+        ignoreNullValues: {{ $context.Values.keda.workers.ignoreNullValues | quote }}
+    - type: prometheus
+      metadata:
+        serverAddress: {{ $context.Values.keda.prometheusAddress }}
+        metricName: sidekiq_{{ .queue }}_queue_enqueued_jobs
+        query: max(sidekiq_queue_enqueued_jobs{queue="{{ .queue }}"})
+        {{- if .enqueuedJobsThreshold }}
+        activationThreshold: {{ .enqueuedJobsThreshold | quote }}
+        {{- end }}
+        threshold: {{ .enqueuedJobsThreshold | quote }}
         ignoreNullValues: {{ $context.Values.keda.workers.ignoreNullValues | quote }}
   advanced:
     {{- if $context.Values.keda.workers.advanced }}
