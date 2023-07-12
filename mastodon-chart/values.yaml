@@ -200,10 +200,10 @@ sidekiq:
         - default
       resources:
         requests:
-          cpu: 500m
+          cpu: 1000m
           memory: 750Mi
         limits:
-          cpu: 500m
+          cpu: 1000m
           memory: 750Mi
     - name: ingress
       concurrency: 25
