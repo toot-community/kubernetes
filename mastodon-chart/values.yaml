@@ -190,10 +190,9 @@ sidekiq:
       resources:
         requests:
           cpu: 1500m
-          memory: 1250M
+          memory: 1000M
         limits:
-          cpu: 1500m
-          memory: 2000M
+          memory: 1800M
     - name: default
       concurrency: 50
       queues:
@@ -201,21 +200,19 @@ sidekiq:
       resources:
         requests:
           cpu: 1000m
-          memory: 750Mi
+          memory: 1000M
         limits:
-          cpu: 1000m
-          memory: 750Mi
+          memory: 1800M
     - name: ingress
-      concurrency: 50
+      concurrency: 20
       queues:
         - ingress
       resources:
         requests:
-          cpu: 1500m
+          cpu: 1000m
           memory: 1000Mi
         limits:
-          cpu: 1500m
-          memory: 1000Mi
+          memory: 1800Mi
     - name: pull
       concurrency: 50
       queues:
@@ -223,10 +220,9 @@ sidekiq:
       resources:
         requests:
           cpu: 1000m
-          memory: 750Mi
+          memory: 1000M
         limits:
-          cpu: 1000m
-          memory: 750Mi
+          memory: 1800M
     - name: push
       concurrency: 50
       queues:
@@ -236,7 +232,7 @@ sidekiq:
           cpu: 500m
           memory: 500Mi
         limits:
-          memory: 500Mi
+          memory: 1000Mi
     - name: mailers
       concurrency: 25
       replicaCount: 1
@@ -247,7 +243,6 @@ sidekiq:
           cpu: 100m
           memory: 250Mi
         limits:
-          cpu: 250m
           memory: 500Mi
     - name: scheduler
       concurrency: 25
@@ -257,9 +252,9 @@ sidekiq:
       resources:
         requests:
           cpu: 250m
-          memory: 500Mi
-        limits:
           memory: 1000Mi
+        limits:
+          memory: 1800Mi
 
 ingress:
   web:
