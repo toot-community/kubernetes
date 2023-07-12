@@ -30,7 +30,7 @@ configuration:
   database:
     host: private-db-postgresql-ams3-toot-community-do-user-924064-0.b.db.ondigitalocean.com
     name: app-pool
-    poolsize: 25
+    poolsize: 50
     port: 25061
     dbMigrations: # to circumvent pgpooler
       port: 25060
@@ -180,7 +180,7 @@ sidekiq:
   #     value: sidekiq
   workers:
     - name: generic
-      concurrency: 25
+      concurrency: 50
       replicaCount: 3
       queues:
         - default
@@ -195,7 +195,7 @@ sidekiq:
           cpu: 1500m
           memory: 2000M
     - name: default
-      concurrency: 25
+      concurrency: 50
       queues:
         - default
       resources:
@@ -206,7 +206,7 @@ sidekiq:
           cpu: 1000m
           memory: 750Mi
     - name: ingress
-      concurrency: 25
+      concurrency: 50
       queues:
         - ingress
       resources:
@@ -217,7 +217,7 @@ sidekiq:
           cpu: 1000m
           memory: 1000Mi
     - name: pull
-      concurrency: 25
+      concurrency: 50
       queues:
         - pull
       resources:
@@ -228,7 +228,7 @@ sidekiq:
           cpu: 1000m
           memory: 750Mi
     - name: push
-      concurrency: 25
+      concurrency: 50
       queues:
         - push
       resources:
@@ -238,7 +238,7 @@ sidekiq:
         limits:
           memory: 500Mi
     - name: mailers
-      concurrency: 5
+      concurrency: 25
       replicaCount: 1
       queues:
         - mailers
@@ -250,7 +250,7 @@ sidekiq:
           cpu: 250m
           memory: 500Mi
     - name: scheduler
-      concurrency: 5
+      concurrency: 25
       replicaCount: 1
       queues:
         - scheduler
