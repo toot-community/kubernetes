@@ -26,7 +26,7 @@ spec:
       metadata:
         serverAddress: {{ $context.Values.keda.prometheusAddress }}
         metricName: sidekiq_{{ .queue }}_queue_latency_seconds
-        query: max(sidekiq_queue_latency_seconds{queue="{{ .queue }}"})
+        query: max(sidekiq_queue_latency_seconds{name="{{ .queue }}"})
         {{- if .latencyThreshold }}
         activationThreshold: {{ .latencyThreshold | quote }}
         {{- end }}
@@ -36,7 +36,7 @@ spec:
       metadata:
         serverAddress: {{ $context.Values.keda.prometheusAddress }}
         metricName: sidekiq_{{ .queue }}_queue_enqueued_jobs
-        query: max(sidekiq_queue_enqueued_jobs{queue="{{ .queue }}"})
+        query: max(sidekiq_queue_enqueued_jobs{name="{{ .queue }}"})
         {{- if .enqueuedJobsThreshold }}
         activationThreshold: {{ .enqueuedJobsThreshold | quote }}
         {{- end }}
