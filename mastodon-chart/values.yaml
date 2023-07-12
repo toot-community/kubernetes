@@ -222,10 +222,10 @@ sidekiq:
         - pull
       resources:
         requests:
-          cpu: 500m
+          cpu: 1000m
           memory: 750Mi
         limits:
-          cpu: 500m
+          cpu: 1000m
           memory: 750Mi
     - name: push
       concurrency: 25
@@ -256,7 +256,7 @@ sidekiq:
         - scheduler
       resources:
         requests:
-          cpu: 150m
+          cpu: 250m
           memory: 500Mi
         limits:
           memory: 1000Mi
