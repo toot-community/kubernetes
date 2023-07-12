@@ -55,6 +55,9 @@ configuration:
     hostname: ams3.digitaloceanspaces.com
     region: ams3
     protocol: https
+    timeouts:
+      open: 10
+      read: 10
   smtp:
     authMethod: plain
     caFile: /etc/ssl/certs/ca-certificates.crt

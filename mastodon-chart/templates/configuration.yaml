@@ -22,6 +22,8 @@ data:
   S3_HOSTNAME: {{ .Values.configuration.s3.hostname }}
   S3_PROTOCOL: {{ .Values.configuration.s3.protocol }}
   S3_REGION: {{ .Values.configuration.s3.region }}
+  S3_OPEN_TIMEOUT: {{ .Values.configuration.s3.timeouts.open | default 5 | quote }}
+  S3_READ_TIMEOUT: {{ .Values.configuration.s3.timeouts.read | default 5 | quote }}
   SMTP_AUTH_METHOD: {{ .Values.configuration.smtp.authMethod }}
   SMTP_CA_FILE: {{ .Values.configuration.smtp.caFile }}
   SMTP_DELIVERY_METHOD: {{ .Values.configuration.smtp.deliveryMethod }}
