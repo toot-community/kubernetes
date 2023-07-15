@@ -9,7 +9,7 @@
     ]
   },
   "kubernetes": {
-    "fileMatch": ["n8n/.+\\.yaml$"]
+    "fileMatch": ["\\.yaml$"]
   },
   "packageRules": [
     {
