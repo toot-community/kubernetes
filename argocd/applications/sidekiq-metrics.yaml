@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sidekiq-metrics
+  namespace: argocd
+spec:
+  destination:
+    namespace: sidekiq-metrics
+    server: https://kubernetes.default.svc
+  project: infrastructure
+  source:
+    chart: sidekiq-prometheus-exporter
+    helm:
+      values: |
+        serviceMonitor:
+          enabled: true
+          interval: 15s
+
+        envFrom:
+          type: secretRef
+          name: sidekiq-metrics
+    repoURL: https://strech.github.io/sidekiq-prometheus-exporter
+    targetRevision: 0.2.1
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
