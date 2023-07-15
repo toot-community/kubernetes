@@ -8,6 +8,9 @@
       "argocd/applications/.+\\.yaml$"
     ]
   },
+  "kubernetes": {
+    "fileMatch": ["n8n/.+\\.yaml$"]
+  },
   "packageRules": [
     {
       "description": "Automerge non-major updates",
