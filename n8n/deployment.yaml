@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: esb
+    app.kubernetes.io/name: n8n
+  name: n8n
+  namespace: esb
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: esb
+      app.kubernetes.io/name: n8n
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: esb
+        app.kubernetes.io/name: n8n
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      volumes:
+        - name: db-ca-certificate
+          configMap:
+            name: n8n-db-ca
+      containers:
+      - image: n8nio/n8n:1.0.3
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          allowPrivilegeEscalation: false
+        volumeMounts:
+          - name: db-ca-certificate
+            mountPath: /etc/ssl/db-ca.crt
+            subPath: ca.crt
+            readOnly: true
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: http
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: n8n
+        envFrom:
+          - configMapRef:
+              name: n8n-env
+          - secretRef:
+              name: esb-secrets
+        ports:
+        - containerPort: 5678
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: http
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+      serviceAccountName: n8n
+      terminationGracePeriodSeconds: 30

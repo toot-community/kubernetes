@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    meta.helm.sh/release-name: esb
+    meta.helm.sh/release-namespace: esb
+  labels:
+    app.kubernetes.io/instance: esb
+    app.kubernetes.io/name: n8n
+  name: n8n
+  namespace: esb
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: automation.toot.community
+    http:
+      paths:
+      - backend:
+          service:
+            name: n8n
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - automation.toot.community
+    secretName: automation.toot.community-tls

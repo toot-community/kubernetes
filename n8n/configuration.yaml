@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    meta.helm.sh/release-name: esb
+    meta.helm.sh/release-namespace: esb
+  labels:
+    app.kubernetes.io/instance: esb
+    app.kubernetes.io/name: n8n
+  name: n8n-env
+  namespace: esb
+data:
+  # database
+  DB_LOGGING_ENABLED: "true"
+  DB_LOGGING_OPTIONS: "error"
+  DB_TYPE: "postgresdb"
+  DB_POSTGRESDB_DATABASE: "esb-pool"
+  DB_POSTGRESDB_HOST: "private-db-postgresql-ams3-toot-community-do-user-924064-0.b.db.ondigitalocean.com"
+  DB_POSTGRESDB_PORT: "25061"
+  DB_POSTGRESDB_SSL_REJECT_UNAUTHORIZED: "true"
+  DB_POSTGRESDB_USER: "esb"
+  DB_POSTGRESDB_SCHEMA: "public"
+  DB_POSTGRESDB_SSL_CA_FILE: "/etc/ssl/db-ca.crt"
+  # generic deployment
+  N8N_LOG_LEVEL: "info"
+  N8N_EDITOR_BASE_URL: "https://automation.toot.community"
+  N8N_TEMPLATES_ENABLED: "false"
+  EXECUTIONS_DATA_PRUNE: "true"
+  EXECUTIONS_DATA_MAX_AGES: "336"
+  GENERIC_TIMEZONE: "Europe/Amsterdam"
+  N8N_HOST: "automation.toot.community"
+  N8N_PORT: "5678"
+  N8N_PROTOCOL: http
+  N8N_LISTEN_ADDRESS: "0.0.0.0"
