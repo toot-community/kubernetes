@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: n8n
+  namespace: argocd
+spec:
+  destination:
+    namespace: esb
+    server: https://kubernetes.default.svc
+  project: infrastructure
+  source:
+    directory:
+      recurse: true
+    path: n8n/
+    repoURL: git@github.com:toot-community/kubernetes.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

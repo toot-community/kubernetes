@@ -27,6 +27,7 @@ resources:
   - applications/elastic-operator.yaml
   - applications/tootcommunity-search.yaml
   - applications/fluentbit.yaml
+  - applications/n8n.yaml
 
   # this line below is enabled because toot.community uses 1Password to provision secrets to the Kubernetes cluster,
   # it's fine if you don't, but then remove this line & the corresponding file.
