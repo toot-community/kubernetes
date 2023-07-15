@@ -27,6 +27,7 @@ resources:
   - applications/elastic-operator.yaml
   - applications/tootcommunity-search.yaml
   - applications/fluentbit.yaml
+  - applications/fluentbit-fastly.yaml
   - applications/n8n.yaml
   - applications/sidekiq-metrics.yaml
 
