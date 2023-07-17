@@ -9,8 +9,6 @@ metadata:
     app: {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
     version: {{ $context.Chart.AppVersion | quote }}
   name: {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
-  annotations:
-    checksum/config: {{ include (print $.Template.BasePath "/configuration.yaml") $context | sha256sum }}
 spec:
   selector:
     matchLabels:
@@ -29,6 +27,8 @@ spec:
       labels:
         {{- include "mastodon.selectorLabels" $context | nindent 8 }}
         app.kubernetes.io/component: sidekiq-{{ .name }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configuration.yaml") $context | sha256sum }}
     spec:
       {{- if $context.Values.sidekiq.nodeSelector }}
       nodeSelector:

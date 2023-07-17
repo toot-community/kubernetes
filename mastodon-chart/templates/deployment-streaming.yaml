@@ -5,11 +5,10 @@ metadata:
     {{- include "mastodon.labels" . | nindent 4 }}
     app: {{ include "mastodon.fullname" . }}-streaming
     version: {{ .Chart.AppVersion | quote }}
-  annotations:
-    checksum/config: {{ include (print $.Template.BasePath "/configuration.yaml") . | sha256sum }}
-    {{- if .Values.streaming.annotations }}
-    {{- toYaml .Values.streaming.annotations | nindent 4 }}
-    {{- end }}
+  {{- if .Values.streaming.annotations }}
+    annotations:
+      {{- toYaml .Values.streaming.annotations | nindent 4 }}
+  {{- end }}
   name: {{ include "mastodon.fullname" . }}-streaming
 spec:
   selector:
@@ -23,6 +22,8 @@ spec:
       labels:
         {{- include "mastodon.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: streaming
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configuration.yaml") . | sha256sum }}
     spec:
       containers:
         - command:
