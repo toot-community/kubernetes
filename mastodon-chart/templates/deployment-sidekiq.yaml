@@ -10,7 +10,7 @@ metadata:
     version: {{ $context.Chart.AppVersion | quote }}
   name: {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
   annotations:
-    checksum/config: {{ include (print $.Template.BasePath "/configuration.yaml") . | sha256sum }}
+    checksum/config: {{ include (print $.Template.BasePath "/configuration.yaml") $context | sha256sum }}
 spec:
   selector:
     matchLabels:
