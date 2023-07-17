@@ -9,6 +9,8 @@ metadata:
     app: {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
     version: {{ $context.Chart.AppVersion | quote }}
   name: {{ include "mastodon.fullname" $context }}-sidekiq-{{ .name }}
+  annotations:
+    checksum/config: {{ include (print $.Template.BasePath "/configuration.yaml") . | sha256sum }}
 spec:
   selector:
     matchLabels:

@@ -5,10 +5,11 @@ metadata:
     {{- include "mastodon.labels" . | nindent 4 }}
     app: {{ include "mastodon.fullname" . }}-web
     version: {{ .Chart.AppVersion | quote }}
-  {{- if .Values.web.annotations }}
   annotations:
+    checksum/config: {{ include (print $.Template.BasePath "/configuration.yaml") . | sha256sum }}
+    {{- if .Values.web.annotations }}
     {{- toYaml .Values.web.annotations | nindent 4 }}
-  {{- end }}
+    {{- end }}
   name: {{ include "mastodon.fullname" . }}-web
 spec:
   selector:

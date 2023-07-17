@@ -113,15 +113,6 @@ web:
   podDisruptionBudget:
     enabled: true
     minAvailable: 2
-  # the primary db deployment will capture all /oauth & verify credential requests to workaround
-  # any race conditions during db replication
-  primaryDatabaseDeployment:
-    enabled: false
-    replicaCount: 2
-    resources:
-      requests:
-        cpu: 50m
-        memory: 200Mi
 
 translations:
   enabled: true
