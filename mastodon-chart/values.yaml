@@ -116,7 +116,8 @@ web:
 
 translations:
   enabled: true
-  endpoint: https://translate.universeodon.com
+  deepl:
+    plan: free
 
 streaming:
   replicaCount: 4

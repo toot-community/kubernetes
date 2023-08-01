@@ -39,7 +39,7 @@ data:
   MAX_THREADS: {{ .Values.web.maxThreads | quote }}
   ALLOWED_PRIVATE_ADDRESSES: {{ .Values.configuration.allowedPrivateAddresses }}
   {{- if .Values.translations.enabled }}
-  LIBRE_TRANSLATE_ENDPOINT: {{ .Values.translations.endpoint }}
+  DEEPL_PLAN: {{ .Values.translations.deepl.plan }}
   {{- end }}
   {{- if .Values.configuration.search.enabled }}
   ES_ENABLED: "true"
