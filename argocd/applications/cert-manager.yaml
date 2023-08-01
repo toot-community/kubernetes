@@ -17,7 +17,7 @@ spec:
       - name: prometheus.servicemonitor.enabled
         value: "true"
     repoURL: https://charts.jetstack.io
-    targetRevision: v1.12.2
+    targetRevision: v1.12.3
   syncPolicy:
     automated:
       prune: true
