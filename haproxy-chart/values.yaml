@@ -3,7 +3,7 @@ replicaCount: 3
 image:
   repository: haproxy
   pullPolicy: IfNotPresent
-  tag: "2.8.1"
+  tag: "2.8.2"
 
 imagePullSecrets: []
 nameOverride: ""
