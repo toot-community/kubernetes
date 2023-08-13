@@ -13,8 +13,6 @@ spec:
       app.kubernetes.io/name: n8n
   template:
     metadata:
-      annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/configuration.yaml") . | sha256sum }}
       labels:
         app.kubernetes.io/instance: esb
         app.kubernetes.io/name: n8n
