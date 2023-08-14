@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tootcommunity-pgbouncer
+  namespace: tootcommunity
+spec:
+  selector:
+    app: tootcommunity-pgbouncer
+  ports:
+    - name: pgbouncer
+      port: 6432
+      targetPort: 6432
+  type: ClusterIP

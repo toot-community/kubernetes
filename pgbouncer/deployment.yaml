@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tootcommunity-pgbouncer
+  namespace: tootcommunity
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tootcommunity-pgbouncer
+  template:
+    metadata:
+      labels:
+        app: tootcommunity-pgbouncer
+    spec:
+      containers:
+        - name: pgbouncer
+          image: bitnami/pgbouncer:1.20.1
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRESQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: tootcommunity-pgbouncer-secrets-env
+                  key: POSTGRESQL_PASSWORD
+          envFrom:
+            - configMapRef:
+                name: tootcommunity-pgbouncer-env
+          volumeMounts:
+            - name: tootcommunity-pgbouncer-ca-file
+              mountPath: /opt/bitnami/pgbouncer/conf/ca.crt
+              subPath: ca.crt
+            - name: tootcommunity-pgbouncer-server-key
+              mountPath: /opt/bitnami/pgbouncer/conf/server.key
+              subPath: tootcommunity-pgbouncer.key
+            - name: tootcommunity-pgbouncer-server-cert
+              mountPath: /opt/bitnami/pgbouncer/conf/server.crt
+              subPath: tootcommunity-pgbouncer.crt
+          resources:
+            requests:
+              memory: 256Mi
+            limits:
+              memory: 512Mi
+      volumes:
+        - name: tootcommunity-pgbouncer-ca-file
+          configMap:
+            name: tootcommunity-pgbouncer-ca-file
+            items:
+              - key: ca.crt
+                path: ca.crt
+        - name: tootcommunity-pgbouncer-server-key
+          secret:
+            secretName: tootcommunity-pgbouncer-secrets-env
+            items:
+              - key: tootcommunity-pgbouncer.key
+                path: tootcommunity-pgbouncer.key
+        - name: tootcommunity-pgbouncer-server-cert
+          configMap:
+            name: tootcommunity-pgbouncer-server-cert
+            items:
+              - key: tootcommunity-pgbouncer.crt
+                path: tootcommunity-pgbouncer.crt

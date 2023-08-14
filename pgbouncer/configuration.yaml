@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tootcommunity-pgbouncer-env
+  namespace: tootcommunity
+data:
+  POSTGRESQL_USERNAME: app
+  POSTGRESQL_DATABASE: app
+  POSTGRESQL_HOST: dbs-toot-community-1.private.toot.community
+  POSTGRESQL_PORT: "5432"
+  PGBOUNCER_SET_DATABASE_USER: "no"
+  PGBOUNCER_SET_DATABASE_PASSWORD: "no"
+  PGBOUNCER_PORT: "6432"
+  PGBOUNCER_BIND_ADDRESS: "0.0.0.0"
+  PGBOUNCER_DATABASE: "app"
+  PGBOUNCER_POOL_MODE: "transaction"
+  PGBOUNCER_DEFAULT_POOL_SIZE: "50"
+  PGBOUNCER_MAX_CLIENT_CONN: "1024"
+  PGBOUNCER_MIN_POOL_SIZE: "25"
+  PGBOUNCER_SERVER_TLS_SSLMODE: "require"
+  PGBOUNCER_SERVER_TLS_CA_FILE: "/opt/bitnami/pgbouncer/conf/ca.crt"
+  PGBOUNCER_CLIENT_TLS_SSLMODE: "require"
+  PGBOUNCER_CLIENT_TLS_CERT_FILE: "/opt/bitnami/pgbouncer/conf/server.crt"
+  PGBOUNCER_CLIENT_TLS_KEY_FILE: "/opt/bitnami/pgbouncer/conf/server.key"
+  PGBOUNCER_CLIENT_TLS_CA_FILE: "/opt/bitnami/pgbouncer/conf/ca.crt"

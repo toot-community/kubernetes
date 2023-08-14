@@ -1,0 +1,31 @@
+apiVersion: v1
+data:
+  tootcommunity-pgbouncer.crt: |
+    -----BEGIN CERTIFICATE-----
+    MIID8TCCAdkCFBUUdt8Sq2BaLDnwq4XOln3KnII6MA0GCSqGSIb3DQEBCwUAMCgx
+    JjAkBgNVBAMMHXRvb3QuY29tbXVuaXR5IENlcnQgQXV0aG9yaXR5MB4XDTIzMDgx
+    NDEwNTc1OFoXDTI4MDgxMjEwNTc1OFowQjFAMD4GA1UEAww3dG9vdGNvbW11bml0
+    eS1wZ2JvdW5jZXIudG9vdGNvbW11bml0eS5zdmMuY2x1c3Rlci5sb2NhbDCCASIw
+    DQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAOxqwfg4d4xrEWexdusuKl2szo5h
+    HJdP4fZ+V5V16rao6mRPZ9CAtABPIZVhsXZRRASAJn4c74aCcwXtCpp1rLXQRF7q
+    u0GdQm6Bo6gTbZuQ1JnJNEbI3dRB+CqqKXJd/1PBJ+PgtxLo0eN92+IUrTjJB23O
+    FwzwHcmiiPcOVRhtheTPXYPRwx7VK3y91t89JWAgbTcVdPJxacqmiSRHb5axnB/3
+    loaD6dbjdTIz9A8GqFzZ35Dlxq8uAJs12ZVNuLcCf4xsUtPuNDhMUyjL9y+AhBb0
+    OhgQOuvSxFzDF2fQHBH/hcdnsoeHKa29bzYaQNAJT3uNuU/ixeB9wmPBNiECAwEA
+    ATANBgkqhkiG9w0BAQsFAAOCAgEAawciDldBrOUuPS4/php/PCNTQ6Zwy4pO8muY
+    jVbVzKFRDsMy8woEogAjiEHiwvsEdp9gBJbvdimjrYdCwbe0M1ed7k6egU2WAAoY
+    AIbNZCsuiI6K/iFZwPjCMCZF4QKKKtuf+XC4vl1GW6yHtSlCYzTKlhsVhNHOM88F
+    z+8bgKOr3Y/s0/G94KCrNkZHH4fmEauxMcvG1Do1TqZGewRZ7HafkH+KIujlHXVy
+    n4eoGM75UNZE+D/PQKBGoxMzYXSNf+Wbeumw+F5XGSQtZ/fEtqsoRtLYXgg1egFc
+    MJyh1iu30KrnktgNlWT/TMCjLtvyap30mfLjzusHqNjnZ2k811Tvgrz8ZMiPTy1c
+    8dazwe3U2SXMOXFV2xCRLAek0PbScK6PtYJpemGIVEF6WBTnY3J3LRiXBiwQa2PB
+    QGssq4AGbXawZl340vJVkapV8hZOS7hjgetg1kPpxm8rOF3U8BsJJkmBnktf78Lq
+    QgJoDkE59Lt/pM1YhrCHX2WsrWWCGrBaib+OqmkEDpJSRUT7aHD3UnvEHUXnwaeu
+    Bbyh0pyyaTZRiRx4YHuNevNmuXjh/riFrsrtaqtFctdHc6AyImqMNtlUupnHLzKr
+    fehopxK9imKCbHUOINFZKpDKBTXk1sBsf5pcUtuirv701V0geH8MXx7CFtXwRfwi
+    hObpXAQ=
+    -----END CERTIFICATE-----
+kind: ConfigMap
+metadata:
+  name: tootcommunity-pgbouncer-server-cert
+  namespace: tootcommunity
