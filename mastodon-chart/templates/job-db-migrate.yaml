@@ -33,6 +33,8 @@ spec:
               value: {{ .Values.configuration.database.dbMigrations.port | quote }}
             - name: DB_NAME
               value: {{ .Values.configuration.database.dbMigrations.name }}
+            - name: DB_HOST
+              value: {{ .Values.configuration.database.dbMigrations.host }}
           envFrom:
             - configMapRef:
                 name: {{ include "mastodon.fullname" . }}-env

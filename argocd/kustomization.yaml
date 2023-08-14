@@ -16,7 +16,6 @@ resources:
   - applications/tootcommunity.yaml
   - applications/metrics-server.yaml
   - applications/argocd.yaml
-  - applications/redis.yaml
   - applications/velero.yaml
   - applications/relay.yaml
   - applications/backup-policy.yaml
@@ -30,6 +29,7 @@ resources:
   - applications/fluentbit-fastly.yaml
   - applications/n8n.yaml
   - applications/sidekiq-metrics.yaml
+  - applications/pgbouncer.yaml
 
   # this line below is enabled because toot.community uses 1Password to provision secrets to the Kubernetes cluster,
   # it's fine if you don't, but then remove this line & the corresponding file.
