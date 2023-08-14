@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pgbouncer
+  namespace: argocd
+spec:
+  destination:
+    namespace: tootcommunity
+    server: https://kubernetes.default.svc
+  project: infrastructure
+  source:
+    directory:
+      recurse: true
+    path: pgbouncer
+    repoURL: git@github.com:toot-community/kubernetes.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
