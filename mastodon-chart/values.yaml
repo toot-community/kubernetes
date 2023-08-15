@@ -28,13 +28,14 @@ securityContext:
 
 configuration:
   database:
-    host: private-db-postgresql-ams3-toot-community-do-user-924064-0.b.db.ondigitalocean.com
-    name: app-pool
+    host: tootcommunity-pgbouncer.tootcommunity.svc.cluster.local
+    name: app
     poolsize: 50
-    port: 25061
+    port: 6432
     dbMigrations: # to circumvent pgpooler
-      port: 25060
+      port: 5432
       name: app
+      host: dbs-toot-community-1.private.toot.community
     sslmode: require
     runDatabaseMigrations: true
   databaseReplicas:
@@ -45,7 +46,7 @@ configuration:
   localDomain: toot.community
   allowedPrivateAddresses: 10.245.0.0/16
   redis:
-    host: redis-haproxy.haproxy.svc.cluster.local
+    host: dbs-toot-community-1.private.toot.community
     port: 6379
     database: 0
   s3:
@@ -159,7 +160,7 @@ streaming:
     scheme: http
   annotations: ~
   redis:
-    url: rediss://private-db-redis-ams3-toot-community-do-user-924064-0.b.db.ondigitalocean.com:25061
+    url: redis://dbs-toot-community-1.private.toot.community:6379
   baseURL: wss://streaming.toot.community
 
 sidekiq:
@@ -356,7 +357,7 @@ onePassword:
 keda:
   prometheusAddress: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
   redis:
-    address: private-db-redis-ams3-toot-community-do-user-924064-0.b.db.ondigitalocean.com:25061
+    address: dbs-toot-community-1.private.toot.community:6379
     tls:
       enabled: true
       index: 0

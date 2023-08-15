@@ -1,3 +1,0 @@
-Connect to this Redis proxy with:
-
-redis-cli -h {{ include "haproxy.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local -p 6379
