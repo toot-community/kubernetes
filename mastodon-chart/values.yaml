@@ -317,7 +317,8 @@ jobs:
       pullPolicy: IfNotPresent
     overrideDatabaseInfo: # to bypass the pool
       name: app
-      port: 25060
+      port: 5432
+      host: dbs-toot-community-1.private.toot.community
     awsCliImage:
       repository: amazon/aws-cli
       tag: latest
