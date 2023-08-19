@@ -303,7 +303,7 @@ jobs:
       limits:
         memory: 721M
   psqlBackup:
-    enabled: true
+    enabled: false
     schedule: "0 3 * * *"
     s3:
       endpoint: https://ams3.digitaloceanspaces.com
