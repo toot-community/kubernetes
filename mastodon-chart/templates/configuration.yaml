@@ -46,6 +46,7 @@ data:
   ES_HOST: {{ .Values.configuration.search.host }}
   ES_PORT: {{ .Values.configuration.search.port | quote }}
   ES_USER: {{ .Values.configuration.search.user }}
+  ES_PRESET: {{ .Values.configuration.search.preset | default "single_node_cluster" }}
   {{- end }}
   {{- if .Values.streaming.baseURL }}
   STREAMING_API_BASE_URL: {{ .Values.streaming.baseURL }}

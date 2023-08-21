@@ -74,6 +74,7 @@ configuration:
     host: tootcommunity-search-es-http
     port: 9200
     scheme: http
+    preset: small_cluster # https://github.com/mastodon/documentation/pull/1279/files
     user: elastic
     password:
       secretKeyRef:
