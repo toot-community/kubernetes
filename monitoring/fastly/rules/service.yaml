@@ -1,0 +1,187 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: datacenter
+  namespace: fastly-metrics
+spec:
+  groups:
+  - name: service
+    rules:
+
+    ##
+    ## Basic Transformations
+    ## - counter -> rate
+    ## - histogram -> latency
+    ## - etc
+    ##
+
+    - record: fastly_service:requests
+      expr: sum(rate(fastly_rt_requests_total[120s])) by (service_id,service_name)
+    - record: fastly_service:4xx_ratio
+      expr: |
+        sum(rate(fastly_rt_status_group_total{status_group="4xx"}[120s])) by (service_id,service_name)
+        / sum(rate(fastly_rt_status_group_total[120s])) by (service_id,service_name)
+    - record: fastly_service:5xx_ratio
+      expr: |
+        sum(rate(fastly_rt_status_group_total{status_group="5xx"}[120s])) by (service_id,service_name)
+        / sum(rate(fastly_rt_status_group_total[120s])) by (service_id,service_name)
+    - record: fastly_service:errors_ratio
+      expr: |
+        sum(rate(fastly_rt_errors_total[120s])) by (service_id,service_name)
+        / fastly_service:requests
+    - record: fastly_service:latency_p50_seconds
+      expr: histogram_quantile(0.5,sum(rate(fastly_rt_miss_duration_seconds_bucket[120s])) by (le,service_id,service_name))
+    - record: fastly_service:latency_p99_seconds
+      expr: histogram_quantile(0.99,sum(rate(fastly_rt_miss_duration_seconds_bucket[120s])) by (le,service_id,service_name))
+
+    ##
+    ## Thresholds
+    ## - Hysteresis, for more details see
+    ##   https://promcon.io/2019-munich/talks/improved-alerting-with-prometheus-and-alertmanager/
+    ##
+
+    - record: fastly_service:4xx_warn_ratio
+      expr: |
+        0.0375+0*count(fastly_service:alerts_recently{alertname="fastlyService4xxPercent"}) by (service_id,service_name)
+        or 0.05+0*fastly_service:requests
+    - record: fastly_service:5xx_warn_ratio
+      expr: |
+        0.0375+0*count(fastly_service:alerts_recently{alertname="fastlyService5xxPercent"}) by (service_id,service_name)
+        or 0.05+0*fastly_service:requests
+    - record: fastly_service:errors_warn_ratio
+      expr: |
+        0.0375+0*count(fastly_service:alerts_recently{alertname="fastlyServiceErrorPercent"}) by (service_id,service_name)
+        or 0.05+0*fastly_service:requests
+    # 826ms would put you in the worst 20% of sites
+    # Per https://www.littledata.io/average/server-response-time
+    - record: fastly_service:latency_p50_warn_seconds
+      expr: |
+        0.620+0*count(fastly_service:alerts_recently{alertname="fastlyServiceP50Latency"}) by (service_id,service_name)
+        or 0.826+0*fastly_service:requests
+    # Our P50 latency, for example, tends to be less than one third of our P99 latency
+    # Per https://medium.com/@djsmith42/how-to-metric-edafaf959fc7
+    - record: fastly_service:latency_p99_warn_seconds
+      expr: |
+        1.859+0*count(fastly_service:alerts_recently{alertname="fastlyServiceP99Latency"}) by (service_id,service_name)
+        or 2.478+0*fastly_service:requests
+
+    ##
+    ## Alert Status
+    ##
+
+    - record: fastly_service:alerts
+      expr: count(ALERTS{alertstate="firing", service_id=~".+", service_name=~".+"}) by (alertname,service_id,service_name)
+    - record: fastly_service:alerts_recently
+      expr: sum(sum_over_time(ALERTS{alertstate="firing", service_id=~".+", service_name=~".+"}[1h])) by (alertname,service_id,service_name)
+
+    ##
+    ## Criteria
+    ##
+
+    # Notice: some minimum level of traffic over time
+    - record: fastly_service:criteria_notice
+      expr: |
+        min_over_time(fastly_service:requests[5m]) > 1
+        and count_over_time(fastly_service:requests[5m]) > 2
+    - record: fastly_service:criteria_notice_recently
+      expr: count_over_time(fastly_service:criteria_notice[1h])
+
+    # Warning: top 20% of notice
+    - record: fastly_service:criteria_warning
+      #expr: |
+      #  topk(
+      #    scalar(
+      #      count(fastly_service:criteria_notice) * .2
+      #    ), sum(fastly_service:criteria_notice) by (service_id,service_name)
+      #  ) or count(fastly_service:alerts_recently) by (service_id,service_name)
+      expr: |
+        fastly_service:criteria_notice > scalar(
+          sum(fastly_service:requests) * .01
+        )
+    - record: fastly_service:criteria_warning_recently
+      expr: count_over_time(fastly_service:criteria_warning[1h])
+
+    ##
+    ## Alert Rules
+    ## - Hold down timers / latch, for more details see
+    ##   https://utcc.utoronto.ca/~cks/space/blog/sysadmin/PrometheusAlertmanagerFlapping
+    ## - Example: max_over_time(min_over_time(fastly_service:4xx_ratio[3m])[10m:15s])
+    ##   - Once the event persists for 3m
+    ##   - Hold down / latch for 10m
+    ##
+
+    - alert: fastlyService4xxPercent
+      expr: |
+        (
+          max_over_time(
+            min_over_time(fastly_service:4xx_ratio[10m])[30m:15s]
+          ) > fastly_service:4xx_warn_ratio
+        ) and (
+          fastly_service:criteria_warning_recently
+          or count(fastly_service:alerts_recently{alertname="fastlyService4xxPercent"}) by (service_id,service_name)
+        )
+      labels:
+        job: 'fastlyService'
+        severity: warning
+      annotations:
+        description: 'High ({{- $value | humanizePercentage }})'
+    - alert: fastlyService5xxPercent
+      expr: |
+        (
+          max_over_time(
+            min_over_time(fastly_service:5xx_ratio[10m])[30m:15s]
+          ) > fastly_service:5xx_warn_ratio
+        ) and (
+          fastly_service:criteria_warning_recently
+          or count(fastly_service:alerts_recently{alertname="fastlyService5xxPercent"}) by (service_id,service_name)
+        )
+      labels:
+        job: 'fastlyService'
+        severity: warning
+      annotations:
+        description: 'High ({{- $value | humanizePercentage }})'
+    - alert: fastlyServiceErrorPercent
+      expr: |
+        (
+          max_over_time(
+            min_over_time(fastly_service:errors_ratio[10m])[30m:15s]
+          ) > fastly_service:errors_warn_ratio
+        ) and (
+          fastly_service:criteria_warning_recently
+          or count(fastly_service:alerts_recently{alertname="fastlyServiceErrorPercent"}) by (service_id,service_name)
+        )
+      labels:
+        job: 'fastlyService'
+        severity: warning
+      annotations:
+        description: 'High ({{- $value | humanizePercentage }})'
+    - alert: fastlyServiceP50Latency
+      expr: |
+        (
+          max_over_time(
+            min_over_time(fastly_service:latency_p50_seconds[10m])[30m:15s]
+          ) > fastly_service:latency_p50_warn_seconds
+        ) and (
+          fastly_service:criteria_warning_recently
+          or count(fastly_service:alerts_recently{alertname="fastlyServiceP50Latency"}) by (service_id,service_name)
+        )
+      labels:
+        job: 'fastlyService'
+        severity: warning
+      annotations:
+        description: 'High ({{- $value | humanizeDuration }})'
+    - alert: fastlyServiceP99Latency
+      expr: |
+        (
+          max_over_time(
+            min_over_time(fastly_service:latency_p99_seconds[10m])[30m:15s]
+          ) > fastly_service:latency_p99_warn_seconds
+        ) and (
+          fastly_service:criteria_warning_recently
+          or count(fastly_service:alerts_recently{alertname="fastlyServiceP99Latency"}) by (service_id,service_name)
+        )
+      labels:
+        job: 'fastlyService'
+        severity: warning
+      annotations:
+        description: 'High ({{- $value | humanizeDuration }})'
