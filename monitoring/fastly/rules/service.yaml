@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: datacenter
+  name: service
   namespace: fastly-metrics
 spec:
   groups:
