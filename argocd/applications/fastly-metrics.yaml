@@ -18,6 +18,7 @@ spec:
 
         serviceMonitor:
           enabled: true
+          interval: 15s
     repoURL: https://prometheus-community.github.io/helm-charts
     targetRevision: 0.1.2
   syncPolicy:
