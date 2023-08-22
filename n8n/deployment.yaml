@@ -32,7 +32,7 @@ spec:
           allowPrivilegeEscalation: false
         volumeMounts:
           - name: db-ca-certificate
-            mountPath: /etc/ssl/db-ca.crt
+            mountPath: /etc/ssl/certs/db-ca.crt
             subPath: ca.crt
             readOnly: true
         livenessProbe:

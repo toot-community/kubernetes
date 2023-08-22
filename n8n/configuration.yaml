@@ -20,7 +20,7 @@ data:
   DB_POSTGRESDB_SSL_REJECT_UNAUTHORIZED: "true"
   DB_POSTGRESDB_USER: "esb"
   DB_POSTGRESDB_SCHEMA: "public"
-  DB_POSTGRESDB_SSL_CA_FILE: "/etc/ssl/db-ca.crt"
+  # DB_POSTGRESDB_SSL_CA_FILE: "/etc/ssl/db-ca.crt"
   # generic deployment
   N8N_LOG_LEVEL: "info"
   N8N_EDITOR_BASE_URL: "https://automation.toot.community"
