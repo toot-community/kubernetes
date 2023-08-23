@@ -90,7 +90,7 @@ web:
       cpu: 1000m
       memory: 2Gi
     limits:
-      memory: 3.5Gi # higher due to the need to convert big images using ImageMagick
+      memory: 4Gi # higher due to the need to convert big images using ImageMagick
   startupProbe:
     httpGet:
       port: http
