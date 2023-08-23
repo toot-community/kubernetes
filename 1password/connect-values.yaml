@@ -5,14 +5,14 @@ connect:
         cpu: 22m
         memory: 282M
       limits:
-        memory: 282M
+        memory: 350Mi
   sync:
     resources:
       requests:
         cpu: 5m
         memory: 141M
       limits:
-        memory: 141M
+        memory: 250Mi
 
 operator:
   resources:
@@ -20,4 +20,4 @@ operator:
       cpu: 5m
       memory: 36M
     limits:
-      memory: 128Mi
+      memory: 250Mi
