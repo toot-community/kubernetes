@@ -30,7 +30,7 @@ configuration:
   database:
     host: tootcommunity-pgbouncer.tootcommunity.svc.cluster.local
     name: app
-    poolsize: 50
+    poolsize: 25
     port: 6432
     dbMigrations: # to circumvent pgpooler
       port: 5432
@@ -174,7 +174,7 @@ sidekiq:
   #     value: sidekiq
   workers:
     - name: generic
-      concurrency: 50
+      concurrency: 25
       replicaCount: 3
       queues:
         - default
@@ -188,7 +188,7 @@ sidekiq:
         limits:
           memory: 1800M
     - name: default
-      concurrency: 50
+      concurrency: 25
       queues:
         - default
       resources:
@@ -198,7 +198,7 @@ sidekiq:
         limits:
           memory: 1800M
     - name: ingress
-      concurrency: 20
+      concurrency: 25
       queues:
         - ingress
       resources:
@@ -208,7 +208,7 @@ sidekiq:
         limits:
           memory: 1800Mi
     - name: pull
-      concurrency: 50
+      concurrency: 25
       queues:
         - pull
       resources:
@@ -218,7 +218,7 @@ sidekiq:
         limits:
           memory: 1800M
     - name: push
-      concurrency: 50
+      concurrency: 25
       queues:
         - push
       resources:
