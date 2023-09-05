@@ -30,16 +30,16 @@ spec:
               cpu: 5m
               memory: 82M
             limits:
-              memory: 82M
+              memory: 150Mi
           webhooks:
             requests:
               cpu: 5m
               memory: 23M
             limits:
-              memory: 23M
+              memory: 100Mi
           metricServer:
             requests:
               cpu: 5m
               memory: 51M
             limits:
-              memory: 51M
+              memory: 100Mi

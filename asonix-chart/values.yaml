@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: asonix/relay
   pullPolicy: IfNotPresent
-  tag: "0.3.100"
+  tag: "0.3.101"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -51,7 +51,7 @@ resources:
     cpu: 100m
     memory: 512M
   limits:
-    memory: 512M
+    memory: 1Gi
 
 nodeSelector: {}
 
