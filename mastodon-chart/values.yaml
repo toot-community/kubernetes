@@ -314,7 +314,7 @@ jobs:
         cpu: 1000m # compression-heavy workload
     postgresImage:
       repository: postgres
-      tag: 15-alpine
+      tag: 16-alpine
       pullPolicy: IfNotPresent
     overrideDatabaseInfo: # to bypass the pool
       name: app
