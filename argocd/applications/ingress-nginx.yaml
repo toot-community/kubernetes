@@ -93,4 +93,4 @@ spec:
               service.beta.kubernetes.io/do-loadbalancer-protocol: "http2"
               service.beta.kubernetes.io/do-loadbalancer-tls-passthrough: "true"
     repoURL: https://kubernetes.github.io/ingress-nginx
-    targetRevision: 4.7.1
+    targetRevision: 4.7.2
