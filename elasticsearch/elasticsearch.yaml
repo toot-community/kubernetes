@@ -4,7 +4,7 @@ metadata:
   name: tootcommunity-search
   namespace: tootcommunity
 spec:
-  version: 8.10.0
+  version: 8.10.1
   http:
     tls:
       selfSignedCertificate:
