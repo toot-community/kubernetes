@@ -117,7 +117,7 @@ spec:
                 operator: Equal
                 value: sidekiq
     repoURL: https://grafana.github.io/helm-charts
-    targetRevision: 5.22.0
+    targetRevision: 5.22.1
   syncPolicy:
     automated:
       prune: true
