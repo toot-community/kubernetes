@@ -26,7 +26,7 @@ spec:
           configMap:
             name: n8n-db-ca
       containers:
-      - image: n8nio/n8n:1.12.1
+      - image: n8nio/n8n:1.12.2
         imagePullPolicy: IfNotPresent
         securityContext:
           allowPrivilegeEscalation: false
