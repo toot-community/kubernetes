@@ -100,7 +100,7 @@ spec:
         serviceMonitor:
           enabled: true
     repoURL: https://fluent.github.io/helm-charts
-    targetRevision: 0.39.0
+    targetRevision: 0.39.1
   syncPolicy:
     automated:
       prune: true
