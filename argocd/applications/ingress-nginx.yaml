@@ -85,7 +85,7 @@ spec:
                   servicePort: "9090"
             prometheus.io/port: "10254"
             prometheus.io/scrape: "true"
-            linkerd.io/inject: enabled
+            linkerd.io/inject: disabled
 
           service:
             type: LoadBalancer
