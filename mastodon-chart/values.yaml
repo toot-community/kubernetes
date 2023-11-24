@@ -1,7 +1,7 @@
 image:
   repository: ghcr.io/mastodon/mastodon
   pullPolicy: IfNotPresent
-  tag: "v4.2.0"
+  tag: "v4.2.1"
 
 imagePullSecrets: [ ]
 nameOverride: ""
@@ -175,7 +175,7 @@ sidekiq:
   workers:
     - name: generic
       concurrency: 25
-      replicaCount: 3
+      replicaCount: 1
       queues:
         - default
         - ingress
@@ -367,7 +367,7 @@ keda:
     enabled: true
     cooldownPeriod: 30
     maxReplicaCount: 40
-    minReplicaCount: 3
+    minReplicaCount: 2
     pollingInterval: 15
     fallback:
       enabled: true
