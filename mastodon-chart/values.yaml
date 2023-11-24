@@ -386,7 +386,7 @@ keda:
                 periodSeconds: 60
             stabilizationWindowSeconds: 120
     memoryUtilizationScaling:
-      enabled: true
+      enabled: false
       targetAverageUtilization: 225
   streaming:
     enabled: true
