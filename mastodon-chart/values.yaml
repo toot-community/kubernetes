@@ -272,7 +272,8 @@ ingress:
         secretName: streaming.toot.community-tls
 
 jobs:
-  annotations: {}
+  annotations:
+    linkerd.io/inject: disabled
   cleanupMedia:
     enabled: true
     schedule: "0 5 * * *" # every day at 5am

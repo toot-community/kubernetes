@@ -13,7 +13,7 @@ spec:
   template:
     metadata:
       name: {{ include "mastodon.fullname" . }}-db-migrate
-      {{- with .Values.jobAnnotations }}
+      {{- with .Values.job.annotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
