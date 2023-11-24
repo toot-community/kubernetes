@@ -74,6 +74,7 @@ spec:
             enable-real-ip: "true"
             proxy-real-ip-cidr: "0.0.0.0/0"
             forwarded-for-header: "X-Forwarded-For"
+            allow-snippet-annotations: "true"
 
           replicaCount: 3
 
