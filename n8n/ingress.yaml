@@ -5,6 +5,7 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     meta.helm.sh/release-name: esb
     meta.helm.sh/release-namespace: esb
+    nginx.ingress.kubernetes.io/service-upstream: "true"
   labels:
     app.kubernetes.io/instance: esb
     app.kubernetes.io/name: n8n

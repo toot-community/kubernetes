@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/service-upstream: "true"
     nginx.ingress.kubernetes.io/configuration-snippet: |
       return 200 "4f2f2e79f3bc04cdcf388a833fa24fc7d7d9c116bab870966fd0a8ca282ad480\nd4b239774c478b6dd780918b276d6102edb71c4d2f02d91ad9abfca3eab6f3a4";
   name: fluent-bit-fastly-verify

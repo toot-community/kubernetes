@@ -61,6 +61,7 @@ spec:
             nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: "false"
             nginx.ingress.kubernetes.io/auth-tls-secret: "tootcommunity/tootcommunity-ca-secret"
             nginx.ingress.kubernetes.io/auth-tls-verify-client: "on"
+            nginx.ingress.kubernetes.io/service-upstream: "true"
           enabled: true
           extraHosts:
           - host: fluent-bit.toot.community

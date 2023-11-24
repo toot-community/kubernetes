@@ -4,6 +4,7 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/service-upstream: "true"
   labels:
     {{- include "mastodon.labels" . | nindent 4 }}
   name: {{ $fullName }}-streaming

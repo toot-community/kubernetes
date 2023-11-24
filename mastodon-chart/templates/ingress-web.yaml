@@ -9,6 +9,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-read-timeout: {{ .Values.ingress.web.upstreamProxyTimeout | quote }}
     nginx.ingress.kubernetes.io/proxy-send-timeout: {{ .Values.ingress.web.upstreamProxyTimeout | quote }}
     cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/service-upstream: "true"
     {{- if .Values.ingress.web.verifyClient.enabled }}
     nginx.ingress.kubernetes.io/auth-tls-secret: {{ .Values.ingress.web.verifyClient.secretName }}
     nginx.ingress.kubernetes.io/auth-tls-verify-client: "on"
