@@ -178,6 +178,7 @@ sidekiq:
       replicaCount: 3
       queues:
         - default
+        - mailers
         - ingress
         - push
         - pull
@@ -229,7 +230,6 @@ sidekiq:
           memory: 1000Mi
     - name: mailers
       concurrency: 25
-      replicaCount: 1
       queues:
         - mailers
       resources:
