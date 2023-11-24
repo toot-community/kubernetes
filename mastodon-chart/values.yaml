@@ -175,7 +175,7 @@ sidekiq:
   workers:
     - name: generic
       concurrency: 25
-      replicaCount: 1
+      replicaCount: 3
       queues:
         - default
         - ingress
