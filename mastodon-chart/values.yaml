@@ -344,7 +344,7 @@ jobs:
       limits:
         memory: 400Mi
     days: 180
-  periodicWebRestart:
+  periodicWebRestart: # to circumvent memory leaks
     enabled: true
     schedule: "0 3,15 * * *"
 
