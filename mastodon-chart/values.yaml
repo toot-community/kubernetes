@@ -344,6 +344,9 @@ jobs:
       limits:
         memory: 400Mi
     days: 180
+  periodicWebRestart:
+    enabled: true
+    schedule: "0 4 * * *" # every day at 4am
 
 onePassword:
   - suffix: secrets-env

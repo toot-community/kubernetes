@@ -1,0 +1,31 @@
+{{ if .Values.jobs.periodicWebRestart.enabled }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "mastodon.fullname" . }}-restart-web-deployment
+  labels:
+    {{- include "mastodon.labels" . | nindent 4 }}
+spec:
+  schedule: {{ .Values.jobs.periodicWebRestart.schedule }}
+  jobTemplate:
+    spec:
+      backoffLimit: 3
+      template:
+        metadata:
+          name: {{ include "mastodon.fullname" . }}-restart-web-deployment
+          {{- with .Values.jobs.annotations }}
+          annotations:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          labels:
+            {{- include "mastodon.labels" . | nindent 12 }}
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: kubectl-container
+              image: bitnami/kubectl
+              command:
+              - "/bin/bash"
+              - "-c"
+              - "kubectl rollout restart deployment/{{ include "mastodon.fullname" . }}-web -n {{ .Release.Namespace }}"
+{{ end }}
