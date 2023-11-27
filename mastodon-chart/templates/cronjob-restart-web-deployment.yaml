@@ -21,6 +21,7 @@ spec:
             {{- include "mastodon.labels" . | nindent 12 }}
         spec:
           restartPolicy: OnFailure
+          serviceAccountName: {{ include "mastodon.serviceAccountName" . }}
           containers:
             - name: kubectl-container
               image: bitnami/kubectl

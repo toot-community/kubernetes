@@ -20,6 +20,7 @@ spec:
             {{- include "mastodon.labels" . | nindent 12 }}
         spec:
           restartPolicy: Never
+          serviceAccountName: {{ include "mastodon.serviceAccountName" . }}
           containers:
             - name: cleanup-unused-media-profiles
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"

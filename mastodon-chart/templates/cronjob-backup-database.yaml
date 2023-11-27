@@ -17,6 +17,7 @@ spec:
           volumes:
             - name: backup-dir
               emptyDir: { }
+          serviceAccountName: {{ include "mastodon.serviceAccountName" . }}
           containers:
             - name: {{ include "mastodon.fullname" . }}-create-database-backup
               image: {{ .Values.jobs.psqlBackup.postgresImage.repository }}:{{ .Values.jobs.psqlBackup.postgresImage.tag }}
