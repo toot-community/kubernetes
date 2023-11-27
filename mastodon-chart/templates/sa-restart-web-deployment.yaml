@@ -1,0 +1,6 @@
+{{ if .Values.jobs.periodicWebRestart.enabled }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "mastodon.fullname" . }}-restart-web-deployment
+{{ end }}

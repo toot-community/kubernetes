@@ -1,0 +1,10 @@
+{{ if .Values.jobs.periodicWebRestart.enabled }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "mastodon.fullname" . }}-restart-web-deployment
+rules:
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["get", "list", "watch", "update", "patch"]
+{{ end }}
