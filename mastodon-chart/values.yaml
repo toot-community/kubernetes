@@ -280,10 +280,10 @@ jobs:
     days: 7
     resources:
       requests:
-        cpu: 254m
-        memory: 451M
+        cpu: 250m
+        memory: 750M
       limits:
-        memory: 451M
+        memory: 750M
   statusesRemove:
     enabled: true
     schedule: "5 4 * * 6"
