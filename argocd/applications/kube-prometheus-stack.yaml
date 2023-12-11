@@ -118,7 +118,7 @@ spec:
                   memory: 71M
 
     repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 55.1.0
+    targetRevision: 55.2.0
   syncPolicy:
     automated:
       prune: true
