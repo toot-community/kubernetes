@@ -39,8 +39,8 @@ spec:
               subPath: tootcommunity-pgbouncer.crt
           resources:
             requests:
-              cpu: 75m
-              memory: 64Mi
+              cpu: 170m
+              memory: 10Mi
             limits:
               memory: 256Mi
       volumes:

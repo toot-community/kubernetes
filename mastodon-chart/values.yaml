@@ -87,8 +87,8 @@ web:
   maxThreads: 5
   resources:
     requests:
-      cpu: 1000m
-      memory: 2Gi
+      cpu: 1426m
+      memory: 3.14Gi
     limits:
       memory: 4Gi # higher due to the need to convert big images using ImageMagick
   startupProbe:
@@ -214,18 +214,18 @@ sidekiq:
         - pull
       resources:
         requests:
-          cpu: 1000m
-          memory: 1000M
+          cpu: 1251m
+          memory: 785Mi
         limits:
-          memory: 1800M
+          memory: 1.68Gi
     - name: push
       concurrency: 25
       queues:
         - push
       resources:
         requests:
-          cpu: 500m
-          memory: 500Mi
+          cpu: 185m
+          memory: 407Mi
         limits:
           memory: 1000Mi
     - name: mailers
@@ -234,8 +234,8 @@ sidekiq:
         - mailers
       resources:
         requests:
-          cpu: 100m
-          memory: 250Mi
+          cpu: 7m
+          memory: 401Mi
         limits:
           memory: 500Mi
     - name: scheduler
