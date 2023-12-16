@@ -22,7 +22,7 @@ spec:
     - type: cpu
       metricType: Utilization
       metadata:
-        value: "120"
+        value: "150"
         containerName: "web"
   advanced:
     {{- if .Values.keda.web.advanced }}
