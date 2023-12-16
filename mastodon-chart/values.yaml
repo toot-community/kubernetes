@@ -375,19 +375,11 @@ keda:
     pollingInterval: 15
     fallback:
       enabled: true
-      replicas: 5
+      replicas: 3
       failureThreshold: 4 # allows prometheus to be down for (4 * 15) seconds before going to fallback
     ignoreNullValues: false
     threshold: 20
-    advanced:
-      horizontalPodAutoscalerConfig:
-        behavior:
-          scaleDown:
-            policies:
-              - type: Percent
-                value: 25
-                periodSeconds: 60
-            stabilizationWindowSeconds: 120
+    advanced: ~
     memoryUtilizationScaling:
       enabled: false
       targetAverageUtilization: 225
