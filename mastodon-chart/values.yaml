@@ -194,8 +194,8 @@ sidekiq:
         - default
       resources:
         requests:
-          cpu: 500m
-          memory: 1000M
+          cpu: 200m
+          memory: 500M
         limits:
           memory: 1800M
     - name: ingress
@@ -204,8 +204,8 @@ sidekiq:
         - ingress
       resources:
         requests:
-          cpu: 500m
-          memory: 1000Mi
+          cpu: 200m
+          memory: 500M
         limits:
           memory: 1800Mi
     - name: pull
@@ -214,8 +214,8 @@ sidekiq:
         - pull
       resources:
         requests:
-          cpu: 500m
-          memory: 785Mi
+          cpu: 200m
+          memory: 500M
         limits:
           memory: 1.68Gi
     - name: push
@@ -224,7 +224,7 @@ sidekiq:
         - push
       resources:
         requests:
-          cpu: 185m
+          cpu: 100m
           memory: 407Mi
         limits:
           memory: 1000Mi
@@ -235,7 +235,7 @@ sidekiq:
       resources:
         requests:
           cpu: 7m
-          memory: 401Mi
+          memory: 300M
         limits:
           memory: 500Mi
     - name: scheduler
@@ -245,8 +245,8 @@ sidekiq:
         - scheduler
       resources:
         requests:
-          cpu: 250m
-          memory: 1000Mi
+          cpu: 100m
+          memory: 300Mi
         limits:
           memory: 1800Mi
 
