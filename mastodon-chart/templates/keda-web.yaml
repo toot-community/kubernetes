@@ -19,21 +19,11 @@ spec:
     failureThreshold: {{ .Values.keda.web.fallback.failureThreshold }}
   {{- end }}
   triggers:
-    - type: prometheus
-      metadata:
-        serverAddress: {{ .Values.keda.prometheusAddress }}
-        metricName: access_frequency
-        query: sum(rate(nginx_ingress_controller_requests{exported_service="{{ include "mastodon.fullname" . }}-web"}[1m]))
-        threshold: {{ .Values.keda.web.threshold | quote }}
-        ignoreNullValues: {{ .Values.keda.web.ignoreNullValues | quote }}
-    {{- if .Values.keda.web.memoryUtilizationScaling }}
-    {{- if .Values.keda.web.memoryUtilizationScaling.enabled }}
-    - type: memory
+    - type: cpu
       metricType: Utilization
       metadata:
-        value: {{ .Values.keda.web.memoryUtilizationScaling.targetAverageUtilization | quote }}
-    {{- end }}
-    {{- end }}
+        value: "100"
+        containerName: "web"
   advanced:
     {{- if .Values.keda.web.advanced }}
     {{- toYaml .Values.keda.web.advanced | nindent 4 }}
