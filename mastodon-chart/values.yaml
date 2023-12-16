@@ -83,7 +83,7 @@ configuration:
 
 web:
   domain: toot.community
-  concurrency: 8
+  concurrency: 2
   maxThreads: 5
   resources:
     requests:
