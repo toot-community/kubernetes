@@ -18,4 +18,4 @@ spec:
       - values.yaml
     path: mastodon-chart
     repoURL: git@github.com:toot-community/kubernetes.git
-    targetRevision: main
+    targetRevision: poc/complexity-cleanup
