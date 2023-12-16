@@ -184,7 +184,7 @@ sidekiq:
         - pull
       resources:
         requests:
-          cpu: 1500m
+          cpu: 500m
           memory: 1000M
         limits:
           memory: 1800M
@@ -194,7 +194,7 @@ sidekiq:
         - default
       resources:
         requests:
-          cpu: 1000m
+          cpu: 500m
           memory: 1000M
         limits:
           memory: 1800M
@@ -204,7 +204,7 @@ sidekiq:
         - ingress
       resources:
         requests:
-          cpu: 1000m
+          cpu: 500m
           memory: 1000Mi
         limits:
           memory: 1800Mi
@@ -214,7 +214,7 @@ sidekiq:
         - pull
       resources:
         requests:
-          cpu: 1251m
+          cpu: 500m
           memory: 785Mi
         limits:
           memory: 1.68Gi
