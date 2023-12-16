@@ -87,8 +87,8 @@ web:
   maxThreads: 5
   resources:
     requests:
-      cpu: 1426m
-      memory: 3.14Gi
+      cpu: 500m
+      memory: 1Gi
     limits:
       memory: 4Gi # higher due to the need to convert big images using ImageMagick
   startupProbe:
