@@ -23,7 +23,6 @@ spec:
       metricType: Utilization
       metadata:
         value: "150"
-        containerName: "web"
   advanced:
     {{- if .Values.keda.web.advanced }}
     {{- toYaml .Values.keda.web.advanced | nindent 4 }}
