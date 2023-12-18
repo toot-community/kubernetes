@@ -87,10 +87,10 @@ web:
   maxThreads: 5
   resources:
     requests:
-      cpu: 919m
-      memory: 1.11Gi
+      cpu: 704m
+      memory: 975Mi
     limits:
-      memory: 4Gi # higher due to the need to convert big images using ImageMagick
+      memory: 1.9Gi
   startupProbe:
     httpGet:
       port: http
@@ -184,8 +184,8 @@ sidekiq:
         - pull
       resources:
         requests:
-          cpu: 500m
-          memory: 1000M
+          cpu: 1239m
+          memory: 855Mi
         limits:
           memory: 1800M
     - name: default
