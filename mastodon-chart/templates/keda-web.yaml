@@ -22,7 +22,7 @@ spec:
     - type: cpu
       metricType: Utilization
       metadata:
-        value: "150"
+        value: "82"
   advanced:
     {{- if .Values.keda.web.advanced }}
     {{- toYaml .Values.keda.web.advanced | nindent 4 }}
