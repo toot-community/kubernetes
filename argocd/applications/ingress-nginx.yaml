@@ -62,13 +62,6 @@ spec:
 
           ingressClass: nginx
 
-          resources:
-            limits:
-              memory: 256Mi
-            requests:
-              cpu: 21m
-              memory: 198Mi
-
           config:
             use-http2: "true"
             enable-real-ip: "true"
