@@ -20,31 +20,6 @@ spec:
       values: |
         snapshotsEnabled: false
         deployNodeAgent: true
-
-        resources:
-          requests:
-            cpu: 71m
-            memory: 128Mi
-          limits:
-            memory: 512Mi
-
-        nodeAgent:
-          resources:
-            requests:
-              cpu: 1m
-              memory: 176M
-            limits:
-              memory: 512Mi
-          tolerations:
-            - effect: NoSchedule
-              key: limit
-              operator: Equal
-              value: db
-            - effect: NoSchedule
-              key: limit
-              operator: Equal
-              value: sidekiq
-
         configuration:
           defaultVolumesToFsBackup: true
           backupStorageLocation:
